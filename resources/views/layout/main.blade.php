@@ -5,12 +5,16 @@
     <title>RLTrans</title>
     <meta name="description" content=""/>
 
+    <link rel="stylesheet" href="{{ mix('/css/app.css') }}">
 </head>
 <body>
 
 <div>
     <nav>
-        NAV
+        <ul>
+            <li><a href="{{ route('home.mainPage') }}" >HOME</a></li>
+            <li><a href="{{ route('freights.mainPage') }}" >FREIGHTS</a></li>
+        </ul>
     </nav>
 </div>
 
@@ -20,10 +24,12 @@
     </main>
 
     <footer>
-        <div>
-            FOOTER
-        </div>
+{{--        <div>--}}
+{{--            FOOTER--}}
+{{--        </div>--}}
     </footer>
 </div>
+
+<script src="{{ mix('/js/app.js') }}"></script>
 </body>
 </html>
