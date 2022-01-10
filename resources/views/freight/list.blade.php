@@ -1,6 +1,8 @@
 @extends('layout.main')
 
 @section('content')
+
+
     <div class="card mt-3">
         <div class="card">
             <div class="card-header"><i class="fas fa-table mr-1"></i>Freights</div>
@@ -11,8 +13,8 @@
                         <tr>
                             <th>Id</th>
                             <th>Status</th>
-                            <th>Loading</th>
-                            <th>Unloading</th>
+                            <th colspan="3">Loading</th>
+                            <th colspan="3">Unloading</th>
                             <th>Cargo</th>
                             <th>Publication date</th>
                             <th>Actions</th>
@@ -20,14 +22,25 @@
                         </thead>
                         <tbody>
                         @foreach($freights ?? [] as $freight)
-                        <tr>
-                            <td>{{ $freight->id }}</td>
-                            <td>{{ $freight->status_id }}</td>
-                            <td>{{ $freight->start_date }}</td>
-                            <td>{{ $freight->end_date }}</td>
-                            <td>{{ $freight->cargo_id }}</td>
-                            <td>{{ $freight->created_at }}</td>
-                        </tr>
+                            <tr>
+                                <td rowspan="2">{{ $freight->id }}</td>
+                                <td rowspan="2">{{ $freight->status_id }}</td>
+                                <td>{{ $freight->startAddress->country }}</td>
+                                <td>{{ $freight->startAddress->postcode }}</td>
+                                <td>{{ $freight->startAddress->city }}</td>
+                                <td>{{ $freight->endAddress->country }}</td>
+                                <td>{{ $freight->endAddress->postcode }}</td>
+                                <td>{{ $freight->endAddress->city }}</td>
+                                <td rowspan="2">{{ $freight->cargo->description }}</td>
+                                <td rowspan="2">{{ $freight->created_at }}</td>
+                                <td rowspan="2"></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">{{ $freight->start_date }}</td>
+                                <td>{{ $freight->start_time_from }}</td>
+                                <td colspan="2">{{ $freight->end_date }}</td>
+                                <td>{{ $freight->end_time_from }}</td>
+                            </tr>
                         @endforeach
                         </tbody>
                     </table>
