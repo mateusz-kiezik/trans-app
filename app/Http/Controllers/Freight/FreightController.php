@@ -57,14 +57,26 @@ class FreightController extends Controller
         $dataFreightTypes->insertOrIgnore(['id' => 2, 'name' => 'LTL']);
 
         //Users INSERT
-        $dataUsers->insertOrIgnore(['id' => 1, 'name' => 'Adam Spedytor', 'email' => 'spedycja@transport.pl', 'password' => 'password']);
+        $dataUsers->insertOrIgnore(['id' => 1, 'name' => 'Adam Spedytor', 'email' => 'spedycja@transport.pl', 'password' => 'password', 'phone_number' => '+48 125 452 145']);
 
 
-        $freights = Freight::all();
+        //$freights = Freight::all();
+
+        $freights = Freight::active()
+            ->simplePaginate(10);
 
         //dd($freightsE);
         return view('freight.list', [
             'freights' => $freights
+        ]);
+    }
+
+    public function details(int $freightId): View
+    {
+        $freight = Freight::find($freightId);
+
+        return view('freight.details', [
+            'freight' => $freight
         ]);
     }
 }

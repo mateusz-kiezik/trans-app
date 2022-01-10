@@ -7,6 +7,7 @@
         <div class="card">
             <div class="card-header"><i class="fas fa-table mr-1"></i>Freights</div>
             <div class="card-body">
+
                 <div class="table-responsive">
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
@@ -17,7 +18,7 @@
                             <th colspan="3">Unloading</th>
                             <th>Cargo</th>
                             <th>Publication date</th>
-                            <th>Actions</th>
+                            <th colspan="3">Actions</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -31,9 +32,13 @@
                                 <td>{{ $freight->endAddress->country }}</td>
                                 <td>{{ $freight->endAddress->postcode }}</td>
                                 <td>{{ $freight->endAddress->city }}</td>
-                                <td rowspan="2">{{ $freight->cargo->description }}</td>
+                                <td rowspan="2">{{ $freight->cargo->qty }} x {{ $freight->cargo->description }}</td>
                                 <td rowspan="2">{{ $freight->created_at }}</td>
-                                <td rowspan="2"></td>
+                                <td rowspan="2"><a class="btn btn-dark"
+                                                   href="{{route('freights.showDetails', $freight->id)}}">DETAILS</a>
+                                </td>
+                                <td rowspan="2">EDIT</td>
+                                <td rowspan="2">DELETE</td>
                             </tr>
                             <tr>
                                 <td colspan="2">{{ $freight->start_date }}</td>
@@ -45,6 +50,7 @@
                         </tbody>
                     </table>
                 </div>
+                {{ $freights->links() }}
             </div>
         </div>
     </div>

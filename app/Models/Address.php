@@ -9,8 +9,8 @@ class Address extends Model
 {
     protected $table = 'addresses';
 
-    public function freights(): \Illuminate\Database\Eloquent\Relations\BelongsTo
-    {
-        return $this->belongsTo(Freight::class);
-    }
+//    public function freights(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+//    {
+//        return $this->belongsTo(Freight::class);
+//    }
 }

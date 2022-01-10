@@ -23,4 +23,7 @@ Route::get('/trans', 'Home\MainPageController@show')
 Route::get('/trans/freights', 'Freight\FreightController@show')
     ->name('freights.mainPage');
 
+Route::get('/trans/freights/{id}', 'Freight\FreightController@details')
+    ->name('freights.showDetails');
+
 //Route::get('/trans/addresses', '');
