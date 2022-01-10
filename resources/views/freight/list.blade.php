@@ -9,7 +9,6 @@
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                         <tr>
-                            <th>Lp</th>
                             <th>Id</th>
                             <th>Status</th>
                             <th>Loading</th>
@@ -20,9 +19,16 @@
                         </tr>
                         </thead>
                         <tbody>
+                        @foreach($freights ?? [] as $freight)
                         <tr>
-                            <td></td>
+                            <td>{{ $freight->id }}</td>
+                            <td>{{ $freight->status_id }}</td>
+                            <td>{{ $freight->start_date }}</td>
+                            <td>{{ $freight->end_date }}</td>
+                            <td>{{ $freight->cargo_id }}</td>
+                            <td>{{ $freight->created_at }}</td>
                         </tr>
+                        @endforeach
                         </tbody>
                     </table>
                 </div>

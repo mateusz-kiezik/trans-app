@@ -13,12 +13,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-/*Route::get('/', function () {
-    return view('welcome');
-});*/
+//Route::get('/', function () {
+//    return view('welcome');
+//});
 
 Route::get('/trans', 'Home\MainPageController@show')
     ->name('home.mainPage');
 
 Route::get('/trans/freights', 'Freight\FreightController@show')
     ->name('freights.mainPage');
+
+//Route::get('/trans/addresses', '');
