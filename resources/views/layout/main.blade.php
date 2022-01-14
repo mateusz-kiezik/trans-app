@@ -31,6 +31,16 @@
                         <a class="dropdown-item" href="#">Archive</a>
                     </div>
                 </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Users
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="{{ route('user.list') }}">Users list</a>
+                        <a class="dropdown-item" href="#">Add</a>
+                    </div>
+                </li>
             </ul>
         </div>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">

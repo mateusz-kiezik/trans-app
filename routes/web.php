@@ -29,6 +29,12 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/freights/{id}', 'Freight\FreightController@details')
         ->name('freights.showDetails');
 
+    Route::get('/users', 'User\UserController@list')
+        ->name('user.list');
+
+    Route::get('/users/{id}', 'User\UserController@details')
+        ->name('user.details');
+
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 });
 
