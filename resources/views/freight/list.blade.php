@@ -11,7 +11,7 @@
                 <div class="table-responsive">
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
-                        <tr>
+                        <tr align="center" valign="middle">
                             <th>Id</th>
                             <th>Status</th>
                             <th colspan="3">Loading</th>
@@ -23,7 +23,7 @@
                         </thead>
                         <tbody>
                         @foreach($freights ?? [] as $freight)
-                            <tr>
+                            <tr align="center" valign="middle">
                                 <td rowspan="2">{{ $freight->id }}</td>
                                 <td rowspan="2">{{ $freight->status_id }}</td>
                                 <td>{{ $freight->startAddress->country }}</td>

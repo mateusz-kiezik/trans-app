@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,13 +18,24 @@ use Illuminate\Support\Facades\Route;
 //    return view('welcome');
 //});
 
-Route::get('/trans', 'Home\MainPageController@show')
-    ->name('home.mainPage');
+Route::group(['middleware' => ['auth']], function() {
 
-Route::get('/trans/freights', 'Freight\FreightController@show')
-    ->name('freights.mainPage');
+    Route::get('/', 'Home\MainPageController@show')
+        ->name('home.mainPage');
 
-Route::get('/trans/freights/{id}', 'Freight\FreightController@details')
-    ->name('freights.showDetails');
+    Route::get('/freights', 'Freight\FreightController@show')
+        ->name('freights.mainPage');
+
+    Route::get('/freights/{id}', 'Freight\FreightController@details')
+        ->name('freights.showDetails');
+
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+});
+
+
 
 //Route::get('/trans/addresses', '');
+
+Auth::routes(['register' => false]);
+
+
