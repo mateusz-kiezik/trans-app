@@ -31,20 +31,20 @@
                                 <td>
 
                                     <a class="btn btn-dark"
-                                                   href="{{route('user.details', $user->id)}}">DETAILS</a>
+                                       href="{{ route('user.details', $user->id) }}">DETAILS</a>
                                 </td>
                                 <td>
-                                    <form action="{{ route('user.edit') }}" method="post" enctype="multipart/form-data">
-                                        @csrf
-                                       <input hidden id="userId" name="userId" value="{{$user->id}}">
-                                        <button type="submit" class="btn btn-dark">EDIT</button>
-                                    </form>
+{{--                                    <form action="{{ route('user.edit') }}" method="post" enctype="multipart/form-data">--}}
+{{--                                        @csrf--}}
+{{--                                       <input hidden id="userId" name="userId" value="{{$user->id}}">--}}
+{{--                                        <button type="submit" class="btn btn-dark">EDIT</button>--}}
+{{--                                    </form>--}}
 
 
 
 
-{{--                                    <a class="btn btn-dark"--}}
-{{--                                       href="{{route('user.edit', ['userId' => $user->id])}}">EDIT</a>--}}
+                                    <a class="btn btn-dark"
+                                       href="{{ route('user.edit', $user->id) }}">EDIT</a>
 
 
                                 </td>

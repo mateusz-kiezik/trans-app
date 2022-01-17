@@ -29,17 +29,16 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/freights/{id}', 'Freight\FreightController@details')
         ->name('freights.showDetails');
 
-    Route::match(['get', 'post'], '/users/edit', 'User\UserController@edit')
-        ->name('user.edit');
+
 
     Route::get('/users', 'User\UserController@list')
         ->name('user.list');
 
-    Route::get('/users/{id}', 'User\UserController@details')
+    Route::get('/users/edit/{id}', 'User\UserController@edit')
+        ->name('user.edit');
+
+    Route::get('/users/details/{id}', 'User\UserController@details')
         ->name('user.details');
-
-
-
 
     Route::post('/users/update', 'User\UserController@update')
         ->name('user.update');

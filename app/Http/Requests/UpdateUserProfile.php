@@ -24,7 +24,7 @@ class UpdateUserProfile extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|max:2'
+            'name' => 'required|max:200'
         ];
     }
 }

@@ -3,6 +3,13 @@
 @section('content')
     <div style="padding: 25px">
         <div style="margin: 15px">
+
+            @if (session('status'))
+                <div class="alert alert-success">
+                    {{ session('status') }}
+                </div>
+            @endif
+
             <div>
                 <b>Id: </b>
                 <span>{{ $user->id }}</span>

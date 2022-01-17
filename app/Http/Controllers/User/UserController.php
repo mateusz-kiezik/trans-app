@@ -5,15 +5,19 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdateUserProfile;
 use App\Models\User;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\View\View;
+use App\Repository\Eloquent\UserRepository;
+use App\Repository\UserRepositoryInterface;
+
 
 class UserController extends Controller
 {
+    private UserRepository $userRepository;
+
+    public function __construct(UserRepositoryInterface $userRepository)
+    {
+        $this->userRepository = $userRepository;
+    }
+
     public function list()
     {
         $users = User::all();
@@ -25,9 +29,6 @@ class UserController extends Controller
 
     public function details(int $userId)
     {
-
-
-        //$userId = $request->get('userId');
         $user = User::find($userId);
 
         return view('user.details', [
@@ -35,9 +36,8 @@ class UserController extends Controller
         ]);
     }
 
-    public function edit(Request $request)
+    public function edit(int $userId)
     {
-        $userId = $request->get('userId');
         $user = User::findOrFail($userId);
 
         return view('user.edit', [
@@ -45,19 +45,18 @@ class UserController extends Controller
         ]);
     }
 
-    public function update(Request $request)
+    public function update(UpdateUserProfile $request)
     {
+
         $userId = $request->get('userId');
+        $user = User::findOrFail($userId);
 
-        $validator = Validator::make($request->all(), [
-            'name' => 'required|max:2'
-        ]);
+        $this->userRepository->updateModel(
+            $user, $request->all()
+        );
 
-        if ($validator->fails()) {
-            return redirect('/users/edit')->withErrors($validator)->withInput();
-        }
 
-        return redirect()->action([UserController::class, 'details'], ['id' => $userId]);
+        return redirect()->action([UserController::class, 'details'], ['id' => $userId])->with('status', 'Profile updated');
     }
 
 
