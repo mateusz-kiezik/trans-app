@@ -29,11 +29,35 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/freights/{id}', 'Freight\FreightController@details')
         ->name('freights.showDetails');
 
+    Route::match(['get', 'post'], '/users/edit', 'User\UserController@edit')
+        ->name('user.edit');
+
     Route::get('/users', 'User\UserController@list')
         ->name('user.list');
 
     Route::get('/users/{id}', 'User\UserController@details')
         ->name('user.details');
+
+
+
+
+    Route::post('/users/update', 'User\UserController@update')
+        ->name('user.update');
+
+
+
+
+
+//    Route::get('/users/edit', 'User\UserController@edit')
+//        ->name('user.edit.get');
+
+
+
+
+
+
+
+
 
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 });

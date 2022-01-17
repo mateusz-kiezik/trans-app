@@ -71,7 +71,7 @@ class FreightController extends Controller
         ]);
     }
 
-    public function details(int $freightId): View
+    public function details(int $freightId)
     {
         $freight = Freight::find($freightId);
 

@@ -28,11 +28,28 @@
                                 <td>{{ $user->phone_number }}</td>
                                 <td>{{ $user->created_at }}</td>
                                 <td>{{ $user->updated_at }}</td>
-                                <td><a class="btn btn-dark"
+                                <td>
+
+                                    <a class="btn btn-dark"
                                                    href="{{route('user.details', $user->id)}}">DETAILS</a>
                                 </td>
+                                <td>
+                                    <form action="{{ route('user.edit') }}" method="post" enctype="multipart/form-data">
+                                        @csrf
+                                       <input hidden id="userId" name="userId" value="{{$user->id}}">
+                                        <button type="submit" class="btn btn-dark">EDIT</button>
+                                    </form>
 
-                                <td>EDIT</td>
+
+
+
+{{--                                    <a class="btn btn-dark"--}}
+{{--                                       href="{{route('user.edit', ['userId' => $user->id])}}">EDIT</a>--}}
+
+
+                                </td>
+
+
                                 <td>DELETE</td>
                             </tr>
                         @endforeach
