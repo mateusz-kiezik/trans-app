@@ -30,18 +30,30 @@ Route::group(['middleware' => ['auth']], function() {
         ->name('freights.showDetails');
 
 
-
+    //USERS
     Route::get('/users', 'User\UserController@list')
         ->name('user.list');
-
-    Route::get('/users/edit/{id}', 'User\UserController@edit')
-        ->name('user.edit');
 
     Route::get('/users/details/{id}', 'User\UserController@details')
         ->name('user.details');
 
+    Route::get('/users/new', 'User\UserController@new')
+        ->name('user.new');
+
+    Route::post('/users/save', 'User\UserController@save')
+        ->name('user.save');
+
+    Route::get('/users/edit/{id}', 'User\UserController@edit')
+        ->name('user.edit');
+
     Route::post('/users/update', 'User\UserController@update')
         ->name('user.update');
+
+
+
+
+
+
 
 
 

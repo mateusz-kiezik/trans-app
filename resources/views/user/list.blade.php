@@ -3,6 +3,13 @@
 @section('content')
     <div class="card mt-3">
         <div class="card">
+
+            @if (session('status'))
+                <div class="alert alert-success">
+                    {{ session('status') }}
+                </div>
+            @endif
+
             <div class="card-header"><i class="fas fa-table mr-1"></i>Users</div>
             <div class="card-body">
 

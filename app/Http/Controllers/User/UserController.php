@@ -3,10 +3,14 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CreateUserProfile;
 use App\Http\Requests\UpdateUserProfile;
 use App\Models\User;
 use App\Repository\Eloquent\UserRepository;
 use App\Repository\UserRepositoryInterface;
+
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 
 class UserController extends Controller
@@ -20,7 +24,15 @@ class UserController extends Controller
 
     public function list()
     {
-        $users = User::all();
+//        $users = User::all();
+
+//        if (!Gate::allows('forwarder-level')) {
+//            abort(403);
+//        }
+
+
+
+        $users = $this->userRepository->all();
 
         return view('user.list', [
             'users' => $users
@@ -29,7 +41,9 @@ class UserController extends Controller
 
     public function details(int $userId)
     {
-        $user = User::find($userId);
+//        $user = User::find($userId);
+
+        $user = $this->userRepository->get($userId);
 
         return view('user.details', [
             'user' => $user
@@ -47,7 +61,6 @@ class UserController extends Controller
 
     public function update(UpdateUserProfile $request)
     {
-
         $userId = $request->get('userId');
         $user = User::findOrFail($userId);
 
@@ -55,9 +68,19 @@ class UserController extends Controller
             $user, $request->all()
         );
 
-
         return redirect()->action([UserController::class, 'details'], ['id' => $userId])->with('status', 'Profile updated');
     }
 
+    public function new()
+    {
+        return view('user.new');
+    }
+
+    public function save(CreateUserProfile $request)
+    {
+        $this->userRepository->create($request->all());
+
+        return redirect()->action([UserController::class, 'list'])->with('status', 'New user created');
+    }
 
 }
