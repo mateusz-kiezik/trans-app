@@ -3,20 +3,20 @@
 @section('content')
     <div class="card mt-3">
         <div class="card">
-            <div class="card-header"><i class="fas fa-table mr-1"></i>Users</div>
+
             @if (session('status'))
                 <div class="alert alert-success">
                     {{ session('status') }}
                 </div>
             @endif
 
-
+            <div class="card-header"><i class="fas fa-table mr-1"></i>Users</div>
             <div class="card-body">
 
                 <div class="table-responsive">
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
-                        <tr>
+                        <tr align="center" valign="middle">
                             <th>Id</th>
                             <th>Name</th>
                             <th>Email</th>
@@ -28,7 +28,7 @@
                         </thead>
                         <tbody>
                         @foreach($users ?? [] as $user)
-                            <tr>
+                            <tr align="center" valign="middle">
                                 <td>{{ $user->id }}</td>
                                 <td>{{ $user->name }}</td>
                                 <td>{{ $user->email }}</td>
@@ -56,10 +56,11 @@
 
 
                                 <td>
-                                    <form action="{{ route('user.disable') }}" method="post" enctype="multipart/form-data">
+                                    <form action="{{ route('user.enable') }}" method="post"
+                                          enctype="multipart/form-data">
                                         @csrf
                                         <input hidden id="userId" name="userId" value="{{$user->id}}">
-                                        <button type="submit" class="btn btn-dark">DISABLE</button>
+                                        <button type="submit" class="btn btn-dark">ENABLE</button>
                                     </form>
                                 </td>
                             </tr>

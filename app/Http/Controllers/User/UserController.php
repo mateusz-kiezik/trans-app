@@ -29,14 +29,40 @@ class UserController extends Controller
 //        if (!Gate::allows('forwarder-level')) {
 //            abort(403);
 //        }
-
-
-
-        $users = $this->userRepository->all();
+        $users = $this->userRepository->allActive();
 
         return view('user.list', [
             'users' => $users
         ]);
+    }
+
+    public function disableList()
+    {
+        $users = $this->userRepository->allDisabled();
+
+        return view('user.disabled', [
+            'users' => $users
+        ]);
+    }
+
+    public function disableUser(Request $request)
+    {
+        $userId = $request->get('userId');
+        $user = $this->userRepository->get($userId);
+
+        $this->userRepository->updateStatus($user, false);
+
+        return redirect()->action([UserController::class, 'list'])->with('status', 'User disabled');
+    }
+
+    public function enableUser(Request $request)
+    {
+        $userId = $request->get('userId');
+        $user = $this->userRepository->get($userId);
+
+        $this->userRepository->updateStatus($user, true);
+
+        return redirect()->action([UserController::class, 'disableList'])->with('status', 'User enabled');
     }
 
     public function details(int $userId)

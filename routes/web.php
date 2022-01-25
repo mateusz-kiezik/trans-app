@@ -34,6 +34,15 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/users', 'User\UserController@list')
         ->name('user.list');
 
+    Route::post('/users/disable', 'User\UserController@disableUser')
+        ->name('user.disable');
+
+    Route::get('/users/disabled', 'User\UserController@disableList')
+        ->name('user.disable.list');
+
+    Route::post('users/enable', 'User\UserController@enableUser')
+        ->name('user.enable');
+
     Route::get('/users/details/{id}', 'User\UserController@details')
         ->name('user.details');
 

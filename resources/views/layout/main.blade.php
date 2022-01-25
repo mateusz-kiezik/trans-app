@@ -37,7 +37,8 @@
                         Users
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="{{ route('user.list') }}">Users list</a>
+                        <a class="dropdown-item" href="{{ route('user.list') }}">Active users</a>
+                        <a class="dropdown-item" href="{{ route('user.disable.list') }}">Disabled users</a>
                         <a class="dropdown-item" href="{{ route('user.new') }}">New user</a>
                     </div>
                 </li>
