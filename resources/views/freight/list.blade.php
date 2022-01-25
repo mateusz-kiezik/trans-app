@@ -50,7 +50,7 @@
                         </tbody>
                     </table>
                 </div>
-                {{ $freights->links() }}
+{{--                {{ $freights->links() }}--}}
             </div>
         </div>
     </div>

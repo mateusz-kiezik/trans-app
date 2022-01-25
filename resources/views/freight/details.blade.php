@@ -69,7 +69,7 @@
             </div>
         </div>
         <div style="margin: 15px">
-            <a class="btn btn-dark" href="{{ route('freights.mainPage') }}">BACK</a>
+            <a class="btn btn-dark" href="{{ route('freight.list.active') }}">BACK</a>
         </div>
     </div>
 

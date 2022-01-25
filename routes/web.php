@@ -23,8 +23,19 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/', 'Home\MainPageController@show')
         ->name('home.mainPage');
 
+
+    //FREIGHTS
     Route::get('/freights', 'Freight\FreightController@show')
-        ->name('freights.mainPage');
+        ->name('freight.list.active');
+
+    Route::get('/freights/new', 'Freight\FreightController@new')
+        ->name('freight.new');
+
+    Route::post('/freights/save', 'Freight\FreightController@save')
+        ->name('freight.save');
+
+    Route::get('/freights/archive', 'Freight\FreightController@archive')
+        ->name('freight.list.archive');
 
     Route::get('/freights/{id}', 'Freight\FreightController@details')
         ->name('freights.showDetails');

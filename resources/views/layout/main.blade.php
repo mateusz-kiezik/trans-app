@@ -5,7 +5,17 @@
     <title>RLTrans</title>
     <meta name="description" content=""/>
 
+
+
+
+
+
     <link rel="stylesheet" href="{{ mix('/css/app.css') }}">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.39.0/css/tempusdominus-bootstrap-4.min.css" integrity="sha512-3JRrEUwaCkFUBLK1N8HehwQgu8e23jTH4np5NHOmQOobuC4ROQxFwFgBLTnhcnQRMs84muMh0PnnwXlPq5MGjg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
 </head>
 <body>
 <div>
@@ -26,8 +36,8 @@
                         Freights
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="{{ route('freights.mainPage') }}">Active</a>
-                        <a class="dropdown-item" href="#">Add</a>
+                        <a class="dropdown-item" href="{{ route('freight.list.active') }}">Active</a>
+                        <a class="dropdown-item" href="{{ route('freight.new') }}">New</a>
                         <a class="dropdown-item" href="#">Archive</a>
                     </div>
                 </li>
@@ -97,14 +107,56 @@
 
 </footer>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment-with-locales.min.js" integrity="sha512-LGXaggshOkD/at6PFNcp2V2unf9LzFq6LE+sChH7ceMTDP0g2kn6Vxwgg7wkPP7AAtX+lmPqPdxB47A0Nz0cMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.39.0/js/tempusdominus-bootstrap-4.min.js" integrity="sha512-k6/Bkb8Fxf/c1Tkyl39yJwcOZ1P4cRrJu77p83zJjN2Z55prbFHxPs9vN7q3l3+tSMGPDdoH51AEU8Vgo1cgAA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
-        crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
+
+
+<script type="text/javascript">
+    $(function () {
+        $('#datepicker1').datetimepicker({
+            format: 'L',
+            format: 'DD/MM/YYYY',
+
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(function () {
+        $('#datepicker2').datetimepicker({
+            format: 'L',
+            format: 'DD/MM/YYYY',
+
+        });
+    });
+</script>
+
+<script type="text/javascript">
+    $(function () {
+        $('#timepicker1').datetimepicker({
+            format: 'LT',
+            format:'HH:mm'
+
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(function () {
+        $('#timepicker2').datetimepicker({
+            format: 'LT',
+            format:'HH:mm'
+
+        });
+    });
+</script>
+
+
+
 <script src="{{ mix('/js/app.js') }}"></script>
 </body>
 </html>

@@ -18,7 +18,7 @@
             <form action="{{ route('user.save') }}" method="post" enctype="multipart/form-data">
                 @csrf
 
-                <div class="form-group" style="margin: 20px">
+                <div class="form-group">
                     <label for="company">Company name</label>
                     <input
                         type="text"
