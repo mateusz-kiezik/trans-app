@@ -35,7 +35,7 @@
                                 <td rowspan="2">{{ $freight->cargo->qty }} x {{ $freight->cargo->description }}</td>
                                 <td rowspan="2">{{ $freight->created_at }}</td>
                                 <td rowspan="2"><a class="btn btn-dark"
-                                                   href="{{route('freights.showDetails', $freight->id)}}">DETAILS</a>
+                                                   href="{{route('freight.details', $freight->id)}}">DETAILS</a>
                                 </td>
                                 <td rowspan="2">EDIT</td>
                                 <td rowspan="2">DELETE</td>

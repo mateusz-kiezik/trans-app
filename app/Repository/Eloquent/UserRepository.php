@@ -54,29 +54,27 @@ class UserRepository implements UserRepositoryInterface
     }
 
     public function create(array $data)
-{
-    $accountType = $data['accountType'];
-    $admin = false;
-    $forwarder = false;
-
-    if ($accountType == 'admin')
     {
-        $admin = true;
-    }
+        $accountType = $data['accountType'];
+        $admin = false;
+        $forwarder = false;
 
-    if ($accountType == 'forwarder')
-    {
-        $forwarder = true;
-    }
+        if ($accountType == 'admin') {
+            $admin = true;
+        }
 
-    User::create([
-        'company' => $data['company'],
-        'name' => $data['name'],
-        'email' => $data['email'],
-        'phone_number' => $data['phone'],
-        'password' => bcrypt($data['password']),
-        'admin' => $admin,
-        'forwarder' => $forwarder
-    ]);
-}
+        if ($accountType == 'forwarder') {
+            $forwarder = true;
+        }
+
+        User::create([
+            'company' => $data['company'],
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'phone_number' => $data['phone'],
+            'password' => bcrypt($data['password']),
+            'admin' => $admin,
+            'forwarder' => $forwarder
+        ]);
+    }
 }

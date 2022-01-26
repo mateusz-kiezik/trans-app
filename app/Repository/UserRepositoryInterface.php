@@ -4,7 +4,6 @@ namespace App\Repository;
 
 use App\Models\User;
 use Illuminate\Support\Collection;
-use phpDocumentor\Reflection\Types\Boolean;
 
 interface UserRepositoryInterface
 {

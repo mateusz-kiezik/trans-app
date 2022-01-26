@@ -3,6 +3,13 @@
 @section('content')
     <div style="padding: 25px">
         <div style="margin: 15px">
+
+            @if (session('status'))
+                <div class="alert alert-success">
+                    {{ session('status') }}
+                </div>
+            @endif
+
             <div>
                 <b>Loading address: </b>
                 <span>{{ $freight->startAddress->country }}, {{ $freight->startAddress->postcode }}
@@ -27,7 +34,7 @@
         <div style="margin: 15px">
             <div>
                 <b>Cargo: </b>
-                <span>{{ $freight->cargoType->name }}, {{ $freight->cargo->qty }} x {{ $freight->cargo->description }}</span>
+                <span>{{ $freight->cargo->qty }}, description: {{ $freight->cargo->description }}</span>
             </div>
             <div>
                 <b>Weight: </b>

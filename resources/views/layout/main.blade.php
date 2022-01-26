@@ -121,7 +121,7 @@
     $(function () {
         $('#datepicker1').datetimepicker({
             format: 'L',
-            format: 'DD/MM/YYYY',
+            format: 'YYYY-MM-DD',
 
         });
     });
@@ -130,7 +130,7 @@
     $(function () {
         $('#datepicker2').datetimepicker({
             format: 'L',
-            format: 'DD/MM/YYYY',
+            format: 'YYYY-MM-DD',
 
         });
     });
@@ -155,6 +155,65 @@
     });
 </script>
 
+<script>
+    function onLoad() {
+        //method for button times
+        var group1 = document.getElementById("group1");
+        group1.classList.remove('hide');
+        group1.classList.add('show');
+
+        var group2 = document.getElementById("group2");
+        group2.classList.remove('show');
+        group2.classList.add('hide');
+
+        var group3 = document.getElementById("group3");
+        group3.classList.remove('show');
+        group3.classList.add('hide');
+
+        var group4 = document.getElementById("group4");
+        group4.classList.remove('show');
+        group4.classList.add('hide');
+    }
+
+
+    function onLoad2() {
+        //method for button times
+        var group2 = document.getElementById("group2");
+        group2.classList.remove('hide');
+        group2.classList.add('show');
+
+        var group1 = document.getElementById("group1");
+        group1.classList.remove('show');
+        group1.classList.add('hide');
+
+        var group3 = document.getElementById("group3");
+        group3.classList.remove('show');
+        group3.classList.add('hide');
+
+        var group4 = document.getElementById("group4");
+        group4.classList.remove('show');
+        group4.classList.add('hide');
+    }
+
+    function onLoad3() {
+        //method for button times
+        var group3 = document.getElementById("group3");
+        group3.classList.remove('hide');
+        group3.classList.add('show');
+
+        var group1 = document.getElementById("group1");
+        group1.classList.remove('show');
+        group1.classList.add('hide');
+
+        var group2 = document.getElementById("group2");
+        group2.classList.remove('show');
+        group2.classList.add('hide');
+
+        var group4 = document.getElementById("group4");
+        group4.classList.remove('show');
+        group4.classList.add('hide');
+    }
+</script>
 
 
 <script src="{{ mix('/js/app.js') }}"></script>

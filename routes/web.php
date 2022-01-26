@@ -25,7 +25,7 @@ Route::group(['middleware' => ['auth']], function() {
 
 
     //FREIGHTS
-    Route::get('/freights', 'Freight\FreightController@show')
+    Route::get('/freights', 'Freight\FreightController@list')
         ->name('freight.list.active');
 
     Route::get('/freights/new', 'Freight\FreightController@new')
@@ -37,8 +37,8 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/freights/archive', 'Freight\FreightController@archive')
         ->name('freight.list.archive');
 
-    Route::get('/freights/{id}', 'Freight\FreightController@details')
-        ->name('freights.showDetails');
+    Route::get('/freights/details/{id}', 'Freight\FreightController@details')
+        ->name('freight.details');
 
 
     //USERS

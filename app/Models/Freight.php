@@ -10,6 +10,25 @@ class Freight extends Model
 {
     protected $table = 'freights';
 
+    protected $fillable = [
+        'start_address_id',
+        'end_address_id',
+        'start_date',
+        'start_time_from',
+        'end_date',
+        'end_time_from',
+        'truck_type_id',
+        'truck_id',
+        'cargo_id',
+        'freight_type_id',
+        'forwarder_id',
+        'status_id'
+    ];
+
+
+
+
+
     public function cargo()
     {
         return $this->belongsTo(Cargo::class);
