@@ -28,9 +28,9 @@ class FreightRepository implements FreightRepositoryInterface
         return $this->freightModel->find($id);
     }
 
-    public function all(): Collection
+    public function all()
     {
-        return $this->freightModel->offset(0)->limit(10)->get();
+        return $this->freightModel->paginate(10);
     }
 
     public function create(array $data)

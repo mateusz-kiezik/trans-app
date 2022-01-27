@@ -369,7 +369,7 @@
                                             </div>
                                             <div class="col">
                                                 <label class="form-label"
-                                                       for="weight"><strong>Weight</strong></label>
+                                                       for="weight"><strong>Weight (kg)</strong></label>
                                             </div>
                                             <div class="col">
                                                 <input type="text" class="form-control @error('weight') is-invalid @enderror" id="weight"

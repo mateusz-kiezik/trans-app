@@ -10,7 +10,7 @@ interface FreightRepositoryInterface
 {
     public function get(int $id): Freight;
 
-    public function all(): Collection;
+    public function all();
 
     public function create(array $data);
 
