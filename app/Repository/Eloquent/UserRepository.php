@@ -19,8 +19,10 @@ class UserRepository implements UserRepositoryInterface
     public function updateModel(User $user, array $data): void
     {
         // dd($data);
-        $user->email = $data['email'] ?? $user->email;
+        $user->company = $data['company'] ?? $user->company;
         $user->name = $data['name'] ?? $user->name;
+//        $user->email = $data['email'] ?? $user->email;
+        $user->password = bcrypt($data['password']) ?? $user->password;
         $user->phone_number = $data['phone'] ?? $user->phone_number;
 
         $user->save();

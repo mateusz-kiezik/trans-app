@@ -10,6 +10,7 @@ use App\Repository\Eloquent\UserRepository;
 use App\Repository\UserRepositoryInterface;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 
 
@@ -87,6 +88,7 @@ class UserController extends Controller
 
     public function update(UpdateUserProfile $request)
     {
+
         $userId = $request->get('userId');
         $user = User::findOrFail($userId);
 
@@ -104,9 +106,35 @@ class UserController extends Controller
 
     public function save(CreateUserProfile $request)
     {
+
         $this->userRepository->create($request->all());
 
         return redirect()->action([UserController::class, 'list'])->with('status', 'New user created');
+    }
+
+    public function showProfile()
+    {
+        $user = $this->userRepository->get(Auth::id());
+
+        return view('user.profile', [
+            'user' => $user
+        ]);
+    }
+
+    public function updateProfile(UpdateUserProfile $request)
+    {
+//        if ($request->get('password') != null)
+//        {
+//            dd('password');
+//        }
+
+        $user = $this->userRepository->get(Auth::id());
+
+        $this->userRepository->updateModel(
+            $user, $request->all()
+        );
+
+        return redirect()->action([UserController::class, 'showProfile'])->with('status', 'Profile updated');
     }
 
 }

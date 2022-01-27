@@ -11,7 +11,7 @@
         }
     </style>
 
-    <div class="container">
+    <div class="container mt-5">
         <div class="card">
             <h2 class="card-header">NEW FREIGHT</h2>
             <div class="card-body">
@@ -308,7 +308,7 @@
                                                     <option value="6" @if(collect(old('truckType'))->contains(6)) selected @endif>Container</option>
                                                 </select>
                                             </div>
-                                            <div id="group4" class="@if(old('truckSize') == 1 or 2 or 3) hide @else show @endif">
+                                            <div id="group4" class="@if(old('truckSize')) hide @else show @endif">
                                                 <select class="form-select @error('truckType') is-invalid @enderror" multiple="multiple" size="6"></select>
                                             </div>
                                         </div>

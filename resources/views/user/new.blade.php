@@ -1,115 +1,126 @@
 @extends('layout.main')
 
 @section('content')
-    <div class="card mt-3">
-        <h5 class="card-header">ADD USER</h5>
-        <div class="card-body">
+    <div class="container mt-5">
+        <div class="card">
+            <h2 class="card-header">NEW USER</h2>
+            <div class="card-body">
+                @if (session('status'))
+                    <div class="alert alert-success">
+                        {{ session('status') }}
+                    </div>
+                @endif
 
-            @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
+                <form action="{{ route('user.save') }}" method="post" enctype="multipart/form-data">
+                    @csrf
 
-            <form action="{{ route('user.save') }}" method="post" enctype="multipart/form-data">
-                @csrf
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="row mt-1">
+                                <div class="form-group">
+                                    <label class="form-label" for="company"><strong>Company</strong></label>
+                                    <input class="form-control @error('company') is-invalid @enderror" id="company" type="text"
+                                           value="{{ old('company') }}"
+                                           name="company">
+                                    @error('company')
+                                    <div class="invalid-feedback d-block">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
 
-                <div class="form-group">
-                    <label for="company">Company name</label>
-                    <input
-                        type="text"
-                        class="form-control @error('company') is-invalid @enderror"
-                        id="company"
-                        name="company"
-                        value="{{ old('company') }}"
-                    />
-                    @error('name')
-                    <div class="invalid-feedback d-block">{{ $message }}</div>
-                    @enderror
-                </div>
+                            <div class="row mt-3">
+                                <div class="form-group">
+                                    <label class="form-label" for="name"><strong>Name</strong></label>
+                                    <input class="form-control @error('name') is-invalid @enderror" id="name" type="text"
+                                           value="{{ old('name') }}"
+                                           name="name">
+                                    @error('name')
+                                    <div class="invalid-feedback d-block">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
 
-                <div class="form-group" style="margin: 20px">
-                    <label for="name">Name</label>
-                    <input
-                        type="text"
-                        class="form-control @error('name') is-invalid @enderror"
-                        id="name"
-                        name="name"
-                        value="{{ old('name') }}"
-                    />
-                    @error('name')
-                    <div class="invalid-feedback d-block">{{ $message }}</div>
-                    @enderror
-                </div>
+                            <div class="row mt-3">
+                                <div class="form-group">
+                                    <label class="form-label" for="email"><strong>Email</strong></label>
+                                    <input class="form-control @error('email') is-invalid @enderror" id="email" type="email"
+                                           value="{{ old('email') }}"
+                                           name="email">
+                                    @error('email')
+                                    <div class="invalid-feedback d-block">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
 
+                            <div class="row mt-3">
+                                <div class="form-group">
+                                    <label class="form-label" for="password"><strong>Password</strong></label>
+                                    <input class="form-control @error('password') is-invalid @enderror" id="password" type="text"
+                                           value=""
+                                           name="password">
+                                    @error('password')
+                                    <div class="invalid-feedback d-block">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
 
-                <div class="form-group" style="margin: 20px">
-                    <label for="email">Email</label>
-                    <input
-                        type="email"
-                        class="form-control @error('email') is-invalid @enderror"
-                        id="email"
-                        name="email"
-                        value="{{ old('email') }}"
-                    >
-                    @error('email')
-                    <div class="invalid-feedback d-block">{{ $message }}</div>
-                    @enderror
-                </div>
+                            <div class="row mt-3">
+                                <div class="form-group">
+                                    <label class="form-label" for="phone"><strong>Phone number</strong></label>
+                                    <input class="form-control @error('phone') is-invalid @enderror" id="phone" type="number"
+                                           value="{{ old('phone') }}"
+                                           name="phone">
+                                    @error('phone')
+                                    <div class="invalid-feedback d-block">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
 
+                            <div class="row mt-3">
+                                <div class="form-group">
+                                    <label class="form-label" for="accountType"><strong>Account type</strong></label>
+                                    <select class="form-select" id="accountType" name="accountType">
+                                        <option selected value="user">User</option>
+                                        <option value="forwarder">Forwarder</option>
+                                        <option value="admin">Admin</option>
+                                    </select>
+                                    @error('accountType')
+                                    <div class="invalid-feedback d-block">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
 
+                            <div class="row mt-3">
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-dark">SAVE</button>
+                                    <a href="{{ route('user.list') }}" class="btn btn-secondary">CANCEL</a>
+                                </div>
+                            </div>
 
-                <div class="form-group" style="margin: 20px">
-                    <label for="password">Password</label>
-                    <input
-                        type="oassword"
-                        class="form-control @error('password') is-invalid @enderror"
-                        id="password"
-                        name="password"
-                        value=""
-                    >
-                    @error('password')
-                    <div class="invalid-feedback d-block">{{ $message }}</div>
-                    @enderror
-                </div>
+                        </div>
 
+                    </div>
 
+                </form>
 
-                <div class="form-group" style="margin: 20px">
-                    <label for="phone">Phone number</label>
-                    <input
-                        type="text"
-                        class="form-control @error('phone') is-invalid @enderror"
-                        id="phone"
-                        name="phone"
-                        value="{{ old('phone') }}"
-                    >
-                    @error('phone')
-                    <div class="invalid-feedback d-block">{{ $message }}</div>
-                    @enderror
-                </div>
-
-                <div class="form-group" style="margin: 20px">
-                    <label for="accountType">Account type</label>
-                    <select class="form-select" id="accountType" name="accountType">
-                        <option selected value="user">User</option>
-                        <option value="forwarder">Forwarder</option>
-                        <option value="admin">Admin</option>
-                    </select>
-                </div>
-
-                <div class="form-group" style="margin: 20px">
-                    <button type="submit" class="btn btn-dark">SAVE</button>
-                    <a href="{{ route('user.list') }}" class="btn btn-secondary">CANCEL</a>
-                </div>
-            </form>
-
+            </div>
 
         </div>
+
     </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 @endsection

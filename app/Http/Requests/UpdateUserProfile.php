@@ -24,7 +24,22 @@ class UpdateUserProfile extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|max:200'
+            'company' => 'required|max:100',
+            'name' => 'required|max:100',
+            'phone' => 'required|numeric',
+            'password' => 'confirmed'
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'company.required' => 'This field is required',
+            'company.max' => 'Company name is to long',
+            'name.required' => 'This field is required',
+            'name.max' => 'Name is to long',
+            'phone.required' => 'This field is required',
+            'phone.numeric' => 'Phone number must be a number'
         ];
     }
 }
