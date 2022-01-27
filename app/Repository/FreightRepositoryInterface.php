@@ -16,4 +16,6 @@ interface FreightRepositoryInterface
 
     public function createAndGetId(array $data): int;
 
+    public function getFiveNewest(): Collection;
+
 }

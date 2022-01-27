@@ -34,7 +34,7 @@
         <div style="margin: 15px">
             <div>
                 <b>Cargo: </b>
-                <span>{{ $freight->cargo->qty }}, description: {{ $freight->cargo->description }}</span>
+                <span> {{ $freight->cargo->cargoType->name }} x {{ $freight->cargo->qty }}, description: {{ $freight->cargo->description }}</span>
             </div>
             <div>
                 <b>Weight: </b>

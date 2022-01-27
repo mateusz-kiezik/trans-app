@@ -15,4 +15,9 @@ class Cargo extends Model
         'weight',
         'description'
     ];
+
+        public function cargoType()
+    {
+        return $this->belongsTo(CargoType::class);
+    }
 }

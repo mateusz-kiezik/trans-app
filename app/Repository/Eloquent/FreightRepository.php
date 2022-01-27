@@ -71,4 +71,11 @@ class FreightRepository implements FreightRepositoryInterface
         return $freight->id;
     }
 
+    public function getFiveNewest(): Collection
+    {
+        $freights = $this->freightModel->latest()->take(5)->get();
+
+        return $freights;
+    }
+
 }

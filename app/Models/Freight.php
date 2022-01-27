@@ -34,10 +34,10 @@ class Freight extends Model
         return $this->belongsTo(Cargo::class);
     }
 
-    public function cargoType()
-    {
-        return $this->belongsTo(CargoType::class);
-    }
+//    public function cargoType()
+//    {
+//        return $this->belongsTo(CargoType::class);
+//    }
 
     public function truckType()
     {
