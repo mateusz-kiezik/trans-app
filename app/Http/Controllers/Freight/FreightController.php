@@ -11,6 +11,7 @@ use App\Repository\Eloquent\FreightRepository;
 use App\Repository\FreightRepositoryInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 
 class FreightController extends Controller
@@ -48,12 +49,17 @@ class FreightController extends Controller
 
     public function new()
     {
+        if (!Gate::allows('forwarder-level')) {
+            abort(403);
+        }
         return view('freight.new');
     }
 
     public function save(CreateFreight $request)
     {
-
+        if (!Gate::allows('forwarder-level')) {
+            abort(403);
+        }
 
         $loadingAddress = $request->get('loadingAddress');
         $unloadingAddress = $request->get('unloadingAddress');

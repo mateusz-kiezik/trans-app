@@ -87,6 +87,7 @@
                     <hr/>
                 @endforeach
 
+
                 <div class="row-cols-6">
                     <a href="{{ route('freight.list.active') }}" class="btn btn-dark">VIEW MORE</a>
                 </div>

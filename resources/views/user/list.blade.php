@@ -47,7 +47,13 @@
                             {{ $user->phone_number }}
                         </div>
                         <div class="col">
-{{--                            {{ $user->admin }}--}}
+                            @if($user->admin == 1)
+                                Admin
+                            @elseif($user->forwarder == 1)
+                                Forwarder
+                            @else
+                                User
+                            @endif
                         </div>
                         <div class="col">
                             <div class="row">
@@ -80,7 +86,7 @@
                                           enctype="multipart/form-data">
                                         @csrf
                                         <input hidden id="userId" name="userId" value="{{$user->id}}">
-                                        <a href='#' onclick='this.parentNode.submit(); return false;'
+                                        <a href='' onclick='this.parentNode.submit(); return false;'
                                            style="text-decoration: none; color: black"
                                            data-toggle="tooltip" data-placement="top" title="Delete">
 

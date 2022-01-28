@@ -5,6 +5,8 @@ namespace App\Repository\Eloquent;
 use App\Models\User;
 use App\Repository\UserRepositoryInterface;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use phpDocumentor\Reflection\Types\Boolean;
 
 class UserRepository implements UserRepositoryInterface
@@ -35,7 +37,17 @@ class UserRepository implements UserRepositoryInterface
 
     public function allActive(): Collection
     {
-        return $this->userModel->where('status', 1)->get();
+
+
+        if (Gate::allows('admin-level')) {
+            return $this->userModel->where('status', 1)->where('id', '!=', auth()->id())->get();
+        }
+
+        if (Gate::allows('forwarder-level')) {
+            return $this->userModel->where('status', 1)->where('admin', '!=', 1)->where('forwarder', '!=', 1)->get();
+        }
+
+        abort(403);
     }
 
     public function allDisabled(): Collection
@@ -63,6 +75,7 @@ class UserRepository implements UserRepositoryInterface
 
         if ($accountType == 'admin') {
             $admin = true;
+            $forwarder = true;
         }
 
         if ($accountType == 'forwarder') {

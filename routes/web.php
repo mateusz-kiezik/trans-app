@@ -18,16 +18,21 @@ use Illuminate\Support\Facades\Route;
 //    return view('welcome');
 //});
 
+Route::get('/', 'Home\MainPageController@show')
+    ->name('home.mainPage');
+
+Route::get('/freights', 'Freight\FreightController@list')
+    ->name('freight.list.active');
+
+Route::get('/freights/details/{id}', 'Freight\FreightController@details')
+    ->name('freight.details');
+
 Route::group(['middleware' => ['auth']], function() {
 
-    Route::get('/', 'Home\MainPageController@show')
-        ->name('home.mainPage');
+
 
 
     //FREIGHTS
-    Route::get('/freights', 'Freight\FreightController@list')
-        ->name('freight.list.active');
-
     Route::get('/freights/new', 'Freight\FreightController@new')
         ->name('freight.new');
 
@@ -37,8 +42,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/freights/archive', 'Freight\FreightController@archive')
         ->name('freight.list.archive');
 
-    Route::get('/freights/details/{id}', 'Freight\FreightController@details')
-        ->name('freight.details');
+
 
 
     //USERS

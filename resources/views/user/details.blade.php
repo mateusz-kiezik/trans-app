@@ -28,7 +28,13 @@
                 </div>
                 <div class="row mt-2">
                     <strong>Account type: </strong>
-                    <span>{{ $user->admin }}</span>
+                    @if($user->admin == 1)
+                        <span>Admin</span>
+                    @elseif($user->forwarder == 1)
+                        <span>Forwarder</span>
+                    @else
+                        <span>User</span>
+                    @endif
                 </div>
 
                 <div class="row mt-4">

@@ -76,19 +76,36 @@
                                 </div>
                             </div>
 
-                            <div class="row mt-3">
-                                <div class="form-group">
-                                    <label class="form-label" for="accountType"><strong>Account type</strong></label>
-                                    <select class="form-select" id="accountType" name="accountType">
-                                        <option selected value="user">User</option>
-                                        <option value="forwarder">Forwarder</option>
-                                        <option value="admin">Admin</option>
-                                    </select>
-                                    @error('accountType')
-                                    <div class="invalid-feedback d-block">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
+                            @if (auth()->check())
+                                @if (auth()->user()->isAdmin())
+                                    <div class="row mt-3">
+                                        <div class="form-group">
+                                            <label class="form-label" for="accountType"><strong>Account type</strong></label>
+                                            <select class="form-select" id="accountType" name="accountType">
+                                                <option selected value="user">User</option>
+                                                <option value="forwarder">Forwarder</option>
+                                                <option value="admin">Admin</option>
+                                            </select>
+                                            @error('accountType')
+                                            <div class="invalid-feedback d-block">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                @elseif(auth()->user()->isForwarder())
+                                    <div class="row mt-3">
+                                        <div class="form-group">
+                                            <label class="form-label" for="accountType"><strong>Account type</strong></label>
+                                            <select class="form-select" id="accountType" name="accountType">
+                                                <option selected value="user">User</option>
+                                            </select>
+                                            @error('accountType')
+                                            <div class="invalid-feedback d-block">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                @endif
+                            @endif
+
 
                             <div class="row mt-3">
                                 <div class="form-group">

@@ -25,11 +25,10 @@ class UserController extends Controller
 
     public function list()
     {
-//        $users = User::all();
-
 //        if (!Gate::allows('forwarder-level')) {
 //            abort(403);
 //        }
+
         $users = $this->userRepository->allActive();
 
         return view('user.list', [
@@ -37,17 +36,21 @@ class UserController extends Controller
         ]);
     }
 
-    public function disableList()
-    {
-        $users = $this->userRepository->allDisabled();
-
-        return view('user.disabled', [
-            'users' => $users
-        ]);
-    }
+//    public function disableList()
+//    {
+//        $users = $this->userRepository->allDisabled();
+//
+//        return view('user.disabled', [
+//            'users' => $users
+//        ]);
+//    }
 
     public function disableUser(Request $request)
     {
+        if (!Gate::allows('forwarder-level')) {
+            abort(403);
+        }
+
         $userId = $request->get('userId');
         $user = $this->userRepository->get($userId);
 
@@ -55,20 +58,22 @@ class UserController extends Controller
 
         return redirect()->action([UserController::class, 'list'])->with('status', 'User disabled');
     }
-
-    public function enableUser(Request $request)
-    {
-        $userId = $request->get('userId');
-        $user = $this->userRepository->get($userId);
-
-        $this->userRepository->updateStatus($user, true);
-
-        return redirect()->action([UserController::class, 'disableList'])->with('status', 'User enabled');
-    }
+//
+//    public function enableUser(Request $request)
+//    {
+//        $userId = $request->get('userId');
+//        $user = $this->userRepository->get($userId);
+//
+//        $this->userRepository->updateStatus($user, true);
+//
+//        return redirect()->action([UserController::class, 'disableList'])->with('status', 'User enabled');
+//    }
 
     public function details(int $userId)
     {
-//        $user = User::find($userId);
+        if (!Gate::allows('forwarder-level')) {
+            abort(403);
+        }
 
         $user = $this->userRepository->get($userId);
 
@@ -79,6 +84,10 @@ class UserController extends Controller
 
     public function edit(int $userId)
     {
+        if (!Gate::allows('forwarder-level')) {
+            abort(403);
+        }
+
         $user = User::findOrFail($userId);
 
         return view('user.edit', [
@@ -88,6 +97,9 @@ class UserController extends Controller
 
     public function update(UpdateUserProfile $request)
     {
+        if (!Gate::allows('forwarder-level')) {
+            abort(403);
+        }
 
         $userId = $request->get('userId');
         $user = User::findOrFail($userId);
@@ -101,11 +113,18 @@ class UserController extends Controller
 
     public function new()
     {
+        if (!Gate::allows('forwarder-level')) {
+            abort(403);
+        }
+
         return view('user.new');
     }
 
     public function save(CreateUserProfile $request)
     {
+        if (!Gate::allows('forwarder-level')) {
+            abort(403);
+        }
 
         $this->userRepository->create($request->all());
 
@@ -123,11 +142,6 @@ class UserController extends Controller
 
     public function updateProfile(UpdateUserProfile $request)
     {
-//        if ($request->get('password') != null)
-//        {
-//            dd('password');
-//        }
-
         $user = $this->userRepository->get(Auth::id());
 
         $this->userRepository->updateModel(
