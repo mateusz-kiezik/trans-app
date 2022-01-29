@@ -86,7 +86,13 @@
                             <span><strong>Truck size:</strong> {{ $freight->truckType->name }}</span>
                         </div>
                         <div class="row">
-                            <span><strong>Truck type:</strong> {{ $freight->truck->name }}</span>
+                            <span><strong>Truck type:</strong>
+                            @foreach($freight->truck_id ?? [] as $truck)
+                                    @if($loop->index > 0)
+                                        {{'|'}}
+                                    @endif
+                                    {{ $truck['name'] }}
+                                @endforeach</span>
                         </div>
                     </div>
                     <div class="col">

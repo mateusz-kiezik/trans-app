@@ -48,7 +48,7 @@ class FreightRepository implements FreightRepositoryInterface
             'end_date' => $data['end_date'],
             'end_time_from' => $data['end_time_from'],
             'truck_type_id' => $data['truck_type_id'],
-            'truck_id' => $data['truck_id'][0],
+            'truck_id' => $data['truck_id'],
             'cargo_id' => $data['cargo_id'],
             'freight_type_id' => $data['freight_type_id'],
             'forwarder_id' => $data['forwarder_id'],
@@ -58,6 +58,41 @@ class FreightRepository implements FreightRepositoryInterface
 
     public function createAndGetId(array $data): int
     {
+        $array = (array) null;
+        foreach ($data['truck_id'] as $key=>$value)
+        {
+            if ($value == 1)
+            {
+                $array[] = ['id' => 1, 'name' => 'Standard'];
+            }
+
+            if ($value == 2)
+            {
+                $array[] = ['id' => 2, 'name' => 'Curtain'];
+            }
+
+            if ($value == 3)
+            {
+                $array[] = ['id' => 3, 'name' => 'Box'];
+            }
+
+            if ($value == 4)
+            {
+                $array[] = ['id' => 4, 'name' => 'Refrigerator'];
+            }
+
+            if ($value == 5)
+            {
+                $array[] = ['id' => 5, 'name' => 'Mega'];
+            }
+
+            if ($value == 6)
+            {
+                $array[] = ['id' => 6, 'name' => 'Container'];
+            }
+        }
+        $json = json_encode($array);
+
         $freight = Freight::create([
             'start_address_id' => $data['start_address_id'],
             'end_address_id' => $data['end_address_id'],
@@ -66,7 +101,7 @@ class FreightRepository implements FreightRepositoryInterface
             'end_date' => $data['end_date'],
             'end_time_from' => $data['end_time_from'],
             'truck_type_id' => $data['truck_type_id'],
-            'truck_id' => $data['truck_id'][0],
+            'truck_id' => $json,
             'cargo_id' => $data['cargo_id'],
             'freight_type_id' => $data['freight_type_id'],
             'forwarder_id' => $data['forwarder_id'],

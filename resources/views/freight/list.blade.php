@@ -85,8 +85,16 @@
                             </div>
                         </div>
                         <div class="col">
-                            {{ $freight->truckType->name }}, {{ $freight->truck->name }}
-                            / {{ $freight->freightType->name }}
+                            <div>{{ $freight->truckType->name }}</div>
+                            <div>
+                            @foreach($freight->truck_id ?? [] as $truck)
+                                @if($loop->index > 0)
+                                    {{'|'}}
+                                @endif
+                                {{ $truck['name'] }}
+                            @endforeach
+                                </div>
+                            {{ $freight->freightType->name }}
                         </div>
                         <div class="col">
                             {{ $freight->cargo->cargoType->name }} x {{ $freight->cargo->qty }}

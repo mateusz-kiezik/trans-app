@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
+use function MongoDB\BSON\toJSON;
 
 class FreightController extends Controller
 {
@@ -33,17 +34,22 @@ class FreightController extends Controller
     {
         $freights = $this->freightRepository->allActive();
 
+        foreach ($freights as $freight) {
+
+            $freight->truck_id = json_decode($freight->truck_id);
+        }
+
         return view('freight.list', [
             'freights' => $freights
         ]);
     }
 
 
-
     public function details(Request $request, int $freightId)
     {
         $freight = $this->freightRepository->get($freightId);
 
+        $freight->truck_id = json_decode($freight->truck_id);
 
         return view('freight.details', [
             'freight' => $freight
@@ -63,7 +69,6 @@ class FreightController extends Controller
         if (!Gate::allows('forwarder-level')) {
             abort(403);
         }
-dd($request);
         $loadingAddress = $request->get('loadingAddress');
         $unloadingAddress = $request->get('unloadingAddress');
         $loadingAddressId = $this->addressRepository->createAndGetId($loadingAddress);
@@ -72,6 +77,7 @@ dd($request);
             'cargoType', 'quantity', 'weight', 'description'
         ));
         $userId = Auth::id();
+
 
         $data = ['start_address_id' => $loadingAddressId,
             'end_address_id' => $unloadingAddressId,

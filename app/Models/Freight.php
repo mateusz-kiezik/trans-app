@@ -25,9 +25,9 @@ class Freight extends Model
         'status_id'
     ];
 
-
-
-
+    protected $casts = [
+        'truck_id' => 'array'
+    ];
 
     public function cargo()
     {
@@ -48,6 +48,11 @@ class Freight extends Model
     {
         return $this->belongsTo(Truck::class);
     }
+
+//    public function truck()
+//    {
+//        return $this->hasMany(Truck::class);
+//    }
 
     public function freightType()
     {
