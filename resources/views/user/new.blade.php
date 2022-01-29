@@ -1,7 +1,7 @@
 @extends('layout.main')
 
 @section('content')
-    <div class="container mt-5">
+    <div class="container">
         <div class="card">
             <h2 class="card-header">NEW USER</h2>
             <div class="card-body">

@@ -1,7 +1,7 @@
 @extends('layout.main')
 
 @section('content')
-    <div class="container mt-5">
+    <div class="container">
 
         @if (session('status'))
             <div class="alert alert-success">

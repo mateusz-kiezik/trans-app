@@ -64,7 +64,7 @@ class FreightController extends Controller
         return view('freight.new');
     }
 
-    public function save(Request $request)
+    public function save(CreateFreight $request)
     {
         if (!Gate::allows('forwarder-level')) {
             abort(403);
@@ -86,7 +86,7 @@ class FreightController extends Controller
             'end_date' => $request->get('unloadingDate'),
             'end_time_from' => $request->get('unloadingTime'),
             'truck_type_id' => $request->get('truckSize'),
-            'truck_id' => $request->get('truckType'),
+            'truck_id' => array_unique($request->get('truckType')),
             'cargo_id' => $cargoId,
             'freight_type_id' => $request->get('freightType'),
             'forwarder_id' => $userId];
