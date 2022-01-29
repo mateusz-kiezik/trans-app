@@ -33,6 +33,11 @@ class FreightRepository implements FreightRepositoryInterface
         return $this->freightModel->paginate(10);
     }
 
+    public function allActive()
+    {
+        return $this->freightModel->where('status_id', 1)->paginate(10);
+    }
+
     public function create(array $data)
     {
         Freight::create([
@@ -76,6 +81,13 @@ class FreightRepository implements FreightRepositoryInterface
         $freights = $this->freightModel->latest()->take(5)->get();
 
         return $freights;
+    }
+
+    public function updateStatus(int $id, bool $status): void
+    {
+        $freight = $this->freightModel->find($id);
+        $freight->status_id = $status;
+        $freight->save();
     }
 
 }

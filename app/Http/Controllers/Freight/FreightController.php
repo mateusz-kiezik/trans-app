@@ -31,16 +31,19 @@ class FreightController extends Controller
 
     public function list(): View
     {
-        $freights = $this->freightRepository->all();
+        $freights = $this->freightRepository->allActive();
 
         return view('freight.list', [
             'freights' => $freights
         ]);
     }
 
-    public function details(int $freightId)
+
+
+    public function details(Request $request, int $freightId)
     {
         $freight = $this->freightRepository->get($freightId);
+
 
         return view('freight.details', [
             'freight' => $freight
@@ -55,12 +58,12 @@ class FreightController extends Controller
         return view('freight.new');
     }
 
-    public function save(CreateFreight $request)
+    public function save(Request $request)
     {
         if (!Gate::allows('forwarder-level')) {
             abort(403);
         }
-
+dd($request);
         $loadingAddress = $request->get('loadingAddress');
         $unloadingAddress = $request->get('unloadingAddress');
         $loadingAddressId = $this->addressRepository->createAndGetId($loadingAddress);
@@ -85,5 +88,17 @@ class FreightController extends Controller
         $freightId = $this->freightRepository->createAndGetId($data);
 
         return redirect()->action([FreightController::class, 'details'], ['id' => $freightId])->with('status', 'New freight created');
+    }
+
+    public function disable(Request $request)
+    {
+        if (!Gate::allows('forwarder-level')) {
+            abort(403);
+        }
+
+        $freightId = $request->get('freightId');
+        $this->freightRepository->updateStatus($freightId, false);
+
+        return redirect()->action([FreightController::class, 'list'])->with('status', 'Freight deleted');
     }
 }

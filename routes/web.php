@@ -42,6 +42,9 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/freights/archive', 'Freight\FreightController@archive')
         ->name('freight.list.archive');
 
+    Route::post('/freight/disable', 'Freight\FreightController@disable')
+        ->name('freight.disable');
+
 
 
 
