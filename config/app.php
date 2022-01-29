@@ -162,6 +162,11 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
 
+        \App\Providers\UserServiceProvider::class,
+        \App\Providers\FreightServiceProvider::class,
+        \App\Providers\AddressServiceProvider::class,
+        \App\Providers\CargoServiceProvider::class,
+
         /*
          * Package Service Providers...
          */
