@@ -20,7 +20,11 @@ class MainPageController extends Controller
     {
         $freights = $this->freightRepository->getFiveNewest();
 
-//dd($freights);
+        foreach ($freights as $freight) {
+
+            $freight->truck_id = json_decode($freight->truck_id);
+        }
+
         return view('home.main', [
             'freights' => $freights
         ]);

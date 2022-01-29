@@ -12,6 +12,7 @@ use App\Repository\UserRepositoryInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Mail;
 
 
 class UserController extends Controller
@@ -133,6 +134,7 @@ class UserController extends Controller
 
     public function showProfile()
     {
+
         $user = $this->userRepository->get(Auth::id());
 
         return view('user.profile', [
