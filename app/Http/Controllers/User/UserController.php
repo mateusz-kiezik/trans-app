@@ -3,16 +3,17 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\CreateUserProfile;
+use App\Http\Requests\NewUserCreatePassword;
 use App\Http\Requests\UpdateUserProfile;
 use App\Models\User;
+
 use App\Repository\Eloquent\UserRepository;
 use App\Repository\UserRepositoryInterface;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
-use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Notification;
 
 
 class UserController extends Controller
@@ -121,7 +122,7 @@ class UserController extends Controller
         return view('user.new');
     }
 
-    public function save(CreateUserProfile $request)
+    public function save(NewUserCreatePassword $request)
     {
         if (!Gate::allows('forwarder-level')) {
             abort(403);
@@ -132,9 +133,12 @@ class UserController extends Controller
         return redirect()->action([UserController::class, 'list'])->with('status', 'New user created');
     }
 
+
+
+
+
     public function showProfile()
     {
-
         $user = $this->userRepository->get(Auth::id());
 
         return view('user.profile', [
@@ -152,5 +156,15 @@ class UserController extends Controller
 
         return redirect()->action([UserController::class, 'showProfile'])->with('status', 'Profile updated');
     }
+
+    public function createPassword($token)
+    {
+
+        return view('auth.passwords.create', [
+            'token' => $token,
+            'email' => request()->get('email')
+        ]);
+    }
+
 
 }

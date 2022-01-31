@@ -27,6 +27,12 @@ Route::get('/freights', 'Freight\FreightController@list')
 Route::get('/freights/details/{id}', 'Freight\FreightController@details')
     ->name('freight.details');
 
+Route::get('/api/get', 'AddressController@index');
+
+Route::get('/password/create/{token}', 'User\UserController@createPassword')
+    ->name('password.create');
+
+
 Route::group(['middleware' => ['auth']], function() {
 
 

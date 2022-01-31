@@ -3,10 +3,17 @@
 namespace App\Repository\Eloquent;
 
 use App\Models\User;
+use App\Notifications\NewUserCreatePassword;
 use App\Repository\UserRepositoryInterface;
+use Illuminate\Auth\Events\PasswordReset;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Facades\Password;
+use Illuminate\Support\Str;
 use phpDocumentor\Reflection\Types\Boolean;
 
 class UserRepository implements UserRepositoryInterface
@@ -93,14 +100,18 @@ class UserRepository implements UserRepositoryInterface
             $forwarder = true;
         }
 
-        User::create([
+        $user = User::create([
             'company' => $data['company'],
             'name' => $data['name'],
             'email' => $data['email'],
             'phone_number' => $data['phone'],
-            'password' => bcrypt($data['password']),
+            'password' => bcrypt(Str::random(60)),
             'admin' => $admin,
             'forwarder' => $forwarder
         ]);
+
+        $token = Password::broker('users')->createToken($user);
+
+        Notification::send($user, new NewUserCreatePassword($token, $data['email']));
     }
 }

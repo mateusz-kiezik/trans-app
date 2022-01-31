@@ -52,17 +52,7 @@
                                 </div>
                             </div>
 
-                            <div class="row mt-3">
-                                <div class="form-group">
-                                    <label class="form-label" for="password"><strong>Password</strong></label>
-                                    <input class="form-control @error('password') is-invalid @enderror" id="password" type="text"
-                                           value=""
-                                           name="password">
-                                    @error('password')
-                                    <div class="invalid-feedback d-block">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
+
 
                             <div class="row mt-3">
                                 <div class="form-group">

@@ -13,7 +13,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
-use function MongoDB\BSON\toJSON;
 
 class FreightController extends Controller
 {
