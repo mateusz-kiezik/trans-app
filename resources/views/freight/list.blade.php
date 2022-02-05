@@ -24,7 +24,24 @@
         @endif
 
         <div class="card">
-            <h2 class="card-header">FREIGHTS</h2>
+            <div class="card-header d-flex">
+
+                        <h2 class="me-auto p-2">FREIGHTS</h2>
+
+                <div class="form-group p-2">
+                        <label class="form-label">Sort by</label>
+                        <select class="" onchange="location = this.value;">
+                            <option value="" style="display: none;">Select</option>
+                            <option value="?sortBy=loadingDateAsc" {{ (request('sortBy') == 'loadingDateAsc' ? 'selected=selected' : '') }}>Loading date asc</option>
+                            <option value="?sortBy=loadingDateDesc" {{ (request('sortBy') == 'loadingDateDesc' ? 'selected=selected' : '') }}>Loading date desc</option>
+                            <option value="??sortBy=unloadingDateAsc" {{ (request('sortBy') == 'unloadingDateAsc' ? 'selected=selected' : '') }}>Unloading date asc</option>
+                            <option value="?sortBy=unloadingDateDesc" {{ (request('sortBy') == 'unloadingDateDesc' ? 'selected=selected' : '') }}>Unloading date desc</option>
+                        </select>
+                </div>
+
+
+            </div>
+{{--            <h2 class="card-header">FREIGHTS</h2>--}}
             <div class="card-body text-center">
                 <div class="row">
                     <div class="col">

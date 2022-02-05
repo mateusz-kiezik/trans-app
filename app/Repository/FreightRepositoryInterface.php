@@ -22,4 +22,6 @@ interface FreightRepositoryInterface
 
     public function updateStatus(int $id, bool $status): void;
 
+    public function sortBy($column, $direction);
+
 }

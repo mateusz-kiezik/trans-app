@@ -81,4 +81,9 @@ class Freight extends Model
             ->where('status_id', 1);
     }
 
+    public function scopeSort(Builder $query, $column, $direction)
+    {
+        return $query->where('status_id', 1)->orderBy($column, $direction);
+    }
+
 }

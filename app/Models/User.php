@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -54,5 +55,10 @@ class User extends Authenticatable
     public function isForwarder(): bool
     {
         return (bool) $this->forwarder;
+    }
+
+    public function scopeSort(Builder $query): Builder
+    {
+        return $query->orderBy('start_date', 'asc');
     }
 }

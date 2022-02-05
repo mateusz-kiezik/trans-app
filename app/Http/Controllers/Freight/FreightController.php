@@ -29,9 +29,40 @@ class FreightController extends Controller
     }
 
 
-    public function list(): View
+    public function list(Request $request): View
     {
-        $freights = $this->freightRepository->allActive();
+        $freights = null;
+        $sortBy = $request->get('sortBy');
+
+
+        if ($sortBy != null)
+        {
+            if ($sortBy == 'loadingDateAsc')
+            {
+                $freights = $this->freightRepository->sortBy('start_date', 'asc');
+            } elseif ($sortBy == 'loadingDateDesc')
+            {
+                $freights = $this->freightRepository->sortBy('start_date', 'desc');
+            } elseif ($sortBy == 'unloadingDateAsc')
+            {
+                $freights = $this->freightRepository->sortBy('end_date', 'asc');
+            } elseif ($sortBy == 'unloadingDateDesc')
+            {
+                $freights = $this->freightRepository->sortBy('end_date', 'desc');
+            } else
+            {
+                $freights = $this->freightRepository->allActive();
+            }
+
+        } else
+        {
+            $freights = $this->freightRepository->allActive();
+        }
+
+
+
+//        $freights = $this->freightRepository->allActive();
+
 
         foreach ($freights as $freight) {
 
