@@ -3,7 +3,22 @@
 @section('content')
     <div class="container">
         <div class="card">
-            <h2 class="card-header">USERS</h2>
+            <div class="card-header d-flex">
+                <h2 class="me-auto p-2">USERS</h2>
+
+                <div class="form-group p-2">
+                    <label class="form-label me-2"><strong>Filter account type</strong></label>
+                    <select class="" onchange="location = this.value;">
+                        <option value="/users" {{ (request('filter') == null ? 'selected=selected' : '') }}>All</option>
+                        <option value="?filter=user" {{ (request('filter') == 'user' ? 'selected=selected' : '') }}>User</option>
+                        <option value="?filter=forwarder" {{ (request('filter') == 'forwarder' ? 'selected=selected' : '') }}>Forwarder</option>
+                        <option value="?filter=admin" {{ (request('filter') == 'admin' ? 'selected=selected' : '') }}>Admin</option>
+                    </select>
+                </div>
+
+            </div>
+
+
             <div class="card-body">
                 @if (session('status'))
                     <div class="alert alert-success">

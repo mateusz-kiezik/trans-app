@@ -25,13 +25,24 @@ class UserController extends Controller
         $this->userRepository = $userRepository;
     }
 
-    public function list()
+    public function list(Request $request)
     {
+
 //        if (!Gate::allows('forwarder-level')) {
 //            abort(403);
 //        }
+        $users = null;
+        $userRole = $request->get('filter');
 
-        $users = $this->userRepository->allActive();
+
+        if ($userRole != null)
+        {
+            $users = $this->userRepository->filter($userRole)->paginate(10);
+        } else
+        {
+            $users = $this->userRepository->allActive();
+        }
+
 
         return view('user.list', [
             'users' => $users

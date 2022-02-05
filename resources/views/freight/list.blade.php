@@ -29,7 +29,7 @@
                         <h2 class="me-auto p-2">FREIGHTS</h2>
 
                 <div class="form-group p-2">
-                        <label class="form-label">Sort by</label>
+                    <label class="form-label me-2"><strong>Sort by</strong></label>
                         <select class="" onchange="location = this.value;">
                             <option value="" style="display: none;">Select</option>
                             <option value="?sortBy=loadingDateAsc" {{ (request('sortBy') == 'loadingDateAsc' ? 'selected=selected' : '') }}>Loading date asc</option>

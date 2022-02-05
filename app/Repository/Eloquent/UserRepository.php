@@ -114,4 +114,11 @@ class UserRepository implements UserRepositoryInterface
 
         Notification::send($user, new NewUserCreatePassword($token, $data['email']));
     }
+
+    public function filter($userRole)
+    {
+        $users = $this->userModel->filter($userRole);
+
+        return $users;
+    }
 }

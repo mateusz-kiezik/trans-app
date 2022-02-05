@@ -57,8 +57,25 @@ class User extends Authenticatable
         return (bool) $this->forwarder;
     }
 
-    public function scopeSort(Builder $query): Builder
+    public function scopeFilter(Builder $query, $userRole): Builder
     {
-        return $query->orderBy('start_date', 'asc');
+        if ($userRole == 'admin')
+        {
+            return $query->where('status', 1)
+                ->where('admin', 1);
+        } elseif ($userRole == 'forwarder')
+        {
+            return $query->where('status', 1)
+                ->where('forwarder', 1)
+                ->Where('admin', 0);
+        } elseif ($userRole == 'user')
+        {
+            return $query->where('status', 1)
+                ->where('forwarder', 0)
+                ->where('admin', 0);
+        } else
+        {
+            return $query->where('status', 1);
+        }
     }
 }

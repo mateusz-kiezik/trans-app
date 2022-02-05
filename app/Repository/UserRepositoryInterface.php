@@ -20,4 +20,6 @@ interface UserRepositoryInterface
     public function get(int $id): User;
 
     public function create(array $data);
+
+    public function filter($userRole);
 }
