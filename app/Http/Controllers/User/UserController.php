@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Notification;
+use Symfony\Component\Console\Input\Input;
 
 
 class UserController extends Controller
@@ -42,7 +43,7 @@ class UserController extends Controller
         {
             $users = $this->userRepository->allActive();
         }
-
+        $users->appends(request()->input())->links();
 
         return view('user.list', [
             'users' => $users

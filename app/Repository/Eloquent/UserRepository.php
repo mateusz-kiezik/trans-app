@@ -53,16 +53,16 @@ class UserRepository implements UserRepositoryInterface
         return $this->userModel->get();
     }
 
-    public function allActive(): Collection
+    public function allActive()
     {
 
 
         if (Gate::allows('admin-level')) {
-            return $this->userModel->where('status', 1)->where('id', '!=', auth()->id())->get();
+            return $this->userModel->where('status', 1)->where('id', '!=', auth()->id())->paginate(10);
         }
 
         if (Gate::allows('forwarder-level')) {
-            return $this->userModel->where('status', 1)->where('admin', '!=', 1)->where('forwarder', '!=', 1)->get();
+            return $this->userModel->where('status', 1)->where('admin', '!=', 1)->where('forwarder', '!=', 1)->paginate(10);
         }
 
         abort(403);

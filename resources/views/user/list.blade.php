@@ -1,6 +1,7 @@
 @extends('layout.main')
 
 @section('content')
+
     <div class="container">
         <div class="card">
             <div class="card-header d-flex">
@@ -10,9 +11,16 @@
                     <label class="form-label me-2"><strong>Filter account type</strong></label>
                     <select class="" onchange="location = this.value;">
                         <option value="/users" {{ (request('filter') == null ? 'selected=selected' : '') }}>All</option>
-                        <option value="?filter=user" {{ (request('filter') == 'user' ? 'selected=selected' : '') }}>User</option>
-                        <option value="?filter=forwarder" {{ (request('filter') == 'forwarder' ? 'selected=selected' : '') }}>Forwarder</option>
-                        <option value="?filter=admin" {{ (request('filter') == 'admin' ? 'selected=selected' : '') }}>Admin</option>
+                        <option value="?filter=user" {{ (request('filter') == 'user' ? 'selected=selected' : '') }}>
+                            User
+                        </option>
+                        <option
+                            value="?filter=forwarder" {{ (request('filter') == 'forwarder' ? 'selected=selected' : '') }}>
+                            Forwarder
+                        </option>
+                        <option value="?filter=admin" {{ (request('filter') == 'admin' ? 'selected=selected' : '') }}>
+                            Admin
+                        </option>
                     </select>
                 </div>
 
@@ -121,6 +129,7 @@
                     </div>
                     <hr/>
                 @endforeach
+                {{ $users->links() }}
 
             </div>
 

@@ -13,7 +13,7 @@ interface UserRepositoryInterface
 
     public function all(): Collection;
 
-    public function allActive(): Collection;
+    public function allActive();
 
     public function allDisabled(): Collection;
 
