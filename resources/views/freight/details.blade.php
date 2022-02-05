@@ -107,7 +107,7 @@
                         </div>
                         <div class="row">
                             <strong>Description:</strong>
-                            <span>{{ $freight->cargo->description }}</span>
+                            <span style="white-space: pre-wrap;">{{ $freight->cargo->description }}</span>
                         </div>
                     </div>
                     <div class="col">

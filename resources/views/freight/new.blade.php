@@ -318,7 +318,7 @@
                                 <label class="form-label"
                                        for="description"><strong>Description</strong></label>
                                 <textarea class="form-control" id="description" rows="4"
-                                          style="resize: none"
+                                          style="resize: none;"
                                           name="description">{{ old('description') }}</textarea>
                             </div>
                             <div class="row mt-4">
