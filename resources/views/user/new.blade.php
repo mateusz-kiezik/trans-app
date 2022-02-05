@@ -11,7 +11,7 @@
                     </div>
                 @endif
 
-                <form action="{{ route('user.save') }}" method="post" enctype="multipart/form-data">
+                <form autocomplete="off" action="{{ route('user.save') }}" method="post" enctype="multipart/form-data">
                     @csrf
 
                     <div class="row">

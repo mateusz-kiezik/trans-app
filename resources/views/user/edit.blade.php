@@ -10,7 +10,7 @@
                         {{ session('status') }}
                     </div>
                 @endif
-                    <form action="{{ route('user.update') }}" method="post" enctype="multipart/form-data">
+                    <form autocomplete="off" action="{{ route('user.update') }}" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="row">
                             <div class="col">

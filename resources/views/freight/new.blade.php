@@ -17,7 +17,7 @@
         <div class="card">
             <h2 class="card-header">NEW FREIGHT</h2>
             <div class="card-body">
-                <form action="{{ route('freight.save') }}" method="post" enctype="multipart/form-data">
+                <form autocomplete="off" action="{{ route('freight.save') }}" method="post" enctype="multipart/form-data">
                     @csrf
 
                     <div class="row">
@@ -32,7 +32,8 @@
                                                     @error('loadingDate') is-invalid @enderror"
                                            data-target="#datepicker1"
                                            name="loadingDate"
-                                           value="{{ old('loadingDate') }}"/>
+                                           value="{{ old('loadingDate') }}"
+                                           data-toggle="datetimepicker"/>
                                     <div class="input-group-append" data-target="#datepicker1"
                                          data-toggle="datetimepicker">
                                         <div class="input-group-text">
@@ -58,7 +59,8 @@
                                                     @error('loadingTime') is-invalid @enderror"
                                            data-target="#timepicker1"
                                            name="loadingTime"
-                                           value="{{ old('loadingTime') }}"/>
+                                           value="{{ old('loadingTime') }}"
+                                           data-toggle="datetimepicker"/>
                                     <div class="input-group-append" data-target="#timepicker1"
                                          data-toggle="datetimepicker">
                                         <div class="input-group-text">
@@ -115,7 +117,8 @@
                                                    @error('unloadingDate') is-invalid @enderror"
                                            data-target="#datepicker2"
                                            name="unloadingDate"
-                                           value="{{ old('unloadingDate') }}"/>
+                                           value="{{ old('unloadingDate') }}"
+                                           data-toggle="datetimepicker"/>
                                     <div class="input-group-append" data-target="#datepicker2"
                                          data-toggle="datetimepicker">
                                         <div class="input-group-text">
@@ -141,7 +144,8 @@
                                                    @error('unloadingTime') is-invalid @enderror"
                                            data-target="#timepicker2"
                                            name="unloadingTime"
-                                           value="{{ old('unloadingTime') }}"/>
+                                           value="{{ old('unloadingTime') }}"
+                                           data-toggle="datetimepicker"/>
                                     <div class="input-group-append" data-target="#timepicker2"
                                          data-toggle="datetimepicker">
                                         <div class="input-group-text">
