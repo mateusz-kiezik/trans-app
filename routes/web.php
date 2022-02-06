@@ -32,6 +32,11 @@ Route::get('/api/get', 'AddressController@index');
 Route::get('/password/create/{token}', 'User\UserController@createPassword')
     ->name('password.create');
 
+Route::get('/freights/find', 'Freight\FreightController@find')
+    ->name('freight.find');
+
+Route::post('/freights/find/results', 'Freight\FreightController@findResults')
+    ->name('freight.find.results');
 
 Route::group(['middleware' => ['auth']], function() {
 

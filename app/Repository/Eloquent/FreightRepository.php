@@ -58,36 +58,29 @@ class FreightRepository implements FreightRepositoryInterface
 
     public function createAndGetId(array $data): int
     {
-        $array = (array) null;
-        foreach ($data['truck_id'] as $key=>$value)
-        {
-            if ($value == 1)
-            {
+        $array = (array)null;
+        foreach ($data['truck_id'] as $key => $value) {
+            if ($value == 1) {
                 $array[] = ['id' => 1, 'name' => 'Standard'];
             }
 
-            if ($value == 2)
-            {
+            if ($value == 2) {
                 $array[] = ['id' => 2, 'name' => 'Curtain'];
             }
 
-            if ($value == 3)
-            {
+            if ($value == 3) {
                 $array[] = ['id' => 3, 'name' => 'Box'];
             }
 
-            if ($value == 4)
-            {
+            if ($value == 4) {
                 $array[] = ['id' => 4, 'name' => 'Refrigerator'];
             }
 
-            if ($value == 5)
-            {
+            if ($value == 5) {
                 $array[] = ['id' => 5, 'name' => 'Mega'];
             }
 
-            if ($value == 6)
-            {
+            if ($value == 6) {
                 $array[] = ['id' => 6, 'name' => 'Container'];
             }
         }
@@ -127,9 +120,15 @@ class FreightRepository implements FreightRepositoryInterface
 
     public function sortBy($column, $direction)
     {
-            $freights = $this->freightModel->sort($column, $direction)->paginate(10);
+        $freights = $this->freightModel->sort($column, $direction)->paginate(10);
 
-            return $freights;
+        return $freights;
     }
 
+    public function find($parameters)
+    {
+        $freights = $this->freightModel->finder($parameters)->orderBy('start_date')->get();
+
+        return $freights;
+    }
 }

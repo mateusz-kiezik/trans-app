@@ -86,6 +86,43 @@ class FreightController extends Controller
         ]);
     }
 
+    public function find()
+    {
+        return view('freight.find');
+    }
+
+    public function findResults(Request $request)
+    {
+
+        $parameters = ['loadingDateFrom' => $request->get('loadingDateFrom'),
+                        'loadingDateTo' => $request->get('loadingDateTo'),
+                        'unloadingDateFrom' => $request->get('unloadingDateFrom'),
+                        'unloadingDateTo' => $request->get('unloadingDateTo'),
+                        'truckType' => $request->get('truckType') ?? array(1, 2, 3),
+                        'weight' => $request->get('weight') ?? 99999,
+                        'loadingCity' => $request->get('loadingCity') ?? '%',
+                        'loadingCountry' => $request->get('loadingCountry') ?? '%',
+                        'unloadingCity' => $request->get('unloadingCity') ?? '%',
+                        'unloadingCountry' => $request->get('unloadingCountry') ?? '%'];
+
+        $freights = $this->freightRepository->find($parameters);
+
+
+
+        foreach ($freights as $freight) {
+
+            $freight->truck_id = json_decode($freight->truck_id);
+        }
+
+        return view('freight.results', [
+            'freights' => $freights
+        ]);
+    }
+
+
+
+
+
     public function new()
     {
         if (!Gate::allows('forwarder-level')) {

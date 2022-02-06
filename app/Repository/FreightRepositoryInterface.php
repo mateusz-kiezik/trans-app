@@ -24,4 +24,6 @@ interface FreightRepositoryInterface
 
     public function sortBy($column, $direction);
 
+    public function find($parameters);
+
 }
