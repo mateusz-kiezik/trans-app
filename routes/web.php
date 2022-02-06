@@ -29,6 +29,12 @@ Route::get('/freights/details/{id}', 'Freight\FreightController@details')
 
 Route::get('/api/get', 'AddressController@index');
 
+Route::get('/api/postcode/{postcode}', 'AddressController@getByPostcode')
+    ->name('api.postcode');
+
+Route::get('/api/city/{city}', 'AddressController@getByCity')
+    ->name('api.city');
+
 Route::get('/password/create/{token}', 'User\UserController@createPassword')
     ->name('password.create');
 

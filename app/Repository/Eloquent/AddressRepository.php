@@ -38,4 +38,9 @@ class AddressRepository implements AddressRepositoryInterface
 
         return $address->id;
     }
+
+    public function all()
+    {
+        return $this->addressModel->get();
+    }
 }

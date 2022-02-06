@@ -17,6 +17,8 @@
           integrity="sha512-3JRrEUwaCkFUBLK1N8HehwQgu8e23jTH4np5NHOmQOobuC4ROQxFwFgBLTnhcnQRMs84muMh0PnnwXlPq5MGjg=="
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
 
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
+
 </head>
 <body>
 <div id="app">
@@ -56,15 +58,15 @@
                                 @if (auth()->user()->isForwarder())
                                     <a class="" style="color: black; text-decoration: none; margin-left: 15px;"
                                        href="{{ route('freight.new') }}">
-                                    <div class="dropdown-item">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                             fill="currentColor"
-                                             class="bi bi-truck-flatbed me-3" viewBox="0 0 16 16">
-                                            <path
-                                                d="M11.5 4a.5.5 0 0 1 .5.5V5h1.02a1.5 1.5 0 0 1 1.17.563l1.481 1.85a1.5 1.5 0 0 1 .329.938V10.5a1.5 1.5 0 0 1-1.5 1.5H14a2 2 0 1 1-4 0H5a2 2 0 1 1-4 0 1 1 0 0 1-1-1v-1h11V4.5a.5.5 0 0 1 .5-.5zM3 11a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm9 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm1.732 0h.768a.5.5 0 0 0 .5-.5V8.35a.5.5 0 0 0-.11-.312l-1.48-1.85A.5.5 0 0 0 13.02 6H12v4a2 2 0 0 1 1.732 1z"/>
-                                        </svg>
-                                        New
-                                    </div>
+                                        <div class="dropdown-item">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                 fill="currentColor"
+                                                 class="bi bi-truck-flatbed me-3" viewBox="0 0 16 16">
+                                                <path
+                                                    d="M11.5 4a.5.5 0 0 1 .5.5V5h1.02a1.5 1.5 0 0 1 1.17.563l1.481 1.85a1.5 1.5 0 0 1 .329.938V10.5a1.5 1.5 0 0 1-1.5 1.5H14a2 2 0 1 1-4 0H5a2 2 0 1 1-4 0 1 1 0 0 1-1-1v-1h11V4.5a.5.5 0 0 1 .5-.5zM3 11a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm9 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm1.732 0h.768a.5.5 0 0 0 .5-.5V8.35a.5.5 0 0 0-.11-.312l-1.48-1.85A.5.5 0 0 0 13.02 6H12v4a2 2 0 0 1 1.732 1z"/>
+                                            </svg>
+                                            New
+                                        </div>
                                     </a>
                                 @endif
                             @endif
@@ -72,8 +74,10 @@
                             <a class="" style="color: black; text-decoration: none; margin-left: 15px;"
                                href="{{ route('freight.find') }}">
                                 <div class="dropdown-item">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search me-3" viewBox="0 0 16 16">
-                                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                         class="bi bi-search me-3" viewBox="0 0 16 16">
+                                        <path
+                                            d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
                                     </svg>
                                     Find
                                 </div>
@@ -172,6 +176,8 @@
 
     </footer>
 </div>
+
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment-with-locales.min.js"
         integrity="sha512-LGXaggshOkD/at6PFNcp2V2unf9LzFq6LE+sChH7ceMTDP0g2kn6Vxwgg7wkPP7AAtX+lmPqPdxB47A0Nz0cMQ=="
@@ -186,6 +192,7 @@
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
 
+<script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
 
 <script type="text/javascript">
     $(function () {
@@ -248,14 +255,11 @@
         var filters = document.getElementById("filters");
         var button = document.getElementById("filterButton");
 
-        if (filters.classList.contains('hide'))
-        {
+        if (filters.classList.contains('hide')) {
             filters.classList.remove('hide');
             filters.classList.add('show');
             button.textContent = "Less filters";
-        }
-        else
-        {
+        } else {
             filters.classList.remove('show');
             filters.classList.add('hide');
             button.textContent = 'More filters';
@@ -284,7 +288,6 @@
         group4.classList.remove('show');
         group4.classList.add('hide');
     }
-
 
     function onLoad2() {
         //method for button times
@@ -331,7 +334,181 @@
     })
 </script>
 
+{{--<script>--}}
+{{--    function pressEnter(id) {--}}
+{{--        if (event.keyCode === 13 && id === 'country') {--}}
+{{--            findByCountry()--}}
+{{--        }--}}
+{{--        if (event.keyCode === 13 && id === 'postcode') {--}}
+{{--            findByPostcode()--}}
+{{--        }--}}
+{{--        if (event.keyCode === 13 && id === 'city') {--}}
+{{--            findByCity()--}}
+{{--        }--}}
+
+
+{{--        function findByCountry() {--}}
+
+{{--        }--}}
+
+{{--        function findByPostcode() {--}}
+{{--            async function getapi1()--}}
+{{--            {--}}
+{{--                let postcode = document.getElementById('postcode').value;--}}
+{{--                let response = await fetch('/api/postcode/' + postcode);--}}
+{{--                var data = await response.json();--}}
+
+{{--                document.getElementById('city').value = data[0].city;--}}
+{{--                document.getElementById('country').value = data[0].country;--}}
+{{--            }--}}
+{{--            getapi1();--}}
+{{--        }--}}
+
+{{--        function findByCity() {--}}
+{{--            async function getapi()--}}
+{{--            {--}}
+{{--                let city = document.getElementById('city').value;--}}
+{{--                let response = await fetch('/api/city/' + city);--}}
+{{--                var data = await response.json();--}}
+
+{{--                document.getElementById('postcode').value = data[0].postcode;--}}
+{{--                document.getElementById('country').value = data[0].country;--}}
+{{--            }--}}
+{{--            getapi();--}}
+{{--        }--}}
+
+{{--    }--}}
+{{--</script>--}}
+
+<script>
+    function addressAutocomplete(containerElement, callback) {
+        // create input element
+        var inputElement = document.createElement("input");
+        inputElement.setAttribute("type", "text");
+        inputElement.setAttribute("placeholder", "Enter an address here");
+        containerElement.appendChild(inputElement);
+
+        /* Active request promise reject function. To be able to cancel the promise when a new request comes */
+        var currentPromiseReject;
+
+        /* Current autocomplete items data (GeoJSON.Feature) */
+        var currentItems;
+
+        /* Execute a function when someone writes in the text field: */
+        inputElement.addEventListener("input", function(e) {
+            /* Close any already open dropdown list */
+            closeDropDownList();
+
+            var currentValue = this.value;
+
+            // Cancel previous request promise
+            if (currentPromiseReject) {
+                currentPromiseReject({
+                    canceled: true
+                });
+            }
+
+            if (!currentValue) {
+                return false;
+            }
+
+            /* Create a new promise and send geocoding request */
+            var promise = new Promise((resolve, reject) => {
+                currentPromiseReject = reject;
+
+                var lang = 'pl';
+                var type = 'city';
+                var apiKey = "46f5916ec7204f9fad8e582a976405c1";
+                var url = `https://api.geoapify.com/v1/geocode/autocomplete?lang=${lang}&type=${type}&text=${encodeURIComponent(currentValue)}&limit=5&apiKey=${apiKey}`;
+
+                fetch(url)
+                    .then(response => {
+                        // check if the call was successful
+                        if (response.ok) {
+                            response.json().then(data => resolve(data));
+                        } else {
+                            response.json().then(data => reject(data));
+                        }
+                    });
+            });
+
+            promise.then((data) => {
+                currentItems = data.features;
+
+                /*create a DIV element that will contain the items (values):*/
+                var autocompleteItemsElement = document.createElement("div");
+                autocompleteItemsElement.setAttribute("class", "autocomplete-items");
+                containerElement.appendChild(autocompleteItemsElement);
+
+                /* For each item in the results */
+                data.features.forEach((feature, index) => {
+                    /* Create a DIV element for each element: */
+                    var itemElement = document.createElement("DIV");
+                    /* Set formatted address as item value */
+                    let format;
+                    if (feature.properties.postcode)
+                    {
+                        format = feature.properties.postcode + ' ' + feature.properties.city + ', ' + feature.properties.country;
+                    }
+                    if (feature.properties.postcode == null)
+                    {
+                        format = feature.properties.city + ', ' + feature.properties.country;
+                    }
+                    itemElement.innerHTML = format;
+
+
+
+
+                    /* Set the value for the autocomplete text field and notify: */
+                    itemElement.addEventListener("click", function(e) {
+                        let format;
+                        if (currentItems[index].properties.postcode)
+                        {
+                            format = currentItems[index].properties.postcode + ' ' + currentItems[index].properties.city + ', ' + currentItems[index].properties.country;
+                        }
+                        if (currentItems[index].properties.postcode == null)
+                        {
+                            format = currentItems[index].properties.city + ', ' + currentItems[index].properties.country;
+                        }
+
+                        inputElement.value = format;
+                        callback(currentItems[index]);
+                        /* Close the list of autocompleted values: */
+                        closeDropDownList();
+                    });
+
+
+                    autocompleteItemsElement.appendChild(itemElement);
+                });
+            }, (err) => {
+                if (!err.canceled) {
+                    console.log(err);
+                }
+            });
+        });
+
+        function closeDropDownList() {
+            var autocompleteItemsElement = containerElement.querySelector(".autocomplete-items");
+            if (autocompleteItemsElement) {
+                containerElement.removeChild(autocompleteItemsElement);
+            }
+        }
+
+    }
+
+    addressAutocomplete(document.getElementById("autocomplete-container"), (data) => {
+        console.log("Selected option: ");
+        console.log(data);
+    });
+</script>
+
+
 
 <script src="{{ mix('/js/app.js') }}"></script>
 </body>
 </html>
+
+
+
+
+
