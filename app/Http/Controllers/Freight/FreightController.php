@@ -131,11 +131,13 @@ class FreightController extends Controller
         return view('freight.new');
     }
 
-    public function save(CreateFreight $request)
+    public function save(Request $request)
     {
         if (!Gate::allows('forwarder-level')) {
             abort(403);
         }
+        dd($request);
+
         $loadingAddress = $request->get('loadingAddress');
         $unloadingAddress = $request->get('unloadingAddress');
         $loadingAddressId = $this->addressRepository->createAndGetId($loadingAddress);

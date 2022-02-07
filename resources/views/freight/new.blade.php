@@ -10,14 +10,55 @@
             display: block;
         }
     </style>
+    <style>
+        .autocomplete-container {
+            /*the container must be positioned relative:*/
+            position: relative;
+        }
 
+        .autocomplete-container input {
+            width: calc(100% - 43px);
+            height: 2.4em;
+            outline: none;
+
+            border: 1px solid rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+            padding: 10px;
+            padding-right: 31px;
+            font-size: 16px;
+        }
+
+        .autocomplete-items {
+            position: absolute;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            box-shadow: 0px 2px 10px 2px rgba(0, 0, 0, 0.1);
+            border-top: none;
+            background-color: #fff;
+
+            z-index: 99;
+            top: calc(100% + 2px);
+            left: 0;
+            right: 0;
+        }
+
+        .autocomplete-items div {
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .autocomplete-items div:hover {
+            /*when hovering an item:*/
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+    </style>
 
 
     <div class="container">
         <div class="card">
             <h2 class="card-header">NEW FREIGHT</h2>
             <div class="card-body">
-                <form autocomplete="off" action="{{ route('freight.save') }}" method="post" enctype="multipart/form-data">
+                <form autocomplete="off" action="{{ route('freight.save') }}" method="post"
+                      enctype="multipart/form-data">
                     @csrf
 
                     <div class="row">
@@ -25,11 +66,10 @@
                             <h4>Loading</h4>
                         </div>
                         <div class="row">
-                            <div class="col">
+                            <div class="col-2">
                                 <label class="form-label" for="datepicker1"><strong>Date</strong></label>
                                 <div class="input-group date" id="datepicker1" data-target-input="nearest">
-                                    <input type="text" class="form-control datetimepicker-input
-                                                    @error('loadingDate') is-invalid @enderror"
+                                    <input type="text" class="form-control datetimepicker-input"
                                            data-target="#datepicker1"
                                            name="loadingDate"
                                            value="{{ old('loadingDate') }}"
@@ -52,11 +92,10 @@
                                     @enderror
                                 </div>
                             </div>
-                            <div class="col">
+                            <div class="col-2">
                                 <label class="form-label" for="timepicker1"><strong>Time</strong></label>
                                 <div class="input-group date" id="timepicker1" data-target-input="nearest">
-                                    <input type="text" class="form-control datetimepicker-input
-                                                    @error('loadingTime') is-invalid @enderror"
+                                    <input type="text" class="form-control datetimepicker-input"
                                            data-target="#timepicker1"
                                            name="loadingTime"
                                            value="{{ old('loadingTime') }}"
@@ -80,29 +119,19 @@
                                 </div>
                             </div>
                             <div class="col">
-                                <label class="form-label" for="loading-country"><strong>Country</strong></label>
-                                <input type="text" class="form-control @error('loadingAddress.country') is-invalid @enderror" id="loading-country"
-                                       name="loadingAddress[country]"
-                                       value="{{ old('loadingAddress.country') }}">
-                                @error('loadingAddress.country')
-                                <div class="invalid-feedback d-block">{{ $message }}</div>
-                                @enderror
+                                <label class="form-label" for="loading-address"><strong>Address</strong></label>
+                                <div class="autocomplete-container" id="autocomplete-container-loading"></div>
+                                <input hidden id="loading-country" name="loadingCountry">
+                                <input hidden id="loading-city" name="loadingCity">
+                                <input hidden id="loading-postcode" name="loadingPostcode">
+                                <input hidden id="loading-lat" name="loadingLat">
+                                <input hidden id="loading-lon" name="loadingLon">
+                                                            @error('loadingAddress')
+                                                            <div class="invalid-feedback d-block">{{ $message }}</div>
+                                                            @enderror
                             </div>
-                            <div class="col">
-                                <label class="form-label" for="loading-postcode"><strong>Post code</strong></label>
-                                <input type="text" class="form-control" id="loading-postcode"
-                                       name="loadingAddress[postcode]"
-                                       value="{{ old('loadingAddress.postcode') }}">
-                            </div>
-                            <div class="col">
-                                <label class="form-label" for="loading-city"><strong>City</strong></label>
-                                <input type="text" class="form-control @error('loadingAddress.city') is-invalid @enderror" id="loading-city"
-                                       name="loadingAddress[city]"
-                                       value="{{ old('loadingAddress.city') }}">
-                                @error('loadingAddress.city')
-                                <div class="invalid-feedback d-block">{{ $message }}</div>
-                                @enderror
-                            </div>
+
+
                         </div>
                     </div>
                     <div class="row mt-4">
@@ -110,11 +139,10 @@
                             <h4>Unloading</h4>
                         </div>
                         <div class="row">
-                            <div class="col">
+                            <div class="col-2">
                                 <label class="form-label" for="datepicker2"><strong>Date</strong></label>
                                 <div class="input-group date" id="datepicker2" data-target-input="nearest">
-                                    <input type="text" class="form-control datetimepicker-input
-                                                   @error('unloadingDate') is-invalid @enderror"
+                                    <input type="text" class="form-control datetimepicker-input"
                                            data-target="#datepicker2"
                                            name="unloadingDate"
                                            value="{{ old('unloadingDate') }}"
@@ -137,11 +165,10 @@
                                     @enderror
                                 </div>
                             </div>
-                            <div class="col">
+                            <div class="col-2">
                                 <label class="form-label" for="timepicker2"><strong>Time</strong></label>
                                 <div class="input-group date" id="timepicker2" data-target-input="nearest">
-                                    <input type="text" class="form-control datetimepicker-input
-                                                   @error('unloadingTime') is-invalid @enderror"
+                                    <input type="text" class="form-control datetimepicker-input"
                                            data-target="#timepicker2"
                                            name="unloadingTime"
                                            value="{{ old('unloadingTime') }}"
@@ -165,29 +192,16 @@
                                 </div>
                             </div>
                             <div class="col">
-                                <label class="form-label" for="unloading-country"><strong>Country</strong></label>
-                                <input type="text" class="form-control @error('unloadingAddress.country') is-invalid @enderror" id="unloading-country"
-                                       name="unloadingAddress[country]"
-                                       value="{{ old('unloadingAddress.country') }}">
-                                @error('unloadingAddress.country')
-                                <div class="invalid-feedback d-block">{{ $message }}</div>
-                                @enderror
-                            </div>
-                            <div class="col">
-                                <label class="form-label" for="unloading-postcode"><strong>Post
-                                        code</strong></label>
-                                <input type="text" class="form-control" id="unloading-postcode"
-                                       name="unloadingAddress[postcode]"
-                                       value="{{ old('unloadingAddress.postcode') }}">
-                            </div>
-                            <div class="col">
-                                <label class="form-label" for="unloading-city"><strong>City</strong></label>
-                                <input type="text" class="form-control @error('unloadingAddress.city') is-invalid @enderror" id="unloading-city"
-                                       name="unloadingAddress[city]"
-                                       value="{{ old('unloadingAddress.city') }}">
-                                @error('unloadingAddress.city')
-                                <div class="invalid-feedback d-block">{{ $message }}</div>
-                                @enderror
+                                <label class="form-label" for="unloading-address"><strong>Address</strong></label>
+                                <div class="autocomplete-container" id="autocomplete-container-unloading"></div>
+                                <input hidden id="unloading-country" name="unloadingCountry">
+                                <input hidden id="unloading-city" name="unloadingCity">
+                                <input hidden id="unloading-postcode" name="unloadingPostcode">
+                                <input hidden id="unloading-lat" name="unloadingLat">
+                                <input hidden id="unloading-lon" name="unloadingLon">
+                                                            @error('unloadingAddress')
+                                                            <div class="invalid-feedback d-block">{{ $message }}</div>
+                                                            @enderror
                             </div>
                         </div>
                     </div>
@@ -202,23 +216,26 @@
                                             size</strong></label>
                                 </div>
                                 <div class="col">
-                                <input class="form-check-input @error('truckSize') is-invalid @enderror" type="radio" value="1"
-                                       name="truckSize"
-                                       id="truckSize1" onclick="onLoad();"
-                                       @if(old('truckSize') == 1) checked @endif>
-                                <label class="form-check-label" for="truckSize1">Bus</label>
+                                    <input class="form-check-input"
+                                           type="radio" value="1"
+                                           name="truckSize"
+                                           id="truckSize1" onclick="onLoad();"
+                                           @if(old('truckSize') == 1) checked @endif>
+                                    <label class="form-check-label" for="truckSize1">Bus</label>
                                 </div>
                                 <div class="col">
-                                <input class="form-check-input @error('truckSize') is-invalid @enderror" type="radio" value="2" name="truckSize"
-                                       id="truckSize2" onclick="onLoad2();"
-                                       @if(old('truckSize') == 2) checked @endif>
-                                <label class="form-check-label" for="truckSize2">Solo</label>
+                                    <input class="form-check-input"
+                                           type="radio" value="2" name="truckSize"
+                                           id="truckSize2" onclick="onLoad2();"
+                                           @if(old('truckSize') == 2) checked @endif>
+                                    <label class="form-check-label" for="truckSize2">Solo</label>
                                 </div>
                                 <div class="col">
-                                <input class="form-check-input @error('truckSize') is-invalid @enderror" type="radio" value="3" name="truckSize"
-                                       id="truckSize3" onclick="onLoad3();"
-                                       @if(old('truckSize') == 3) checked @endif>
-                                <label class="form-check-label" for="truckSize3">Semi-trailer</label>
+                                    <input class="form-check-input"
+                                           type="radio" value="3" name="truckSize"
+                                           id="truckSize3" onclick="onLoad3();"
+                                           @if(old('truckSize') == 3) checked @endif>
+                                    <label class="form-check-label" for="truckSize3">Semi-trailer</label>
                                 </div>
                                 @error('truckSize')
                                 <div class="invalid-feedback d-block d-flex justify-content-center">{{ $message }}</div>
@@ -231,36 +248,72 @@
                                 </div>
                                 <div class="col-9">
                                     <div id="group1" class="@if(old('truckSize') == 1) show @else hide @endif">
-                                        <select class="form-select @error('truckType') is-invalid @enderror" multiple="multiple" name="truckType[]"
+                                        <select class="form-select"
+                                                multiple="multiple" name="truckType[]"
                                                 size="6">
-                                            <option value="1" @if(collect(old('truckType'))->contains(1)) selected @endif>Standard</option>
-                                            <option value="2" @if(collect(old('truckType'))->contains(2)) selected @endif>Curtain</option>
-                                            <option value="3" @if(collect(old('truckType'))->contains(3)) selected @endif>Box</option>
-                                            <option value="4" @if(collect(old('truckType'))->contains(4)) selected @endif>Refrigerator</option>
+                                            <option value="1"
+                                                    @if(collect(old('truckType'))->contains(1)) selected @endif>Standard
+                                            </option>
+                                            <option value="2"
+                                                    @if(collect(old('truckType'))->contains(2)) selected @endif>Curtain
+                                            </option>
+                                            <option value="3"
+                                                    @if(collect(old('truckType'))->contains(3)) selected @endif>Box
+                                            </option>
+                                            <option value="4"
+                                                    @if(collect(old('truckType'))->contains(4)) selected @endif>
+                                                Refrigerator
+                                            </option>
                                         </select>
                                     </div>
                                     <div id="group2" class="@if(old('truckSize') == 2) show @else hide @endif">
-                                        <select class="form-select @error('truckType') is-invalid @enderror" multiple="multiple" name="truckType[]"
+                                        <select class="form-select"
+                                                multiple="multiple" name="truckType[]"
                                                 size="6">
-                                            <option value="1" @if(collect(old('truckType'))->contains(1)) selected @endif>Standard</option>
-                                            <option value="2" @if(collect(old('truckType'))->contains(2)) selected @endif>Curtain</option>
-                                            <option value="3" @if(collect(old('truckType'))->contains(3)) selected @endif>Box</option>
-                                            <option value="4" @if(collect(old('truckType'))->contains(4)) selected @endif>Refrigerator</option>
+                                            <option value="1"
+                                                    @if(collect(old('truckType'))->contains(1)) selected @endif>Standard
+                                            </option>
+                                            <option value="2"
+                                                    @if(collect(old('truckType'))->contains(2)) selected @endif>Curtain
+                                            </option>
+                                            <option value="3"
+                                                    @if(collect(old('truckType'))->contains(3)) selected @endif>Box
+                                            </option>
+                                            <option value="4"
+                                                    @if(collect(old('truckType'))->contains(4)) selected @endif>
+                                                Refrigerator
+                                            </option>
                                         </select>
                                     </div>
                                     <div id="group3" class="@if(old('truckSize') == 3) show @else hide @endif">
-                                        <select class="form-select @error('truckType') is-invalid @enderror" multiple="multiple" name="truckType[]"
+                                        <select class="form-select"
+                                                multiple="multiple" name="truckType[]"
                                                 size="6">
-                                            <option value="1" @if(collect(old('truckType'))->contains(1)) selected @endif>Standard</option>
-                                            <option value="2" @if(collect(old('truckType'))->contains(2)) selected @endif>Curtain</option>
-                                            <option value="3" @if(collect(old('truckType'))->contains(3)) selected @endif>Box</option>
-                                            <option value="4" @if(collect(old('truckType'))->contains(4)) selected @endif>Refrigerator</option>
-                                            <option value="5" @if(collect(old('truckType'))->contains(5)) selected @endif>Mega</option>
-                                            <option value="6" @if(collect(old('truckType'))->contains(6)) selected @endif>Container</option>
+                                            <option value="1"
+                                                    @if(collect(old('truckType'))->contains(1)) selected @endif>Standard
+                                            </option>
+                                            <option value="2"
+                                                    @if(collect(old('truckType'))->contains(2)) selected @endif>Curtain
+                                            </option>
+                                            <option value="3"
+                                                    @if(collect(old('truckType'))->contains(3)) selected @endif>Box
+                                            </option>
+                                            <option value="4"
+                                                    @if(collect(old('truckType'))->contains(4)) selected @endif>
+                                                Refrigerator
+                                            </option>
+                                            <option value="5"
+                                                    @if(collect(old('truckType'))->contains(5)) selected @endif>Mega
+                                            </option>
+                                            <option value="6"
+                                                    @if(collect(old('truckType'))->contains(6)) selected @endif>
+                                                Container
+                                            </option>
                                         </select>
                                     </div>
                                     <div id="group4" class="@if(old('truckSize')) hide @else show @endif">
-                                        <select class="form-select @error('truckType') is-invalid @enderror" multiple="multiple" size="6"></select>
+                                        <select class="form-select"
+                                                multiple="multiple" size="6"></select>
                                     </div>
                                 </div>
                             </div>
@@ -278,7 +331,7 @@
                                             type</strong></label>
                                 </div>
                                 <div class="col-9">
-                                    <select class="form-select @error('cargoType') is-invalid @enderror"
+                                    <select class="form-select"
                                             name="cargoType">
                                         <option class="hide" value="">Select cargo type</option>
                                         <option value="1">Pallet</option>
@@ -296,7 +349,8 @@
                                 <div class="col-4">
                                     <label class="form-label"
                                            for="quantity"><strong>Quantity</strong></label>
-                                    <input type="text" class="form-control @error('quantity') is-invalid @enderror" id="quantity"
+                                    <input type="text" class="form-control"
+                                           id="quantity"
                                            name="quantity"
                                            value="{{ old('quantity') }}">
                                     @error('quantity')
@@ -306,7 +360,8 @@
                                 <div class="col-4">
                                     <label class="form-label"
                                            for="weight"><strong>Weight (kg)</strong></label>
-                                    <input type="text" class="form-control @error('weight') is-invalid @enderror" id="weight"
+                                    <input type="text" class="form-control"
+                                           id="weight"
                                            name="weight"
                                            value="{{ old('weight') }}">
                                     @error('weight')
@@ -327,15 +382,19 @@
                                            for="freight-type"><strong>Freight type</strong></label>
                                 </div>
                                 <div class="col">
-                                    <input class="form-check-input @error('freightType') is-invalid @enderror" type="radio" name="freightType"
-                                           id="freight-type" value="1">
+                                    <input class="form-check-input"
+                                           type="radio" name="freightType"
+                                           id="freight-type" value="1"
+                                           @if(old('freightType') == 1) checked @endif>
                                     <label class="form-check-label" for="freight-type">
                                         LTL
                                     </label>
                                 </div>
                                 <div class="col">
-                                    <input class="form-check-input @error('freightType') is-invalid @enderror" type="radio" name="freightType"
-                                           id="freight-type" value="2">
+                                    <input class="form-check-input"
+                                           type="radio" name="freightType"
+                                           id="freight-type" value="2"
+                                           @if(old('freightType') == 2) checked @endif>
                                     <label class="form-check-label" for="freight-type">
                                         FTL
                                     </label>

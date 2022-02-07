@@ -35,6 +35,9 @@ Route::get('/api/postcode/{postcode}', 'AddressController@getByPostcode')
 Route::get('/api/city/{city}', 'AddressController@getByCity')
     ->name('api.city');
 
+Route::get('api-call', 'APIController@call')
+    ->name('api.call');
+
 Route::get('/password/create/{token}', 'User\UserController@createPassword')
     ->name('password.create');
 

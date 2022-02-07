@@ -381,11 +381,21 @@
 {{--</script>--}}
 
 <script>
-    function addressAutocomplete(containerElement, callback) {
+    function addressAutocomplete(containerElement, inputName, action, callback) {
         // create input element
         var inputElement = document.createElement("input");
         inputElement.setAttribute("type", "text");
+        inputElement.setAttribute("name", inputName);
+        inputElement.setAttribute("class", "form-control");
         inputElement.setAttribute("placeholder", "Enter an address here");
+        if (inputElement.getAttribute("name") == "loadingAddress")
+        {
+            inputElement.setAttribute("value", "{{ old('loadingAddress') }}")
+        }
+        if (inputElement.getAttribute("name") == "unloadingAddress")
+        {
+            inputElement.setAttribute("value", "{{ old('unloadingAddress') }}")
+        }
         containerElement.appendChild(inputElement);
 
         /* Active request promise reject function. To be able to cancel the promise when a new request comes */
@@ -412,80 +422,88 @@
                 return false;
             }
 
-            /* Create a new promise and send geocoding request */
-            var promise = new Promise((resolve, reject) => {
-                currentPromiseReject = reject;
 
-                var lang = 'pl';
-                var type = 'city';
-                var apiKey = "46f5916ec7204f9fad8e582a976405c1";
-                var url = `https://api.geoapify.com/v1/geocode/autocomplete?lang=${lang}&type=${type}&text=${encodeURIComponent(currentValue)}&limit=5&apiKey=${apiKey}`;
+            if (currentValue.length >= 3) {
+                /* Create a new promise and send geocoding request */
+                var promise = new Promise((resolve, reject) => {
+                    currentPromiseReject = reject;
 
-                fetch(url)
-                    .then(response => {
-                        // check if the call was successful
-                        if (response.ok) {
-                            response.json().then(data => resolve(data));
-                        } else {
-                            response.json().then(data => reject(data));
-                        }
-                    });
-            });
+                    var lang = 'pl';
+                    // var type = 'city';
+                    // var apiKey = "46f5916ec7204f9fad8e582a976405c1";
+                    // var url = `https://api.geoapify.com/v1/geocode/autocomplete?lang=${lang}&type=${type}&text=${encodeURIComponent(currentValue)}&limit=5&apiKey=${apiKey}`;
 
-            promise.then((data) => {
-                currentItems = data.features;
-
-                /*create a DIV element that will contain the items (values):*/
-                var autocompleteItemsElement = document.createElement("div");
-                autocompleteItemsElement.setAttribute("class", "autocomplete-items");
-                containerElement.appendChild(autocompleteItemsElement);
-
-                /* For each item in the results */
-                data.features.forEach((feature, index) => {
-                    /* Create a DIV element for each element: */
-                    var itemElement = document.createElement("DIV");
-                    /* Set formatted address as item value */
-                    let format;
-                    if (feature.properties.postcode)
-                    {
-                        format = feature.properties.postcode + ' ' + feature.properties.city + ', ' + feature.properties.country;
-                    }
-                    if (feature.properties.postcode == null)
-                    {
-                        format = feature.properties.city + ', ' + feature.properties.country;
-                    }
-                    itemElement.innerHTML = format;
+                    var url = `http://localhost:8000/api-call?text=${encodeURIComponent(currentValue)}`
 
 
-
-
-                    /* Set the value for the autocomplete text field and notify: */
-                    itemElement.addEventListener("click", function(e) {
-                        let format;
-                        if (currentItems[index].properties.postcode)
-                        {
-                            format = currentItems[index].properties.postcode + ' ' + currentItems[index].properties.city + ', ' + currentItems[index].properties.country;
-                        }
-                        if (currentItems[index].properties.postcode == null)
-                        {
-                            format = currentItems[index].properties.city + ', ' + currentItems[index].properties.country;
-                        }
-
-                        inputElement.value = format;
-                        callback(currentItems[index]);
-                        /* Close the list of autocompleted values: */
-                        closeDropDownList();
-                    });
-
-
-                    autocompleteItemsElement.appendChild(itemElement);
+                    fetch(url)
+                        .then(response => {
+                            console.log(response)
+                            // check if the call was successful
+                            if (response.ok) {
+                                response.json().then(data => resolve(data));
+                            } else {
+                                response.json().then(data => reject(data));
+                            }
+                        });
                 });
-            }, (err) => {
-                if (!err.canceled) {
-                    console.log(err);
-                }
-            });
-        });
+
+
+                promise.then((data) => {
+                    currentItems = data.features;
+
+                    /*create a DIV element that will contain the items (values):*/
+                    var autocompleteItemsElement = document.createElement("div");
+                    autocompleteItemsElement.setAttribute("class", "autocomplete-items");
+                    containerElement.appendChild(autocompleteItemsElement);
+
+                    /* For each item in the results */
+                    data.features.forEach((feature, index) => {
+                        /* Create a DIV element for each element: */
+                        var itemElement = document.createElement("DIV");
+                        /* Set formatted address as item value */
+                        let format;
+                        if (feature.properties.postcode) {
+                            format = feature.properties.postcode + ' ' + feature.properties.city + ', ' + feature.properties.country;
+                        }
+                        if (feature.properties.postcode == null) {
+                            format = feature.properties.city + ', ' + feature.properties.country;
+                        }
+                        itemElement.innerHTML = format;
+
+
+                        /* Set the value for the autocomplete text field and notify: */
+                        itemElement.addEventListener("click", function (e) {
+                            let format;
+                            if (currentItems[index].properties.postcode) {
+                                format = currentItems[index].properties.postcode + ' ' + currentItems[index].properties.city + ', ' + currentItems[index].properties.country;
+                                document.getElementById(action + "-country").setAttribute("value", currentItems[index].properties.country);
+                                document.getElementById(action + "-city").setAttribute("value", currentItems[index].properties.city);
+                                document.getElementById(action + "-postcode").setAttribute("value", currentItems[index].properties.postcode);
+                                document.getElementById(action + "-lat").setAttribute("value", currentItems[index].properties.lat);
+                                document.getElementById(action + "-lon").setAttribute("value", currentItems[index].properties.lon);
+                            }
+                            if (currentItems[index].properties.postcode == null) {
+                                format = currentItems[index].properties.city + ', ' + currentItems[index].properties.country;
+                                document.getElementById(action + "-country").setAttribute("value", currentItems[index].properties.country);
+                                document.getElementById(action + "-city").setAttribute("value", currentItems[index].properties.city);
+                            }
+
+                            inputElement.value = format;
+                            callback(currentItems[index]);
+                            /* Close the list of autocompleted values: */
+                            closeDropDownList();
+                        });
+
+
+                        autocompleteItemsElement.appendChild(itemElement);
+                    });
+                }, (err) => {
+                    if (!err.canceled) {
+                        console.log(err);
+                    }
+                });
+            }});
 
         function closeDropDownList() {
             var autocompleteItemsElement = containerElement.querySelector(".autocomplete-items");
@@ -496,8 +514,13 @@
 
     }
 
-    addressAutocomplete(document.getElementById("autocomplete-container"), (data) => {
-        console.log("Selected option: ");
+    addressAutocomplete(document.getElementById("autocomplete-container-loading"), 'loadingAddress', 'loading', (data) => {
+        console.log("Selected loading option: ");
+        console.log(data);
+    });
+
+    addressAutocomplete(document.getElementById("autocomplete-container-unloading"), 'unloadingAddress', 'unloading', (data) => {
+        console.log("Selected unloading option: ");
         console.log(data);
     });
 </script>
