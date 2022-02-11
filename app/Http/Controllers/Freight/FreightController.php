@@ -131,15 +131,27 @@ class FreightController extends Controller
         return view('freight.new');
     }
 
-    public function save(Request $request)
+    public function save(CreateFreight $request)
     {
         if (!Gate::allows('forwarder-level')) {
             abort(403);
         }
-        dd($request);
+//        dd($request);
 
-        $loadingAddress = $request->get('loadingAddress');
-        $unloadingAddress = $request->get('unloadingAddress');
+        $loadingAddress['country'] = $request->get('loadingCountry');
+        $loadingAddress['city'] = $request->get('loadingCity');
+        $loadingAddress['postcode'] = $request->get('loadingPostcode');
+        $loadingAddress['latitude'] = $request->get('loadingLat');
+        $loadingAddress['longitude'] = $request->get('loadingLog');
+
+        $unloadingAddress['country'] = $request->get('unloadingCountry');
+        $unloadingAddress['city'] = $request->get('unloadingCity');
+        $unloadingAddress['postcode'] = $request->get('unloadingPostcode');
+        $unloadingAddress['latitude'] = $request->get('unloadingLat');
+        $unloadingAddress['longitude'] = $request->get('unloadingLon');
+
+
+
         $loadingAddressId = $this->addressRepository->createAndGetId($loadingAddress);
         $unloadingAddressId = $this->addressRepository->createAndGetId($unloadingAddress);
         $cargoId = $this->cargoRepository->createAndGetId($request->only(

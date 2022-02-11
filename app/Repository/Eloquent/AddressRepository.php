@@ -33,7 +33,9 @@ class AddressRepository implements AddressRepositoryInterface
         $address = Address::create([
             'country' => $data['country'],
             'postcode' => $data['postcode'],
-            'city' => $data['city']
+            'city' => $data['city'],
+            'latitude' => $data['latitude'],
+            'longitude' => $data['longitude']
         ]);
 
         return $address->id;

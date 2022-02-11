@@ -59,6 +59,7 @@
             <div class="card-body">
                 <form autocomplete="off" action="{{ route('freight.save') }}" method="post"
                       enctype="multipart/form-data">
+                    <button type=submit onclick="return false;" style="display:none;"></button>
                     @csrf
 
                     <div class="row">

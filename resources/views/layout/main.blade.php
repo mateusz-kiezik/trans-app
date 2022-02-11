@@ -388,50 +388,51 @@
         inputElement.setAttribute("name", inputName);
         inputElement.setAttribute("class", "form-control");
         inputElement.setAttribute("placeholder", "Enter an address here");
-        if (inputElement.getAttribute("name") == "loadingAddress")
-        {
+        if (inputElement.getAttribute("name") == "loadingAddress") {
             inputElement.setAttribute("value", "{{ old('loadingAddress') }}")
         }
-        if (inputElement.getAttribute("name") == "unloadingAddress")
-        {
+        if (inputElement.getAttribute("name") == "unloadingAddress") {
             inputElement.setAttribute("value", "{{ old('unloadingAddress') }}")
         }
         containerElement.appendChild(inputElement);
 
-        /* Active request promise reject function. To be able to cancel the promise when a new request comes */
-        var currentPromiseReject;
 
         /* Current autocomplete items data (GeoJSON.Feature) */
         var currentItems;
 
-        /* Execute a function when someone writes in the text field: */
-        inputElement.addEventListener("input", function(e) {
+
+        /* Close dropdown list when someone focus the text field: */
+        inputElement.addEventListener("focus", function (e) {
             /* Close any already open dropdown list */
             closeDropDownList();
-
-            var currentValue = this.value;
-
-            // Cancel previous request promise
-            if (currentPromiseReject) {
-                currentPromiseReject({
-                    canceled: true
-                });
-            }
-
-            if (!currentValue) {
-                return false;
-            }
+        })
 
 
-            if (currentValue.length >= 3) {
+        inputElement.addEventListener('keydown', function (key) {
+            if (key.keyCode === 13) {
+
+                /* Active request promise reject function. To be able to cancel the promise when a new request comes */
+                var currentPromiseReject;
+
+
+                var currentValue = this.value;
+
+                // Cancel previous request promise
+                if (currentPromiseReject) {
+                    currentPromiseReject({
+                        canceled: true
+                    });
+                }
+
+                if (!currentValue) {
+                    return false;
+                }
+
+
                 /* Create a new promise and send geocoding request */
                 var promise = new Promise((resolve, reject) => {
                     currentPromiseReject = reject;
 
-                    var lang = 'pl';
-                    // var type = 'city';
-                    // var apiKey = "46f5916ec7204f9fad8e582a976405c1";
-                    // var url = `https://api.geoapify.com/v1/geocode/autocomplete?lang=${lang}&type=${type}&text=${encodeURIComponent(currentValue)}&limit=5&apiKey=${apiKey}`;
 
                     var url = `http://localhost:8000/api-call?text=${encodeURIComponent(currentValue)}`
 
@@ -446,7 +447,7 @@
                                 response.json().then(data => reject(data));
                             }
                         });
-                });
+                })
 
 
                 promise.then((data) => {
@@ -487,6 +488,8 @@
                                 format = currentItems[index].properties.city + ', ' + currentItems[index].properties.country;
                                 document.getElementById(action + "-country").setAttribute("value", currentItems[index].properties.country);
                                 document.getElementById(action + "-city").setAttribute("value", currentItems[index].properties.city);
+                                document.getElementById(action + "-lat").setAttribute("value", currentItems[index].properties.lat);
+                                document.getElementById(action + "-lon").setAttribute("value", currentItems[index].properties.lon);
                             }
 
                             inputElement.value = format;
@@ -503,7 +506,10 @@
                         console.log(err);
                     }
                 });
-            }});
+            }
+
+        })
+
 
         function closeDropDownList() {
             var autocompleteItemsElement = containerElement.querySelector(".autocomplete-items");
@@ -513,6 +519,7 @@
         }
 
     }
+
 
     addressAutocomplete(document.getElementById("autocomplete-container-loading"), 'loadingAddress', 'loading', (data) => {
         console.log("Selected loading option: ");
@@ -524,7 +531,6 @@
         console.log(data);
     });
 </script>
-
 
 
 <script src="{{ mix('/js/app.js') }}"></script>
