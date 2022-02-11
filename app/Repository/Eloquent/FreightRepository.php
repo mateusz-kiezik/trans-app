@@ -127,6 +127,7 @@ class FreightRepository implements FreightRepositoryInterface
 
     public function find($parameters)
     {
+
         $freights = $this->freightModel->finder($parameters)->orderBy('start_date')->get();
 
         return $freights;

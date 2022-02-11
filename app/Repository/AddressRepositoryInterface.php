@@ -13,4 +13,6 @@ interface AddressRepositoryInterface
     public function createAndGetId(array $data);
 
     public function all();
+
+
 }

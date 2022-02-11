@@ -214,7 +214,15 @@
                                         <h6 class="me-2">Country:</h6>
                                     </div>
                                     <div class="col">
-                                        <input class="form-control" type="text" name="loadingCountry">
+{{--                                        <input class="form-control" type="text" name="loadingCountry">--}}
+
+                                        <select class="form-select"
+                                                name="loadingCountry">
+                                            <option value="%">-- All --</option>
+                                            @foreach($loadingCountries ?? [] as $country)
+                                                <option value="{{ $country }}">{{ $country }}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                 </div>
                             </div>
@@ -237,7 +245,16 @@
                                         <h6 class="me-2">Country:</h6>
                                     </div>
                                     <div class="col">
-                                        <input class="form-control" type="text" name="unloadingCountry">
+{{--                                        <input class="form-control" type="text" name="unloadingCountry">--}}
+
+
+                                        <select class="form-select"
+                                                name="unloadingCountry">
+                                            <option value="%">-- All --</option>
+                                            @foreach($unloadingCountries ?? [] as $country)
+                                                <option value="{{ $country }}">{{ $country }}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                 </div>
                             </div>

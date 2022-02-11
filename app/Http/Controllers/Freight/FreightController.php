@@ -88,11 +88,45 @@ class FreightController extends Controller
 
     public function find()
     {
-        return view('freight.find');
+        $freights = $this->freightRepository->allActive();
+        $loadingCountries = [];
+        $unloadingCountries = [];
+        $count = 0;
+
+        foreach ($freights ?? [] as $freight)
+        {
+            $loadingCountries[$count] = $freight->startAddress->country;
+            $unloadingCountries[$count] = $freight->endAddress->country;
+            $count++;
+        }
+
+        $loadingCountries = array_unique($loadingCountries);
+        $unloadingCountries = array_unique($unloadingCountries);
+
+
+        return view('freight.find', [
+            'loadingCountries' => $loadingCountries,
+            'unloadingCountries' => $unloadingCountries
+        ]);
     }
 
     public function findResults(Request $request)
     {
+
+        $freightsCountries = $this->freightRepository->allActive();
+        $loadingCountries = [];
+        $unloadingCountries = [];
+        $count = 0;
+
+        foreach ($freightsCountries ?? [] as $freight)
+        {
+            $loadingCountries[$count] = $freight->startAddress->country;
+            $unloadingCountries[$count] = $freight->endAddress->country;
+            $count++;
+        }
+
+        $loadingCountries = array_unique($loadingCountries);
+        $unloadingCountries = array_unique($unloadingCountries);
 
         $parameters = ['loadingDateFrom' => $request->get('loadingDateFrom'),
                         'loadingDateTo' => $request->get('loadingDateTo'),
@@ -115,7 +149,9 @@ class FreightController extends Controller
         }
 
         return view('freight.results', [
-            'freights' => $freights
+            'freights' => $freights,
+            'loadingCountries' => $loadingCountries,
+            'unloadingCountries' => $unloadingCountries
         ]);
     }
 
@@ -136,19 +172,21 @@ class FreightController extends Controller
         if (!Gate::allows('forwarder-level')) {
             abort(403);
         }
-//        dd($request);
+
 
         $loadingAddress['country'] = $request->get('loadingCountry');
         $loadingAddress['city'] = $request->get('loadingCity');
         $loadingAddress['postcode'] = $request->get('loadingPostcode');
         $loadingAddress['latitude'] = $request->get('loadingLat');
-        $loadingAddress['longitude'] = $request->get('loadingLog');
+        $loadingAddress['longitude'] = $request->get('loadingLon');
+        $loadingAddress['type'] = 'L';
 
         $unloadingAddress['country'] = $request->get('unloadingCountry');
         $unloadingAddress['city'] = $request->get('unloadingCity');
         $unloadingAddress['postcode'] = $request->get('unloadingPostcode');
         $unloadingAddress['latitude'] = $request->get('unloadingLat');
         $unloadingAddress['longitude'] = $request->get('unloadingLon');
+        $unloadingAddress['type'] = 'U';
 
 
 

@@ -30,12 +30,15 @@ class AddressRepository implements AddressRepositoryInterface
 
     public function createAndGetId(array $data)
     {
+
+
         $address = Address::create([
             'country' => $data['country'],
             'postcode' => $data['postcode'],
             'city' => $data['city'],
             'latitude' => $data['latitude'],
-            'longitude' => $data['longitude']
+            'longitude' => $data['longitude'],
+            'type' => $data['type']
         ]);
 
         return $address->id;
@@ -45,4 +48,6 @@ class AddressRepository implements AddressRepositoryInterface
     {
         return $this->addressModel->get();
     }
+
+
 }

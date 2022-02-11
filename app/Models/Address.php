@@ -12,7 +12,12 @@ class Address extends Model
     protected $fillable = [
         'country',
         'postcode',
-        'city'
+        'city',
+        'latitude',
+        'longitude',
+        'type'
     ];
+
+
 
 }
