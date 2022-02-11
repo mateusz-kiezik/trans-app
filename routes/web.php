@@ -27,14 +27,6 @@ Route::get('/freights', 'Freight\FreightController@list')
 Route::get('/freights/details/{id}', 'Freight\FreightController@details')
     ->name('freight.details');
 
-Route::get('/api/get', 'AddressController@index');
-
-Route::get('/api/postcode/{postcode}', 'AddressController@getByPostcode')
-    ->name('api.postcode');
-
-Route::get('/api/city/{city}', 'AddressController@getByCity')
-    ->name('api.city');
-
 Route::get('api-call', 'APIController@call')
     ->name('api.call');
 
@@ -46,6 +38,8 @@ Route::get('/freights/find', 'Freight\FreightController@find')
 
 Route::post('/freights/find/results', 'Freight\FreightController@findResults')
     ->name('freight.find.results');
+
+Route::get('freights/find/results', 'Freight\FreightController@redirectResults');
 
 Route::group(['middleware' => ['auth']], function() {
 

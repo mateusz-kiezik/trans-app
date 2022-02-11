@@ -12,9 +12,17 @@
     </style>
 
     <div class="container">
+
+        @if (!empty('status'))
+            <div class="alert alert-success">
+                {{ $status }}
+            </div>
+        @endif
+
         <div class="card">
             <h2 class="card-header">FIND FREIGHT</h2>
             <div class="card-body text-center">
+
 
                 <form autocomplete="off" action="{{ route('freight.find.results') }}" method="post"
                       enctype="multipart/form-data">
@@ -37,7 +45,7 @@
                                         <input type="text" class="form-control datetimepicker-input ms-3"
                                                data-target="#datepicker1"
                                                name="loadingDateFrom"
-                                               value="{{ old('loadingDateFrom') }}"
+                                               value="{{ $findValues->loadingDateFrom }}"
                                                data-toggle="datetimepicker"/>
                                         <div class="input-group-append" data-target="#datepicker1"
                                              data-toggle="datetimepicker">
@@ -68,7 +76,7 @@
                                                     @error('loadingDateTo') is-invalid @enderror"
                                                data-target="#datepicker2"
                                                name="loadingDateTo"
-                                               value="{{ old('loadingDateTo') }}"
+                                               value="{{ $findValues->loadingDateTo }}"
                                                data-toggle="datetimepicker"/>
                                         <div class="input-group-append" data-target="#datepicker2"
                                              data-toggle="datetimepicker">
@@ -105,7 +113,7 @@
                                                     @error('unloadingDateFrom') is-invalid @enderror"
                                                data-target="#datepicker3"
                                                name="unloadingDateFrom"
-                                               value="{{ old('unloadingDateFrom') }}"
+                                               value="{{ $findValues->unloadingDateFrom }}"
                                                data-toggle="datetimepicker"/>
                                         <div class="input-group-append" data-target="#datepicker3"
                                              data-toggle="datetimepicker">
@@ -136,7 +144,7 @@
                                                     @error('unloadingDateTo') is-invalid @enderror"
                                                data-target="#datepicker4"
                                                name="unloadingDateTo"
-                                               value="{{ old('unloadingDateTo') }}"
+                                               value="{{ $findValues->unloadingDateTo }}"
                                                data-toggle="datetimepicker"/>
                                         <div class="input-group-append" data-target="#datepicker4"
                                              data-toggle="datetimepicker">
@@ -180,20 +188,24 @@
                             <div class="col-3">
                                 <label class="form-label"><strong>Truck type</strong></label>
                                 <div class="input-group">
-                                    <input class="form-check me-2" type="checkbox" name="truckType[]" value="1">
+                                    <input class="form-check me-2" type="checkbox" name="truckType[]" value="1"
+                                           @if(in_array(1, $findValues->truckType)) checked @endif>
                                     <label class="form-check-label">Bus</label>
 
-                                    <input class="form-check ms-3 me-2" type="checkbox" name="truckType[]" value="2">
+                                    <input class="form-check ms-3 me-2" type="checkbox" name="truckType[]" value="2"
+                                           @if(in_array(2, $findValues->truckType)) checked @endif>
                                     <label class="form-check-label">Solo</label>
 
-                                    <input class="form-check ms-3 me-2" type="checkbox" name="truckType[]" value="3">
+                                    <input class="form-check ms-3 me-2" type="checkbox" name="truckType[]" value="3"
+                                           @if(in_array(3, $findValues->truckType)) checked @endif>
                                     <label class="form-check-label">Semi-trailer</label>
                                 </div>
                             </div>
 
                             <div class="col-2">
                                 <label class="form-label"><strong>Max cargo weight (kg)</strong></label>
-                                <input class="form-control" type="number" name="weight">
+                                <input class="form-control" type="number" name="weight"
+                                       value="{{ $findValues->weight }}">
                             </div>
 
                             <div class="col-3 ms-4">
@@ -205,7 +217,8 @@
                                         <h6>City:</h6>
                                     </div>
                                     <div class="col">
-                                        <input class="form-control" type="text" name="loadingCity">
+                                        <input class="form-control" type="text" name="loadingCity"
+                                               value="{{ $findValues->loadingCity }}">
                                     </div>
                                 </div>
                                 <div class="row align-items-center mt-3">
@@ -219,9 +232,11 @@
                                                 name="loadingCountry">
                                             <option value="%">-- All --</option>
                                             @foreach($loadingCountries ?? [] as $country)
-                                                <option value="{{ $country }}">{{ $country }}</option>
+                                                <option @if($findValues->loadingCountry == $country) selected
+                                                        @endif value="{{ $country }}">{{ $country }}</option>
                                             @endforeach
                                         </select>
+
                                     </div>
                                 </div>
                             </div>
@@ -236,7 +251,8 @@
                                         <h6 class="me-2">City:</h6>
                                     </div>
                                     <div class="col">
-                                        <input class="form-control" type="text" name="unloadingCity">
+                                        <input class="form-control" type="text" name="unloadingCity"
+                                               value="{{ $findValues->unloadingCity }}">
                                     </div>
                                 </div>
                                 <div class="row align-items-center mt-3">
@@ -251,7 +267,8 @@
                                                 name="unloadingCountry">
                                             <option value="%">-- All --</option>
                                             @foreach($unloadingCountries ?? [] as $country)
-                                                <option value="{{ $country }}">{{ $country }}</option>
+                                                <option @if($findValues->unloadingCountry == $country) selected
+                                                        @endif value="{{ $country }}">{{ $country }}</option>
                                             @endforeach
                                         </select>
                                     </div>

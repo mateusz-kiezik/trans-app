@@ -14,8 +14,10 @@
 
     <div class="container">
         <div class="card">
+
+
             <h2 class="card-header">FIND FREIGHT</h2>
-            <div class="card-body">
+            <div class="card-body text-center">
 
                 <form autocomplete="off" action="{{ route('freight.find.results') }}" method="post"
                       enctype="multipart/form-data">

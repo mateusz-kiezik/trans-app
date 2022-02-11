@@ -35,30 +35,22 @@ class FreightController extends Controller
         $sortBy = $request->get('sortBy');
 
 
-        if ($sortBy != null)
-        {
-            if ($sortBy == 'loadingDateAsc')
-            {
+        if ($sortBy != null) {
+            if ($sortBy == 'loadingDateAsc') {
                 $freights = $this->freightRepository->sortBy('start_date', 'asc');
-            } elseif ($sortBy == 'loadingDateDesc')
-            {
+            } elseif ($sortBy == 'loadingDateDesc') {
                 $freights = $this->freightRepository->sortBy('start_date', 'desc');
-            } elseif ($sortBy == 'unloadingDateAsc')
-            {
+            } elseif ($sortBy == 'unloadingDateAsc') {
                 $freights = $this->freightRepository->sortBy('end_date', 'asc');
-            } elseif ($sortBy == 'unloadingDateDesc')
-            {
+            } elseif ($sortBy == 'unloadingDateDesc') {
                 $freights = $this->freightRepository->sortBy('end_date', 'desc');
-            } else
-            {
+            } else {
                 $freights = $this->freightRepository->allActive();
             }
 
-        } else
-        {
+        } else {
             $freights = $this->freightRepository->allActive();
         }
-
 
 
 //        $freights = $this->freightRepository->allActive();
@@ -93,8 +85,7 @@ class FreightController extends Controller
         $unloadingCountries = [];
         $count = 0;
 
-        foreach ($freights ?? [] as $freight)
-        {
+        foreach ($freights ?? [] as $freight) {
             $loadingCountries[$count] = $freight->startAddress->country;
             $unloadingCountries[$count] = $freight->endAddress->country;
             $count++;
@@ -102,12 +93,19 @@ class FreightController extends Controller
 
         $loadingCountries = array_unique($loadingCountries);
         $unloadingCountries = array_unique($unloadingCountries);
+        sort($loadingCountries);
+        sort($unloadingCountries);
 
 
         return view('freight.find', [
             'loadingCountries' => $loadingCountries,
             'unloadingCountries' => $unloadingCountries
         ]);
+    }
+
+    public function redirectResults()
+    {
+        return redirect(route('freight.find'));
     }
 
     public function findResults(Request $request)
@@ -118,8 +116,7 @@ class FreightController extends Controller
         $unloadingCountries = [];
         $count = 0;
 
-        foreach ($freightsCountries ?? [] as $freight)
-        {
+        foreach ($freightsCountries ?? [] as $freight) {
             $loadingCountries[$count] = $freight->startAddress->country;
             $unloadingCountries[$count] = $freight->endAddress->country;
             $count++;
@@ -129,34 +126,37 @@ class FreightController extends Controller
         $unloadingCountries = array_unique($unloadingCountries);
 
         $parameters = ['loadingDateFrom' => $request->get('loadingDateFrom'),
-                        'loadingDateTo' => $request->get('loadingDateTo'),
-                        'unloadingDateFrom' => $request->get('unloadingDateFrom'),
-                        'unloadingDateTo' => $request->get('unloadingDateTo'),
-                        'truckType' => $request->get('truckType') ?? array(1, 2, 3),
-                        'weight' => $request->get('weight') ?? 99999,
-                        'loadingCity' => $request->get('loadingCity') ?? '%',
-                        'loadingCountry' => $request->get('loadingCountry') ?? '%',
-                        'unloadingCity' => $request->get('unloadingCity') ?? '%',
-                        'unloadingCountry' => $request->get('unloadingCountry') ?? '%'];
+            'loadingDateTo' => $request->get('loadingDateTo'),
+            'unloadingDateFrom' => $request->get('unloadingDateFrom'),
+            'unloadingDateTo' => $request->get('unloadingDateTo'),
+            'truckType' => $request->get('truckType') ?? array(1, 2, 3),
+            'weight' => $request->get('weight') ?? 99999,
+            'loadingCity' => $request->get('loadingCity') ?? '%',
+            'loadingCountry' => $request->get('loadingCountry') ?? '%',
+            'unloadingCity' => $request->get('unloadingCity') ?? '%',
+            'unloadingCountry' => $request->get('unloadingCountry') ?? '%'];
 
         $freights = $this->freightRepository->find($parameters);
 
 
-
+        $count = 0;
         foreach ($freights as $freight) {
 
             $freight->truck_id = json_decode($freight->truck_id);
+            $count++;
         }
+
+        sort($loadingCountries);
+        sort($unloadingCountries);
 
         return view('freight.results', [
             'freights' => $freights,
             'loadingCountries' => $loadingCountries,
-            'unloadingCountries' => $unloadingCountries
+            'unloadingCountries' => $unloadingCountries,
+            'findValues' => $request,
+            'status' => $count . ' results found'
         ]);
     }
-
-
-
 
 
     public function new()
@@ -187,7 +187,6 @@ class FreightController extends Controller
         $unloadingAddress['latitude'] = $request->get('unloadingLat');
         $unloadingAddress['longitude'] = $request->get('unloadingLon');
         $unloadingAddress['type'] = 'U';
-
 
 
         $loadingAddressId = $this->addressRepository->createAndGetId($loadingAddress);
