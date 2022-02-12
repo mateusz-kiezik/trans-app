@@ -120,7 +120,7 @@ class FreightRepository implements FreightRepositoryInterface
 
     public function sortBy($column, $direction)
     {
-        $freights = $this->freightModel->sort($column, $direction)->paginate(10);
+        $freights = $this->freightModel->sort($column, $direction)->paginate(5);
 
         return $freights;
     }

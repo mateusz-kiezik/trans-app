@@ -53,8 +53,6 @@ class FreightController extends Controller
         }
 
 
-//        $freights = $this->freightRepository->allActive();
-
 
         foreach ($freights as $freight) {
 

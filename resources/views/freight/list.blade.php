@@ -192,8 +192,8 @@
                     </div>
                     <hr/>
                 @endforeach
-                {{ $freights->links() }}
-
+{{--                {{ $freights->links() }}--}}
+                {{ $freights->appends(request()->query())->links() }}
 
             </div>
         </div>
