@@ -154,7 +154,8 @@ class FreightController extends Controller
             'loadingCountries' => $loadingCountries,
             'unloadingCountries' => $unloadingCountries,
             'findValues' => $request,
-            'status' => $count . ' results found'
+            'status' => $count . ' results found',
+            'count' => $count
         ]);
     }
 

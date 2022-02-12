@@ -55,7 +55,7 @@
 
     <div class="container">
         <div class="card">
-            <h2 class="card-header">NEW FREIGHT</h2>
+            <h2 class="card-header">{{ __('messages.new-freight-title') }}</h2>
             <div class="card-body">
                 <form autocomplete="off" action="{{ route('freight.save') }}" method="post"
                       enctype="multipart/form-data">
@@ -64,11 +64,11 @@
 
                     <div class="row">
                         <div class="row">
-                            <h4>Loading</h4>
+                            <h4>{{ __('messages.new-freight-loading-label') }}</h4>
                         </div>
                         <div class="row">
                             <div class="col-2">
-                                <label class="form-label" for="datepicker1"><strong>Date</strong></label>
+                                <label class="form-label" for="datepicker1"><strong>{{ __('messages.new-freight-loading-date-label') }}</strong></label>
                                 <div class="input-group date" id="datepicker1" data-target-input="nearest">
                                     <input type="text" class="form-control datetimepicker-input"
                                            data-target="#datepicker1"
@@ -94,7 +94,7 @@
                                 </div>
                             </div>
                             <div class="col-2">
-                                <label class="form-label" for="timepicker1"><strong>Time</strong></label>
+                                <label class="form-label" for="timepicker1"><strong>{{ __('messages.new-freight-loading-time-label') }}</strong></label>
                                 <div class="input-group date" id="timepicker1" data-target-input="nearest">
                                     <input type="text" class="form-control datetimepicker-input"
                                            data-target="#timepicker1"
@@ -120,16 +120,22 @@
                                 </div>
                             </div>
                             <div class="col">
-                                <label class="form-label" for="loading-address"><strong>Address</strong></label>
+                                <label class="form-label" for="loading-address"><strong>{{ __('messages.new-freight-loading-address-label') }}</strong></label>
                                 <div class="autocomplete-container" id="autocomplete-container-loading"></div>
-                                <input hidden id="loading-country" name="loadingCountry">
-                                <input hidden id="loading-city" name="loadingCity">
-                                <input hidden id="loading-postcode" name="loadingPostcode">
-                                <input hidden id="loading-lat" name="loadingLat">
-                                <input hidden id="loading-lon" name="loadingLon">
-                                                            @error('loadingAddress')
-                                                            <div class="invalid-feedback d-block">{{ $message }}</div>
-                                                            @enderror
+                                <input hidden id="loading-country" name="loadingCountry" value="{{ old('loadingCountry') }}">
+                                <input hidden id="loading-city" name="loadingCity" value="{{ old('loadingCity') }}">
+                                <input hidden id="loading-postcode" name="loadingPostcode" value="{{ old('loadingPostcode') }}">
+                                <input hidden id="loading-lat" name="loadingLat" value="{{ old('loadingLat') }}">
+                                <input hidden id="loading-lon" name="loadingLon" value="{{ old('loadingLon') }}">
+                                @error('loadingAddress')
+                                <div class="invalid-feedback d-block">{{ $message }}</div>
+                                @enderror
+                                @error('loadingCity')
+                                <div class="invalid-feedback d-block">{{ $message }}</div>
+                                @enderror
+                                @error('loadingCountry')
+                                <div class="invalid-feedback d-block">{{ $message }}</div>
+                                @enderror
                             </div>
 
 
@@ -137,11 +143,11 @@
                     </div>
                     <div class="row mt-4">
                         <div class="row">
-                            <h4>Unloading</h4>
+                            <h4>{{ __('messages.new-freight-unloading-label') }}</h4>
                         </div>
                         <div class="row">
                             <div class="col-2">
-                                <label class="form-label" for="datepicker2"><strong>Date</strong></label>
+                                <label class="form-label" for="datepicker2"><strong>{{ __('messages.new-freight-unloading-date-label') }}</strong></label>
                                 <div class="input-group date" id="datepicker2" data-target-input="nearest">
                                     <input type="text" class="form-control datetimepicker-input"
                                            data-target="#datepicker2"
@@ -167,7 +173,7 @@
                                 </div>
                             </div>
                             <div class="col-2">
-                                <label class="form-label" for="timepicker2"><strong>Time</strong></label>
+                                <label class="form-label" for="timepicker2"><strong>{{ __('messages.new-freight-unloading-time-label') }}</strong></label>
                                 <div class="input-group date" id="timepicker2" data-target-input="nearest">
                                     <input type="text" class="form-control datetimepicker-input"
                                            data-target="#timepicker2"
@@ -193,28 +199,34 @@
                                 </div>
                             </div>
                             <div class="col">
-                                <label class="form-label" for="unloading-address"><strong>Address</strong></label>
+                                <label class="form-label" for="unloading-address"><strong>{{ __('messages.new-freight-unloading-address-label') }}</strong></label>
                                 <div class="autocomplete-container" id="autocomplete-container-unloading"></div>
-                                <input hidden id="unloading-country" name="unloadingCountry">
-                                <input hidden id="unloading-city" name="unloadingCity">
-                                <input hidden id="unloading-postcode" name="unloadingPostcode">
-                                <input hidden id="unloading-lat" name="unloadingLat">
-                                <input hidden id="unloading-lon" name="unloadingLon">
-                                                            @error('unloadingAddress')
-                                                            <div class="invalid-feedback d-block">{{ $message }}</div>
-                                                            @enderror
+                                <input hidden id="unloading-country" name="unloadingCountry" value="{{ old('unloadingCountry') }}">
+                                <input hidden id="unloading-city" name="unloadingCity" value="{{ old('unloadingCity') }}">
+                                <input hidden id="unloading-postcode" name="unloadingPostcode" value="{{ old('unloadingPostocode') }}">
+                                <input hidden id="unloading-lat" name="unloadingLat" value="{{ old('unloadingLat') }}">
+                                <input hidden id="unloading-lon" name="unloadingLon" value="{{ old('unloadingLon') }}">
+                                @error('unloadingAddress')
+                                <div class="invalid-feedback d-block">{{ $message }}</div>
+                                @enderror
+                                @error('unloadingCity')
+                                <div class="invalid-feedback d-block">{{ $message }}</div>
+                                @enderror
+                                @error('unloadingCountry')
+                                <div class="invalid-feedback d-block">{{ $message }}</div>
+                                @enderror
+
                             </div>
                         </div>
                     </div>
                     <div class="row mt-4">
                         <div class="col">
                             <div class="row">
-                                <h4>Truck</h4>
+                                <h4>{{ __('messages.new-freight-truck-label') }}</h4>
                             </div>
                             <div class="row">
                                 <div class="col">
-                                    <label class="form-label" for="truck-size"><strong>Truck
-                                            size</strong></label>
+                                    <label class="form-label" for="truck-size"><strong>{{ __('messages.new-freight-truck-size-label') }}</strong></label>
                                 </div>
                                 <div class="col">
                                     <input class="form-check-input"
@@ -222,21 +234,21 @@
                                            name="truckSize"
                                            id="truckSize1" onclick="onLoad();"
                                            @if(old('truckSize') == 1) checked @endif>
-                                    <label class="form-check-label" for="truckSize1">Bus</label>
+                                    <label class="form-check-label" for="truckSize1">{{ __('messages.new-freight-truck-1-radio') }}</label>
                                 </div>
                                 <div class="col">
                                     <input class="form-check-input"
                                            type="radio" value="2" name="truckSize"
                                            id="truckSize2" onclick="onLoad2();"
                                            @if(old('truckSize') == 2) checked @endif>
-                                    <label class="form-check-label" for="truckSize2">Solo</label>
+                                    <label class="form-check-label" for="truckSize2">{{ __('messages.new-freight-truck-2-radio') }}</label>
                                 </div>
                                 <div class="col">
                                     <input class="form-check-input"
                                            type="radio" value="3" name="truckSize"
                                            id="truckSize3" onclick="onLoad3();"
                                            @if(old('truckSize') == 3) checked @endif>
-                                    <label class="form-check-label" for="truckSize3">Semi-trailer</label>
+                                    <label class="form-check-label" for="truckSize3">{{ __('messages.new-freight-truck-3-radio') }}</label>
                                 </div>
                                 @error('truckSize')
                                 <div class="invalid-feedback d-block d-flex justify-content-center">{{ $message }}</div>
@@ -244,8 +256,7 @@
                             </div>
                             <div class="row mt-4">
                                 <div class="col">
-                                    <label class="form-label"><strong>Truck
-                                            type</strong></label>
+                                    <label class="form-label"><strong>{{ __('messages.new-freight-truck-type-label') }}</strong></label>
                                 </div>
                                 <div class="col-9">
                                     <div id="group1" class="@if(old('truckSize') == 1) show @else hide @endif">
@@ -253,17 +264,20 @@
                                                 multiple="multiple" name="truckType[]"
                                                 size="6">
                                             <option value="1"
-                                                    @if(collect(old('truckType'))->contains(1)) selected @endif>Standard
+                                                    @if(collect(old('truckType'))->contains(1)) selected @endif>
+                                                {{ __('messages.type-standard') }}
                                             </option>
                                             <option value="2"
-                                                    @if(collect(old('truckType'))->contains(2)) selected @endif>Curtain
+                                                    @if(collect(old('truckType'))->contains(2)) selected @endif>
+                                                {{ __('messages.type-curtain') }}
                                             </option>
                                             <option value="3"
-                                                    @if(collect(old('truckType'))->contains(3)) selected @endif>Box
+                                                    @if(collect(old('truckType'))->contains(3)) selected @endif>
+                                                {{ __('messages.type-box') }}
                                             </option>
                                             <option value="4"
                                                     @if(collect(old('truckType'))->contains(4)) selected @endif>
-                                                Refrigerator
+                                                {{ __('messages.type-refrigerator') }}
                                             </option>
                                         </select>
                                     </div>
@@ -272,17 +286,20 @@
                                                 multiple="multiple" name="truckType[]"
                                                 size="6">
                                             <option value="1"
-                                                    @if(collect(old('truckType'))->contains(1)) selected @endif>Standard
+                                                    @if(collect(old('truckType'))->contains(1)) selected @endif>
+                                                {{ __('messages.type-standard') }}
                                             </option>
                                             <option value="2"
-                                                    @if(collect(old('truckType'))->contains(2)) selected @endif>Curtain
+                                                    @if(collect(old('truckType'))->contains(2)) selected @endif>
+                                                {{ __('messages.type-curtain') }}
                                             </option>
                                             <option value="3"
-                                                    @if(collect(old('truckType'))->contains(3)) selected @endif>Box
+                                                    @if(collect(old('truckType'))->contains(3)) selected @endif>
+                                                {{ __('messages.type-box') }}
                                             </option>
                                             <option value="4"
                                                     @if(collect(old('truckType'))->contains(4)) selected @endif>
-                                                Refrigerator
+                                                {{ __('messages.type-refrigerator') }}
                                             </option>
                                         </select>
                                     </div>
@@ -291,24 +308,28 @@
                                                 multiple="multiple" name="truckType[]"
                                                 size="6">
                                             <option value="1"
-                                                    @if(collect(old('truckType'))->contains(1)) selected @endif>Standard
+                                                    @if(collect(old('truckType'))->contains(1)) selected @endif>
+                                                {{ __('messages.type-standard') }}
                                             </option>
                                             <option value="2"
-                                                    @if(collect(old('truckType'))->contains(2)) selected @endif>Curtain
+                                                    @if(collect(old('truckType'))->contains(2)) selected @endif>
+                                                {{ __('messages.type-curtain') }}
                                             </option>
                                             <option value="3"
-                                                    @if(collect(old('truckType'))->contains(3)) selected @endif>Box
+                                                    @if(collect(old('truckType'))->contains(3)) selected @endif>
+                                                {{ __('messages.type-box') }}
                                             </option>
                                             <option value="4"
                                                     @if(collect(old('truckType'))->contains(4)) selected @endif>
-                                                Refrigerator
+                                                {{ __('messages.type-refrigerator') }}
                                             </option>
                                             <option value="5"
-                                                    @if(collect(old('truckType'))->contains(5)) selected @endif>Mega
+                                                    @if(collect(old('truckType'))->contains(5)) selected @endif>
+                                                {{ __('messages.type-mega') }}
                                             </option>
                                             <option value="6"
                                                     @if(collect(old('truckType'))->contains(6)) selected @endif>
-                                                Container
+                                                {{ __('messages.type-container') }}
                                             </option>
                                         </select>
                                     </div>
@@ -324,22 +345,21 @@
                         </div>
                         <div class="col">
                             <div class="row">
-                                <h4>Cargo</h4>
+                                <h4>{{ __('messages.new-freight-cargo-label') }}</h4>
                             </div>
                             <div class="row">
                                 <div class="col">
-                                    <label class="form-label" for="cargo-type"><strong>Cargo
-                                            type</strong></label>
+                                    <label class="form-label" for="cargo-type"><strong>{{ __('messages.new-freight-cargo-type-label') }}</strong></label>
                                 </div>
                                 <div class="col-9">
                                     <select class="form-select"
                                             name="cargoType">
-                                        <option class="hide" value="">Select cargo type</option>
-                                        <option value="1">Pallet</option>
-                                        <option value="2">Carton</option>
-                                        <option value="3">Woodenbox</option>
-                                        <option value="4">Big bag</option>
-                                        <option value="5">Container</option>
+                                        <option class="hide" value="">{{ __('messages.new-freight-cargo-type-0-select') }}</option>
+                                        <option @if(old('cargoType') == 1) selected @endif value="1">{{ __('messages.new-freight-cargo-type-1-select') }}</option>
+                                        <option @if(old('cargoType') == 2) selected @endif value="2">{{ __('messages.new-freight-cargo-type-2-select') }}</option>
+                                        <option @if(old('cargoType') == 3) selected @endif value="3">{{ __('messages.new-freight-cargo-type-3-select') }}</option>
+                                        <option @if(old('cargoType') == 4) selected @endif value="4">{{ __('messages.new-freight-cargo-type-4-select') }}</option>
+                                        <option @if(old('cargoType') == 5) selected @endif value="5">{{ __('messages.new-freight-cargo-type-5-select') }}</option>
                                     </select>
                                     @error('cargoType')
                                     <div class="invalid-feedback d-block">{{ $message }}</div>
@@ -349,7 +369,7 @@
                             <div class="row mt-4">
                                 <div class="col-4">
                                     <label class="form-label"
-                                           for="quantity"><strong>Quantity</strong></label>
+                                           for="quantity"><strong>{{ __('messages.new-freight-quantity-label') }}</strong></label>
                                     <input type="text" class="form-control"
                                            id="quantity"
                                            name="quantity"
@@ -360,7 +380,7 @@
                                 </div>
                                 <div class="col-4">
                                     <label class="form-label"
-                                           for="weight"><strong>Weight (kg)</strong></label>
+                                           for="weight"><strong>{{ __('messages.new-freight-weight-label') }}</strong></label>
                                     <input type="text" class="form-control"
                                            id="weight"
                                            name="weight"
@@ -372,7 +392,7 @@
                             </div>
                             <div class="row-cols-auto mt-4">
                                 <label class="form-label"
-                                       for="description"><strong>Description</strong></label>
+                                       for="description"><strong>{{ __('messages.new-freight-description-label') }}</strong></label>
                                 <textarea class="form-control" id="description" rows="4"
                                           style="resize: none;"
                                           name="description">{{ old('description') }}</textarea>
@@ -380,7 +400,7 @@
                             <div class="row mt-4">
                                 <div class="col">
                                     <label class="form-label"
-                                           for="freight-type"><strong>Freight type</strong></label>
+                                           for="freight-type"><strong>{{ __('messages.new-freight-freight-type-label') }}</strong></label>
                                 </div>
                                 <div class="col">
                                     <input class="form-check-input"
@@ -406,8 +426,8 @@
                             </div>
                             <div class="row mt-4">
                                 <div class="col">
-                                    <button type="submit" class="btn btn-dark">SAVE</button>
-                                    <a href="{{ route('freight.list.active') }}" class="btn btn-secondary">CANCEL</a>
+                                    <button type="submit" class="btn btn-dark">{{ __('messages.new-freight-save-button') }}</button>
+                                    <a href="{{ route('freight.list.active') }}" class="btn btn-secondary">{{ __('messages.new-freight-cancel-button') }}</a>
                                 </div>
                             </div>
                         </div>

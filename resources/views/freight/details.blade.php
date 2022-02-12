@@ -5,7 +5,7 @@
 
         @if (session('status'))
             <div class="alert alert-success">
-                {{ session('status') }}
+                {{ __('messages.freight-details-freight-created-alert') }}
             </div>
         @endif
 
@@ -13,14 +13,14 @@
             <div class="card-header">
                 <div class="row">
                     <div class="col">
-                        <h2 class="">FREIGHT # {{ $freight->id }}</h2>
+                        <h2 class="">{{ __('messages.freight-details-card-title') }}{{ $freight->id }}</h2>
                     </div>
                     <div class="col-1">
-                        <a class="btn btn-dark" href="{{ route('freight.list.active') }}">BACK</a>
+                        <a class="btn btn-dark" href="{{ route('freight.list.active') }}">{{ __('messages.freight-details-back-button') }}</a>
                     </div>
                 </div>
                 <div class="row">
-                    <i>Publication date: {{ $freight->created_at }}</i>
+                    <i>{{ __('messages.freight-details-publication-date-label') }}{{ $freight->created_at }}</i>
                 </div>
 
             </div>
@@ -28,93 +28,119 @@
             <div class="card-body">
                 <div class="row text-center">
                     <div class="col">
-                        <h5>LOADING</h5>
+                        <h5>{{ __('messages.freight-details-loading-label') }}</h5>
                     </div>
                     <div class="col">
-                        <h5>UNLOADING</h5>
+                        <h5>{{ __('messages.freight-details-unloading-label') }}</h5>
                     </div>
                     <div class="col">
-                        <h5>TRUCK</h5>
+                        <h5>{{ __('messages.freight-details-truck-label') }}</h5>
                     </div>
                     <div class="col">
-                        <h5>CARGO</h5>
+                        <h5>{{ __('messages.freight-details-cargo-label') }}</h5>
                     </div>
                     <div class="col">
-                        <h5>CONTACT</h5>
+                        <h5>{{ __('messages.freight-details-contact-label') }}</h5>
                     </div>
                     <hr/>
                 </div>
                 <div class="row">
                     <div class="col">
                         <div class="row">
-                            <span><strong>Date:</strong> {{ $freight->start_date }}</span>
+                            <span><strong>{{ __('messages.freight-details-loading-date-label') }}</strong> {{ $freight->start_date }}</span>
                         </div>
                         <div class="row">
-                            <span><strong>Time:</strong> {{ $freight->start_time_from }}</span>
+                            <span><strong>{{ __('messages.freight-details-loading-time-label') }}</strong> {{ $freight->start_time_from }}</span>
                         </div>
                         <div class="row mt-3">
-                            <span><strong>Country:</strong> {{ $freight->startAddress->country }}</span>
+                            <span><strong>{{ __('messages.freight-details-loading-country-label') }}</strong> {{ $freight->startAddress->country }}</span>
                         </div>
+                        @if($freight->startAddress->postcode != null)
                         <div class="row">
-                            <span><strong>Postcode:</strong> {{ $freight->startAddress->postcode }}</span>
+                            <span><strong>{{ __('messages.freight-details-loading-postcode-label') }}</strong> {{ $freight->startAddress->postcode }}</span>
                         </div>
+                        @endif
                         <div class="row">
-                            <span><strong>City:</strong> {{ $freight->startAddress->city }}</span>
+                            <span><strong>{{ __('messages.freight-details-loading-city-label') }}</strong> {{ $freight->startAddress->city }}</span>
                         </div>
                     </div>
 
                     <div class="col">
                         <div class="row">
-                            <span><strong>Date:</strong> {{ $freight->end_date }}</span>
+                            <span><strong>{{ __('messages.freight-details-unloading-date-label') }}</strong> {{ $freight->end_date }}</span>
                         </div>
                         <div class="row">
-                            <span><strong>Time:</strong> {{ $freight->end_time_from }}</span>
+                            <span><strong>{{ __('messages.freight-details-unloading-time-label') }}</strong> {{ $freight->end_time_from }}</span>
                         </div>
                         <div class="row mt-3">
-                            <span><strong>Country:</strong> {{ $freight->endAddress->country }}</span>
+                            <span><strong>{{ __('messages.freight-details-unloading-country-label') }}</strong> {{ $freight->endAddress->country }}</span>
                         </div>
+                        @if($freight->endAddress->postcode != null)
                         <div class="row">
-                            <span><strong>Postcode:</strong> {{ $freight->endAddress->postcode }}</span>
+                            <span><strong>{{ __('messages.freight-details-unloading-postcode-label') }}</strong> {{ $freight->endAddress->postcode }}</span>
                         </div>
+                        @endif
                         <div class="row">
-                            <span><strong>City:</strong> {{ $freight->endAddress->city }}</span>
+                            <span><strong>{{ __('messages.freight-details-unloading-city-label') }}</strong> {{ $freight->endAddress->city }}</span>
                         </div>
                     </div>
 
                     <div class="col">
                         <div class="row">
-                            <span><strong>Truck size:</strong> {{ $freight->truckType->name }}</span>
+                            <span><strong>{{ __('messages.freight-details-truck-size-label') }}</strong>
+                            @if($freight->truckType->id == 1)
+                                    {{ __('messages.new-freight-truck-1-radio') }}
+                                @endif
+                                @if($freight->truckType->id == 2)
+                                    {{ __('messages.new-freight-truck-2-radio') }}
+                                @endif
+                                @if($freight->truckType->id == 3)
+                                    {{ __('messages.new-freight-truck-3-radio') }}
+                                @endif
+                            </span>
                         </div>
                         <div class="row">
-                            <span><strong>Truck type:</strong>
+                            <span><strong>{{ __('messages.freight-details-truck-type-label') }}</strong>
                             @foreach($freight->truck_id ?? [] as $truck)
                                     @if($loop->index > 0)
                                         {{'|'}}
                                     @endif
-                                    {{ $truck['name'] }}
+                                        @if($truck['id'] == 1) {{ __('messages.type-standard') }} @endif
+                                        @if($truck['id'] == 2) {{ __('messages.type-curtain') }} @endif
+                                        @if($truck['id'] == 3) {{ __('messages.type-box') }} @endif
+                                        @if($truck['id'] == 4) {{ __('messages.type-refrigerator') }} @endif
+                                        @if($truck['id'] == 5) {{ __('messages.type-mega') }} @endif
+                                        @if($truck['id'] == 6) {{ __('messages.type-container') }} @endif
                                 @endforeach</span>
                         </div>
                     </div>
                     <div class="col">
                         <div class="row">
-                            <span><strong>Quantity:</strong> {{ $freight->cargo->qty }} x {{ $freight->cargo->cargoType->name }}</span>
+                            <span><strong>{{ __('messages.freight-details-quantity-label') }}</strong> {{ $freight->cargo->qty }} x
+                            @if($freight->cargo->cargoType->id == 1) {{ __('messages.new-freight-cargo-type-1-select') }} @endif
+                                @if($freight->cargo->cargoType->id == 2) {{ __('messages.new-freight-cargo-type-2-select') }} @endif
+                                @if($freight->cargo->cargoType->id == 3) {{ __('messages.new-freight-cargo-type-3-select') }} @endif
+                                @if($freight->cargo->cargoType->id == 4) {{ __('messages.new-freight-cargo-type-4-select') }} @endif
+                                @if($freight->cargo->cargoType->id == 5) {{ __('messages.new-freight-cargo-type-5-select') }} @endif</span>
                         </div>
                         <div class="row">
-                            <span><strong>Weight:</strong> {{ $freight->cargo->weight }} kg</span>
+                            <span><strong>{{ __('messages.freight-details-weight-label') }}</strong> {{ $freight->cargo->weight }} kg</span>
                         </div>
                         <div class="row">
-                            <span><strong>Type:</strong> {{ $freight->freightType->name }}</span>
+                            <span><strong>{{ __('messages.freight-details-type-label') }}</strong> {{ $freight->freightType->name }}</span>
                         </div>
+                        @if($freight->cargo->description != null)
                         <div class="row">
-                            <strong>Description:</strong>
+                            <strong>{{ __('messages.freight-details-description-label') }}</strong>
                             <span style="white-space: pre-wrap;">{{ $freight->cargo->description }}</span>
                         </div>
+                        @endif
                     </div>
                     <div class="col">
 
                         @guest
                             <div class="row mt-5">
-                                <strong><a href="{{ route('login') }}">LOGIN</a> TO VIEW COTACT DETAILS</strong>
+                                <strong><a href="{{ route('login') }}">{{ __('messages.freight-details-unauth-login-label') }}</a>{{ __('messages.freight-details-unauth-text-label') }}</strong>
                             </div>
                         @else
                             <div class="row">

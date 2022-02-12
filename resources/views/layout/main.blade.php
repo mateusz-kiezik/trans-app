@@ -32,13 +32,13 @@
                 <!-- Left side of navbar -->
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('home.mainPage') }}">Home</a>
+                        <a class="nav-link" href="{{ route('home.mainPage') }}">{{ __('messages.navbar-home') }}</a>
                     </li>
 
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Freights
+                            {{ __('messages.navbar-freights') }}
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 
@@ -50,7 +50,7 @@
                                         <path
                                             d="M0 3.5A1.5 1.5 0 0 1 1.5 2h9A1.5 1.5 0 0 1 12 3.5V5h1.02a1.5 1.5 0 0 1 1.17.563l1.481 1.85a1.5 1.5 0 0 1 .329.938V10.5a1.5 1.5 0 0 1-1.5 1.5H14a2 2 0 1 1-4 0H5a2 2 0 1 1-3.998-.085A1.5 1.5 0 0 1 0 10.5v-7zm1.294 7.456A1.999 1.999 0 0 1 4.732 11h5.536a2.01 2.01 0 0 1 .732-.732V3.5a.5.5 0 0 0-.5-.5h-9a.5.5 0 0 0-.5.5v7a.5.5 0 0 0 .294.456zM12 10a2 2 0 0 1 1.732 1h.768a.5.5 0 0 0 .5-.5V8.35a.5.5 0 0 0-.11-.312l-1.48-1.85A.5.5 0 0 0 13.02 6H12v4zm-9 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm9 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
                                     </svg>
-                                    Active
+                                    {{ __('messages.navbar-freights-active') }}
                                 </div>
                             </a>
 
@@ -65,7 +65,7 @@
                                                 <path
                                                     d="M11.5 4a.5.5 0 0 1 .5.5V5h1.02a1.5 1.5 0 0 1 1.17.563l1.481 1.85a1.5 1.5 0 0 1 .329.938V10.5a1.5 1.5 0 0 1-1.5 1.5H14a2 2 0 1 1-4 0H5a2 2 0 1 1-4 0 1 1 0 0 1-1-1v-1h11V4.5a.5.5 0 0 1 .5-.5zM3 11a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm9 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm1.732 0h.768a.5.5 0 0 0 .5-.5V8.35a.5.5 0 0 0-.11-.312l-1.48-1.85A.5.5 0 0 0 13.02 6H12v4a2 2 0 0 1 1.732 1z"/>
                                             </svg>
-                                            New
+                                            {{ __('messages.navbar-freights-new') }}
                                         </div>
                                     </a>
                                 @endif
@@ -79,7 +79,7 @@
                                         <path
                                             d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
                                     </svg>
-                                    Find
+                                    {{ __('messages.navbar-freights-find') }}
                                 </div>
                             </a>
 
@@ -91,7 +91,7 @@
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Users
+                                    {{ __('messages.navbar-users') }}
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                     <div class="dropdown-item">
@@ -105,7 +105,7 @@
                                             <path d="M4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z"/>
                                         </svg>
                                         <a class="" style="color: black; text-decoration: none; margin-left: 15px;"
-                                           href="{{ route('user.list') }}">Active</a>
+                                           href="{{ route('user.list') }}">{{ __('messages.navbar-users-active') }}</a>
                                     </div>
 
                                     <div class="dropdown-item ml-4">
@@ -118,7 +118,7 @@
                                                   d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z"/>
                                         </svg>
                                         <a class="" style="color: black; text-decoration: none; margin-left: 15px;"
-                                           href="{{ route('user.new') }}">New</a>
+                                           href="{{ route('user.new') }}">{{ __('messages.navbar-users-new') }}</a>
                                     </div>
                                 </div>
                             </li>
@@ -128,18 +128,32 @@
 
                 <!-- Right side of navbar -->
                 <ul class="navbar-nav ms-auto">
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            {{ Config::get('languages')[App::getLocale()] }}
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            @foreach (Config::get('languages') as $lang => $language)
+                                @if ($lang != App::getLocale())
+                                    <a class="dropdown-item" href="{{ route('lang.switch', $lang) }}"> {{$language}}</a>
+                                @endif
+                            @endforeach
+                        </div>
+                    </li>
+
                     @guest
                         @if (Route::has('login'))
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                <a class="nav-link" href="{{ route('login') }}">{{ __('messages.navbar-login') }}</a>
                             </li>
                         @endif
 
-                        @if (Route::has('register'))
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                            </li>
-                        @endif
+{{--                        @if (Route::has('register'))--}}
+{{--                            <li class="nav-item">--}}
+{{--                                <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>--}}
+{{--                            </li>--}}
+{{--                        @endif--}}
                     @else
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
@@ -149,12 +163,12 @@
 
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="{{ route('user.profile.show')}}">
-                                    My profile
+                                    {{ __('messages.navbar-profile-my-profile') }}
                                 </a>
                                 <a class="dropdown-item"
                                    onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                    {{ __('Logout') }}
+                                    {{ __('messages.navbar-profile-logout') }}
                                 </a>
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                     @csrf
@@ -199,7 +213,7 @@
         $('#datepicker1').datetimepicker({
             format: 'L',
             format: 'YYYY-MM-DD',
-
+            locale: '{{ __('messages.lang-select') }}'
         });
     });
 </script>
@@ -208,7 +222,7 @@
         $('#datepicker2').datetimepicker({
             format: 'L',
             format: 'YYYY-MM-DD',
-
+            locale: '{{ __('messages.lang-select') }}'
         });
     });
 </script>
@@ -217,7 +231,7 @@
         $('#datepicker3').datetimepicker({
             format: 'L',
             format: 'YYYY-MM-DD',
-
+            locale: '{{ __('messages.lang-select') }}'
         });
     });
 </script>
@@ -226,7 +240,7 @@
         $('#datepicker4').datetimepicker({
             format: 'L',
             format: 'YYYY-MM-DD',
-
+            locale: '{{ __('messages.lang-select') }}'
         });
     });
 </script>
@@ -258,11 +272,11 @@
         if (filters.classList.contains('hide')) {
             filters.classList.remove('hide');
             filters.classList.add('show');
-            button.textContent = "Less filters";
+            button.textContent = "{{ __('messages.freight-find-less-filters-button') }}";
         } else {
             filters.classList.remove('show');
             filters.classList.add('hide');
-            button.textContent = 'More filters';
+            button.textContent = '{{ __('messages.freight-find-more-filters-button') }}';
         }
 
     }
@@ -334,52 +348,6 @@
     })
 </script>
 
-{{--<script>--}}
-{{--    function pressEnter(id) {--}}
-{{--        if (event.keyCode === 13 && id === 'country') {--}}
-{{--            findByCountry()--}}
-{{--        }--}}
-{{--        if (event.keyCode === 13 && id === 'postcode') {--}}
-{{--            findByPostcode()--}}
-{{--        }--}}
-{{--        if (event.keyCode === 13 && id === 'city') {--}}
-{{--            findByCity()--}}
-{{--        }--}}
-
-
-{{--        function findByCountry() {--}}
-
-{{--        }--}}
-
-{{--        function findByPostcode() {--}}
-{{--            async function getapi1()--}}
-{{--            {--}}
-{{--                let postcode = document.getElementById('postcode').value;--}}
-{{--                let response = await fetch('/api/postcode/' + postcode);--}}
-{{--                var data = await response.json();--}}
-
-{{--                document.getElementById('city').value = data[0].city;--}}
-{{--                document.getElementById('country').value = data[0].country;--}}
-{{--            }--}}
-{{--            getapi1();--}}
-{{--        }--}}
-
-{{--        function findByCity() {--}}
-{{--            async function getapi()--}}
-{{--            {--}}
-{{--                let city = document.getElementById('city').value;--}}
-{{--                let response = await fetch('/api/city/' + city);--}}
-{{--                var data = await response.json();--}}
-
-{{--                document.getElementById('postcode').value = data[0].postcode;--}}
-{{--                document.getElementById('country').value = data[0].country;--}}
-{{--            }--}}
-{{--            getapi();--}}
-{{--        }--}}
-
-{{--    }--}}
-{{--</script>--}}
-
 <script>
     function addressAutocomplete(containerElement, inputName, action, callback) {
         // create input element
@@ -387,7 +355,7 @@
         inputElement.setAttribute("type", "text");
         inputElement.setAttribute("name", inputName);
         inputElement.setAttribute("class", "form-control");
-        inputElement.setAttribute("placeholder", "Enter an address here");
+        inputElement.setAttribute("placeholder", "{{ __('messages.new-freight-address-input-placeholder') }}");
         if (inputElement.getAttribute("name") == "loadingAddress") {
             inputElement.setAttribute("value", "{{ old('loadingAddress') }}")
         }

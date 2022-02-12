@@ -48,6 +48,27 @@ class UserRepository implements UserRepositoryInterface
         Auth::login($user);
     }
 
+    public function updateUserModel(User $user, array $data): void
+    {
+        //dd($data);
+        if ($data['password'] == null)
+        {
+            $user->company = $data['company'] ?? $user->company;
+            $user->name = $data['name'] ?? $user->name;
+//        $user->email = $data['email'] ?? $user->email;
+            $user->phone_number = $data['phone'] ?? $user->phone_number;
+        } else
+        {
+            $user->company = $data['company'] ?? $user->company;
+            $user->name = $data['name'] ?? $user->name;
+//        $user->email = $data['email'] ?? $user->email;
+            $user->password = bcrypt($data['password']) ?? $user->password;
+            $user->phone_number = $data['phone'] ?? $user->phone_number;
+        }
+
+        $user->save();
+    }
+
     public function all(): Collection
     {
         return $this->userModel->get();

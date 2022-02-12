@@ -16,7 +16,7 @@
         <div class="card">
 
 
-            <h2 class="card-header">FIND FREIGHT</h2>
+            <h2 class="card-header">{{ __('messages.freight-find-cart-title') }}</h2>
             <div class="card-body text-center">
 
                 <form autocomplete="off" action="{{ route('freight.find.results') }}" method="post"
@@ -27,12 +27,12 @@
                         <div class="col-3">
 
                             <div class="row">
-                                <label class="form-label"><strong>Loading date</strong></label>
+                                <label class="form-label"><strong>{{ __('messages.freight-find-loading-date-label') }}</strong></label>
                             </div>
 
                             <div class="row align-items-center">
                                 <div class="col-3">
-                                    <h6>From:</h6>
+                                    <h6>{{ __('messages.freight-find-loading-from-label') }}</h6>
                                 </div>
 
                                 <div class="col">
@@ -61,7 +61,7 @@
 
                             <div class="row mt-3 align-items-center">
                                 <div class="col-3">
-                                    <h6>To:</h6>
+                                    <h6>{{ __('messages.freight-find-loading-to-label') }}</h6>
                                 </div>
 
                                 <div class="col">
@@ -93,12 +93,12 @@
 
                         <div class="col-3 ms-5">
                             <div class="row">
-                                <label class="form-label"><strong>Unloading date</strong></label>
+                                <label class="form-label"><strong>{{ __('messages.freight-find-unloading-date-label') }}</strong></label>
                             </div>
 
                             <div class="row align-items-center">
                                 <div class="col-3">
-                                    <h6>From:</h6>
+                                    <h6>{{ __('messages.freight-find-unloading-from-label') }}</h6>
                                 </div>
 
                                 <div class="col">
@@ -129,7 +129,7 @@
 
                             <div class="row mt-3 align-items-center">
                                 <div class="col-3">
-                                    <h6>To:</h6>
+                                    <h6>{{ __('messages.freight-find-unloading-to-label') }}</h6>
                                 </div>
 
                                 <div class="col">
@@ -166,12 +166,12 @@
 
 
                             <div class="row justify-content-end">
-                                <input class="btn btn-dark" type="submit" value="Find" style="width:30%;">
+                                <input class="btn btn-dark" type="submit" value="{{ __('messages.freight-find-find-button') }}" style="width:30%;">
                             </div>
                             <div class="row mt-3 justify-content-end">
                                 {{--                                <input id="filterButton" class="btn btn-light" value="Show filters" style="width:30%; text-decoration:none;" onclick="showFilters();">--}}
                                 <button id="filterButton" type="button" class="btn btn-light" style="width:30%;"
-                                        onclick="showFilters();">More filters
+                                        onclick="showFilters();">{{ __('messages.freight-find-more-filters-button') }}
                                 </button>
                             </div>
                         </div>
@@ -181,31 +181,31 @@
                         <hr/>
                         <div class="row">
                             <div class="col-3">
-                                <label class="form-label"><strong>Truck type</strong></label>
+                                <label class="form-label"><strong>{{ __('messages.freight-find-truck-type-label') }}</strong></label>
                                 <div class="input-group">
                                     <input class="form-check me-2" type="checkbox" name="truckType[]" value="1">
-                                    <label class="form-check-label">Bus</label>
+                                    <label class="form-check-label">{{ __('messages.freight-find-bus-check-label') }}</label>
 
                                     <input class="form-check ms-3 me-2" type="checkbox" name="truckType[]" value="2">
-                                    <label class="form-check-label">Solo</label>
+                                    <label class="form-check-label">{{ __('messages.freight-find-solo-check-label') }}</label>
 
                                     <input class="form-check ms-3 me-2" type="checkbox" name="truckType[]" value="3">
-                                    <label class="form-check-label">Semi-trailer</label>
+                                    <label class="form-check-label">{{ __('messages.freight-find-trailer-check-label') }}</label>
                                 </div>
                             </div>
 
                             <div class="col-2">
-                                <label class="form-label"><strong>Max cargo weight (kg)</strong></label>
+                                <label class="form-label"><strong>{{ __('messages.freight-find-weight-label') }}</strong></label>
                                 <input class="form-control" type="number" name="weight">
                             </div>
 
                             <div class="col-3 ms-4">
                                 <div class="row">
-                                    <label class="form-label"><strong>Loading address</strong></label>
+                                    <label class="form-label"><strong>{{ __('messages.freight-find-loading-address-label') }}</strong></label>
                                 </div>
                                 <div class="row align-items-center">
                                     <div class="col-4">
-                                        <h6>City:</h6>
+                                        <h6>{{ __('messages.freight-find-loading-city-label') }}</h6>
                                     </div>
                                     <div class="col">
                                         <input class="form-control" type="text" name="loadingCity">
@@ -213,14 +213,14 @@
                                 </div>
                                 <div class="row align-items-center mt-3">
                                     <div class="col-4">
-                                        <h6 class="me-2">Country:</h6>
+                                        <h6 class="me-2">{{ __('messages.freight-find-loading-country-label') }}</h6>
                                     </div>
                                     <div class="col">
 {{--                                        <input class="form-control" type="text" name="loadingCountry">--}}
 
                                         <select class="form-select"
                                                 name="loadingCountry">
-                                            <option value="%">-- All --</option>
+                                            <option value="%">{{ __('messages.freight-find-loading-country-select-all') }}</option>
                                             @foreach($loadingCountries ?? [] as $country)
                                                 <option value="{{ $country }}">{{ $country }}</option>
                                             @endforeach
@@ -232,11 +232,11 @@
 
                             <div class="col-3 ms-4">
                                 <div class="row">
-                                    <label class="form-label"><strong>Unloading address</strong></label>
+                                    <label class="form-label"><strong>{{ __('messages.freight-find-unloading-address-label' ) }}</strong></label>
                                 </div>
                                 <div class="row align-items-center">
                                     <div class="col-4">
-                                        <h6 class="me-2">City:</h6>
+                                        <h6 class="me-2">{{ __('messages.freight-find-unloading-city-label') }}</h6>
                                     </div>
                                     <div class="col">
                                         <input class="form-control" type="text" name="unloadingCity">
@@ -244,7 +244,7 @@
                                 </div>
                                 <div class="row align-items-center mt-3">
                                     <div class="col-4">
-                                        <h6 class="me-2">Country:</h6>
+                                        <h6 class="me-2">{{ __('messages.freight-find-unloading-country-label') }}</h6>
                                     </div>
                                     <div class="col">
 {{--                                        <input class="form-control" type="text" name="unloadingCountry">--}}
@@ -252,7 +252,7 @@
 
                                         <select class="form-select"
                                                 name="unloadingCountry">
-                                            <option value="%">-- All --</option>
+                                            <option value="%">{{ __('messages.freight-find-unloading-country-select-all') }}</option>
                                             @foreach($unloadingCountries ?? [] as $country)
                                                 <option value="{{ $country }}">{{ $country }}</option>
                                             @endforeach

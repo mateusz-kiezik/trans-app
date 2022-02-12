@@ -41,6 +41,11 @@ Route::post('/freights/find/results', 'Freight\FreightController@findResults')
 
 Route::get('freights/find/results', 'Freight\FreightController@redirectResults');
 
+Route::get('lang/{lang}', ['as' => 'lang.switch', 'uses' => 'LanguageController@switchLang']);
+
+
+
+
 Route::group(['middleware' => ['auth']], function() {
 
 

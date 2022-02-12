@@ -70,7 +70,7 @@ class UserController extends Controller
 
         $this->userRepository->updateStatus($user, false);
 
-        return redirect()->action([UserController::class, 'list'])->with('status', 'User disabled');
+        return redirect()->action([UserController::class, 'list'])->with('user-deleted', true);
     }
 //
 //    public function enableUser(Request $request)
@@ -118,7 +118,7 @@ class UserController extends Controller
         $userId = $request->get('userId');
         $user = User::findOrFail($userId);
 
-        $this->userRepository->updateModel(
+        $this->userRepository->updateUserModel(
             $user, $request->all()
         );
 
@@ -142,7 +142,7 @@ class UserController extends Controller
 
         $this->userRepository->create($request->all());
 
-        return redirect()->action([UserController::class, 'list'])->with('status', 'New user created');
+        return redirect()->action([UserController::class, 'list'])->with('user-created', true);
     }
 
 

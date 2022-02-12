@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         <div class="card">
-            <h2 class="card-header">EDIT USER</h2>
+            <h2 class="card-header">{{ __('messages.edit-user-card-title') }}</h2>
             <div class="card-body">
                 @if (session('status'))
                     <div class="alert alert-success">
@@ -17,7 +17,7 @@
                                 <div class="row mt-1">
                                     <div class="col">
                                         <div class="form-group">
-                                            <label class="form-label" for="company"><strong>Company</strong></label>
+                                            <label class="form-label" for="company"><strong>{{ __('messages.company-label') }}</strong></label>
                                             <input class="form-control @error('company') is-invalid @enderror" id="company" type="text"
                                                    value="{{ old('company', $user->company) }}"
                                                    name="company">
@@ -31,7 +31,7 @@
                                 <div class="row mt-4">
                                     <div class="col">
                                         <div class="form-group">
-                                            <label class="form-label" for="name"><strong>Name</strong></label>
+                                            <label class="form-label" for="name"><strong>{{ __('messages.name-label') }}</strong></label>
                                             <input class="form-control @error('name') is-invalid @enderror" id="name" type="text"
                                                    value="{{ old('name', $user->name) }}"
                                                    name="name">
@@ -45,7 +45,7 @@
                                 <div class="row mt-4">
                                     <div class="col">
                                         <div class="form-group">
-                                            <label class="form-label" for="email"><strong>Email</strong></label>
+                                            <label class="form-label" for="email"><strong>{{ __('messages.email-label') }}</strong></label>
                                             <input class="form-control" id="email" type="text"
                                                    value="{{ $user->email }}"
                                                    name="name" disabled>
@@ -56,7 +56,7 @@
                                 <div class="row mt-4">
                                     <div class="col">
                                         <div class="form-group">
-                                            <label class="form-label" for="phone"><strong>Phone number</strong></label>
+                                            <label class="form-label" for="phone"><strong>{{ __('messages.phone-number-label') }}</strong></label>
                                             <input class="form-control @error('phone') is-invalid @enderror" id="phone" type="tel"
                                                    value="{{ old('phone', $user->phone_number) }}"
                                                    name="phone">
@@ -72,7 +72,7 @@
                                 <div class="row mt-1">
                                     <div class="col">
                                         <div class="form-group">
-                                            <label class="form-label" for="password"><strong>New password</strong></label>
+                                            <label class="form-label" for="password"><strong>{{ __('messages.new-password-label') }}</strong></label>
                                             <input class="form-control @error('password') is-invalid @enderror" id="password" type="password"
                                                    value=""
                                                    name="password">
@@ -83,7 +83,7 @@
                                 <div class="row mt-4">
                                     <div class="col">
                                         <div class="form-group">
-                                            <label class="form-label" for="password_confirmation"><strong>Confirm new password</strong></label>
+                                            <label class="form-label" for="password_confirmation"><strong>{{ __('messages.confirm-new-password-label') }}</strong></label>
                                             <input class="form-control @error('password') is-invalid @enderror" id="password_confirmation" type="password"
                                                    value=""
                                                    name="password_confirmation">
@@ -98,8 +98,8 @@
                                     <div class="col">
                                         <div class="form-group">
                                             <input hidden id="userId" name="userId" value="{{$user->id}}">
-                                            <button type="submit" class="btn btn-dark">UPDATE</button>
-                                            <a href="{{ route('user.list') }}" class="btn btn-secondary">CANCEL</a>
+                                            <button type="submit" class="btn btn-dark">{{ __('messages.update-button') }}</button>
+                                            <a href="{{ route('user.list') }}" class="btn btn-secondary">{{ __('messages.cancel-button') }}</a>
                                         </div>
                                     </div>
                                 </div>

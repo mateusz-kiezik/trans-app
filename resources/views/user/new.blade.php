@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         <div class="card">
-            <h2 class="card-header">NEW USER</h2>
+            <h2 class="card-header">{{ __('messages.new-user-card-title') }}</h2>
             <div class="card-body">
                 @if (session('status'))
                     <div class="alert alert-success">
@@ -18,7 +18,7 @@
                         <div class="col-6">
                             <div class="row mt-1">
                                 <div class="form-group">
-                                    <label class="form-label" for="company"><strong>Company</strong></label>
+                                    <label class="form-label" for="company"><strong>{{ __('messages.company-label') }}</strong></label>
                                     <input class="form-control @error('company') is-invalid @enderror" id="company" type="text"
                                            value="{{ old('company') }}"
                                            name="company">
@@ -30,7 +30,7 @@
 
                             <div class="row mt-3">
                                 <div class="form-group">
-                                    <label class="form-label" for="name"><strong>Name</strong></label>
+                                    <label class="form-label" for="name"><strong>{{ __('messages.name-label') }}</strong></label>
                                     <input class="form-control @error('name') is-invalid @enderror" id="name" type="text"
                                            value="{{ old('name') }}"
                                            name="name">
@@ -42,7 +42,7 @@
 
                             <div class="row mt-3">
                                 <div class="form-group">
-                                    <label class="form-label" for="email"><strong>Email</strong></label>
+                                    <label class="form-label" for="email"><strong>{{ __('messages.email-label') }}</strong></label>
                                     <input class="form-control @error('email') is-invalid @enderror" id="email" type="email"
                                            value="{{ old('email') }}"
                                            name="email">
@@ -56,7 +56,7 @@
 
                             <div class="row mt-3">
                                 <div class="form-group">
-                                    <label class="form-label" for="phone"><strong>Phone number</strong></label>
+                                    <label class="form-label" for="phone"><strong>{{ __('messages.phone-number-label') }}</strong></label>
                                     <input class="form-control @error('phone') is-invalid @enderror" id="phone" type="number"
                                            value="{{ old('phone') }}"
                                            name="phone">
@@ -70,11 +70,11 @@
                                 @if (auth()->user()->isAdmin())
                                     <div class="row mt-3">
                                         <div class="form-group">
-                                            <label class="form-label" for="accountType"><strong>Account type</strong></label>
+                                            <label class="form-label" for="accountType"><strong>{{ __('messages.account-type-label') }}</strong></label>
                                             <select class="form-select" id="accountType" name="accountType">
-                                                <option selected value="user">User</option>
-                                                <option value="forwarder">Forwarder</option>
-                                                <option value="admin">Admin</option>
+                                                <option selected value="user">{{ __('messages.user-label') }}</option>
+                                                <option value="forwarder">{{ __('messages.forwarder-label') }}</option>
+                                                <option value="admin">{{ __('messages.admin-label') }}</option>
                                             </select>
                                             @error('accountType')
                                             <div class="invalid-feedback d-block">{{ $message }}</div>
@@ -99,8 +99,8 @@
 
                             <div class="row mt-3">
                                 <div class="form-group">
-                                    <button type="submit" class="btn btn-dark">SAVE</button>
-                                    <a href="{{ route('user.list') }}" class="btn btn-secondary">CANCEL</a>
+                                    <button type="submit" class="btn btn-dark">{{ __('messages.save-button') }}</button>
+                                    <a href="{{ route('user.list') }}" class="btn btn-secondary">{{ __('messages.cancel-button') }}</a>
                                 </div>
                             </div>
 

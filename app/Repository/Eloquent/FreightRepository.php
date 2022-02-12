@@ -30,12 +30,12 @@ class FreightRepository implements FreightRepositoryInterface
 
     public function all()
     {
-        return $this->freightModel->paginate(10);
+        return $this->freightModel->paginate(5);
     }
 
     public function allActive()
     {
-        return $this->freightModel->where('status_id', 1)->paginate(10);
+        return $this->freightModel->where('status_id', 1)->paginate(5);
     }
 
     public function create(array $data)
