@@ -13,7 +13,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
-use function MongoDB\BSON\toJSON;
 
 class FreightController extends Controller
 {
@@ -30,9 +29,30 @@ class FreightController extends Controller
     }
 
 
-    public function list(): View
+    public function list(Request $request): View
     {
-        $freights = $this->freightRepository->allActive();
+        $freights = null;
+        $sortBy = $request->get('sortBy');
+
+
+        if ($sortBy != null) {
+            if ($sortBy == 'loadingDateAsc') {
+                $freights = $this->freightRepository->sortBy('start_date', 'asc');
+            } elseif ($sortBy == 'loadingDateDesc') {
+                $freights = $this->freightRepository->sortBy('start_date', 'desc');
+            } elseif ($sortBy == 'unloadingDateAsc') {
+                $freights = $this->freightRepository->sortBy('end_date', 'asc');
+            } elseif ($sortBy == 'unloadingDateDesc') {
+                $freights = $this->freightRepository->sortBy('end_date', 'desc');
+            } else {
+                $freights = $this->freightRepository->allActive();
+            }
+
+        } else {
+            $freights = $this->freightRepository->allActive();
+        }
+
+
 
         foreach ($freights as $freight) {
 
@@ -56,6 +76,88 @@ class FreightController extends Controller
         ]);
     }
 
+    public function find()
+    {
+        $freights = $this->freightRepository->allActive();
+        $loadingCountries = [];
+        $unloadingCountries = [];
+        $count = 0;
+
+        foreach ($freights ?? [] as $freight) {
+            $loadingCountries[$count] = $freight->startAddress->country;
+            $unloadingCountries[$count] = $freight->endAddress->country;
+            $count++;
+        }
+
+        $loadingCountries = array_unique($loadingCountries);
+        $unloadingCountries = array_unique($unloadingCountries);
+        sort($loadingCountries);
+        sort($unloadingCountries);
+
+
+        return view('freight.find', [
+            'loadingCountries' => $loadingCountries,
+            'unloadingCountries' => $unloadingCountries
+        ]);
+    }
+
+    public function redirectResults()
+    {
+        return redirect(route('freight.find'));
+    }
+
+    public function findResults(Request $request)
+    {
+
+        $freightsCountries = $this->freightRepository->allActive();
+        $loadingCountries = [];
+        $unloadingCountries = [];
+        $count = 0;
+
+        foreach ($freightsCountries ?? [] as $freight) {
+            $loadingCountries[$count] = $freight->startAddress->country;
+            $unloadingCountries[$count] = $freight->endAddress->country;
+            $count++;
+        }
+
+        $loadingCountries = array_unique($loadingCountries);
+        $unloadingCountries = array_unique($unloadingCountries);
+
+        $parameters = ['loadingDateFrom' => $request->get('loadingDateFrom'),
+            'loadingDateTo' => $request->get('loadingDateTo'),
+            'unloadingDateFrom' => $request->get('unloadingDateFrom'),
+            'unloadingDateTo' => $request->get('unloadingDateTo'),
+            'truckType' => $request->get('truckType') ?? array(1, 2, 3),
+            'weight' => $request->get('weight') ?? 99999,
+            'loadingCity' => $request->get('loadingCity') ?? '%',
+            'loadingCountry' => $request->get('loadingCountry') ?? '%',
+            'unloadingCity' => $request->get('unloadingCity') ?? '%',
+            'unloadingCountry' => $request->get('unloadingCountry') ?? '%'];
+
+        $freights = $this->freightRepository->find($parameters);
+
+
+        $count = 0;
+        foreach ($freights as $freight) {
+
+            $freight->truck_id = json_decode($freight->truck_id);
+            $count++;
+        }
+
+        sort($loadingCountries);
+        sort($unloadingCountries);
+
+        return view('freight.results', [
+            'freights' => $freights,
+            'loadingCountries' => $loadingCountries,
+            'unloadingCountries' => $unloadingCountries,
+            'findValues' => $request,
+            'status' => $count . ' results found',
+            'count' => $count
+        ]);
+    }
+
+
     public function new()
     {
         if (!Gate::allows('forwarder-level')) {
@@ -69,8 +171,23 @@ class FreightController extends Controller
         if (!Gate::allows('forwarder-level')) {
             abort(403);
         }
-        $loadingAddress = $request->get('loadingAddress');
-        $unloadingAddress = $request->get('unloadingAddress');
+
+
+        $loadingAddress['country'] = $request->get('loadingCountry');
+        $loadingAddress['city'] = $request->get('loadingCity');
+        $loadingAddress['postcode'] = $request->get('loadingPostcode');
+        $loadingAddress['latitude'] = $request->get('loadingLat');
+        $loadingAddress['longitude'] = $request->get('loadingLon');
+        $loadingAddress['type'] = 'L';
+
+        $unloadingAddress['country'] = $request->get('unloadingCountry');
+        $unloadingAddress['city'] = $request->get('unloadingCity');
+        $unloadingAddress['postcode'] = $request->get('unloadingPostcode');
+        $unloadingAddress['latitude'] = $request->get('unloadingLat');
+        $unloadingAddress['longitude'] = $request->get('unloadingLon');
+        $unloadingAddress['type'] = 'U';
+
+
         $loadingAddressId = $this->addressRepository->createAndGetId($loadingAddress);
         $unloadingAddressId = $this->addressRepository->createAndGetId($unloadingAddress);
         $cargoId = $this->cargoRepository->createAndGetId($request->only(

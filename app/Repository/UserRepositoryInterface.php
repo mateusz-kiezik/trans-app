@@ -13,11 +13,13 @@ interface UserRepositoryInterface
 
     public function all(): Collection;
 
-    public function allActive(): Collection;
+    public function allActive();
 
     public function allDisabled(): Collection;
 
     public function get(int $id): User;
 
     public function create(array $data);
+
+    public function filter($userRole);
 }

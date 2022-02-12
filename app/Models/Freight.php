@@ -81,4 +81,41 @@ class Freight extends Model
             ->where('status_id', 1);
     }
 
+    public function scopeSort(Builder $query, $column, $direction)
+    {
+        return $query->where('status_id', 1)->orderBy($column, $direction);
+    }
+
+    public function scopeFinder(Builder $query, $parameters)
+    {
+        $weight = $parameters['weight'];
+        $startCity = $parameters['loadingCity'];
+        $startCountry = $parameters['loadingCountry'];
+        $endCity = $parameters['unloadingCity'];
+        $endCountry = $parameters['unloadingCountry'];
+
+        return $query
+            ->whereHas('Cargo', function ($q) use ($weight) {
+                $q->where('weight', '<=', $weight);
+            })
+            ->whereHas('startAddress', function ($q) use ($startCity) {
+                $q->where('city', 'LIKE', $startCity);
+            })
+            ->whereHas('startAddress', function ($q) use ($startCountry) {
+                $q->where('country', 'LIKE', $startCountry);
+            })
+            ->whereHas('endAddress', function ($q) use ($endCity) {
+                $q->where('city', 'LIKE', $endCity);
+            })
+            ->whereHas('endAddress', function ($q) use ($endCountry) {
+                $q->where('country', 'LIKE', $endCountry);
+            })
+            ->where('start_date', '>=', $parameters['loadingDateFrom'] ?? '1960-01-01')
+            ->where('start_date', '<=', $parameters['loadingDateTo'] ?? '2100-12-31')
+            ->where('end_date', '>=', $parameters['unloadingDateFrom'] ?? '1960-01-01')
+            ->where('end_date', '<=', $parameters['unloadingDateTo'] ?? '2100-12-31')
+            ->whereIn('truck_type_id', $parameters['truckType']);
+
+    }
+
 }

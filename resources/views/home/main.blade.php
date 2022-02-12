@@ -6,7 +6,7 @@
             <h2 class="card-header">5 newest freight</h2>
             <div class="card-body text-center">
                 <div class="row">
-                    <div class="col">
+                    <div class="col-2 border-end border-dark">
                         <strong>Loading</strong>
                         <div class="row">
                             <div class="col">
@@ -17,7 +17,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col">
+                    <div class="col-2 border-end border-dark">
                         <strong>Unloading</strong>
                         <div class="row">
                             <div class="col">
@@ -28,13 +28,13 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col">
+                    <div class="col-3 border-end border-dark">
                         <strong>Truck</strong>
                     </div>
-                    <div class="col">
+                    <div class="col-4 border-end border-dark">
                         <strong>Cargo</strong>
                     </div>
-                    <div class="col">
+                    <div class="col-1">
                         <strong>Actions</strong>
                     </div>
                 </div>
@@ -43,7 +43,7 @@
 
                 @foreach($freights ?? [] as $freight)
                     <div class="row">
-                        <div class="col">
+                        <div class="col-2 border-end border-dark">
                             <div class="row">
                                 <div class="col">
                                     {{ $freight->start_date }}
@@ -53,7 +53,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col">
+                        <div class="col-2 border-end border-dark">
                             <div class="row">
                                 <div class="col">
                                     {{ $freight->end_date }}
@@ -63,7 +63,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col">
+                        <div class="col-3 border-end border-dark">
                             <div>{{ $freight->truckType->name }}</div>
                             <div>
                                 @foreach($freight->truck_id ?? [] as $truck)
@@ -75,11 +75,16 @@
                             </div>
                             {{ $freight->freightType->name }}
                         </div>
-                        <div class="col">
-                            {{ $freight->cargo->cargoType->name }} x {{ $freight->cargo->qty }}
-                            / {{ $freight->cargo->weight }} kg
+                        <div class="col-4 border-end border-dark">
+                            <div>
+                                {{ $freight->cargo->cargoType->name }} x {{ $freight->cargo->qty }}
+                                / {{ $freight->cargo->weight }} kg
+                            </div>
+                            @if($freight->cargo->description != null)
+                                <div style="white-space: pre-wrap;">Description: {{ $freight->cargo->description }}</div>
+                            @endif
                         </div>
-                        <div class="col">
+                        <div class="col-1">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
                                  class="bi bi-credit-card-2-front-fill" viewBox="0 0 16 16">
                                 <a href="{{ route('freight.details', $freight->id) }}"

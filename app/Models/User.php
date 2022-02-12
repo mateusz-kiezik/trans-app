@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -54,5 +55,27 @@ class User extends Authenticatable
     public function isForwarder(): bool
     {
         return (bool) $this->forwarder;
+    }
+
+    public function scopeFilter(Builder $query, $userRole): Builder
+    {
+        if ($userRole == 'admin')
+        {
+            return $query->where('status', 1)
+                ->where('admin', 1);
+        } elseif ($userRole == 'forwarder')
+        {
+            return $query->where('status', 1)
+                ->where('forwarder', 1)
+                ->Where('admin', 0);
+        } elseif ($userRole == 'user')
+        {
+            return $query->where('status', 1)
+                ->where('forwarder', 0)
+                ->where('admin', 0);
+        } else
+        {
+            return $query->where('status', 1);
+        }
     }
 }

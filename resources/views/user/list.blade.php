@@ -1,33 +1,61 @@
 @extends('layout.main')
 
 @section('content')
+
     <div class="container">
         <div class="card">
-            <h2 class="card-header">USERS</h2>
+            <div class="card-header d-flex">
+                <h2 class="me-auto p-2">{{ __('messages.users-list-card-title') }}</h2>
+
+                <div class="form-group p-2">
+                    <label class="form-label me-2"><strong>{{ __('messages.users-list-filter-by-label') }}</strong></label>
+                    <select class="" onchange="location = this.value;">
+                        <option value="/users" {{ (request('filter') == null ? 'selected=selected' : '') }}>{{ __('messages.filter-all-label') }}</option>
+                        <option value="?filter=user" {{ (request('filter') == 'user' ? 'selected=selected' : '') }}>
+                            {{ __('messages.user-label') }}
+                        </option>
+                        <option
+                            value="?filter=forwarder" {{ (request('filter') == 'forwarder' ? 'selected=selected' : '') }}>
+                            {{ __('messages.forwarder-label') }}
+                        </option>
+                        <option value="?filter=admin" {{ (request('filter') == 'admin' ? 'selected=selected' : '') }}>
+                            {{ __('messages.admin-label') }}
+                        </option>
+                    </select>
+                </div>
+
+            </div>
+
+
             <div class="card-body">
-                @if (session('status'))
+                @if (session('user-created'))
                     <div class="alert alert-success">
-                        {{ session('status') }}
+                        {{ __('messages.new-user-created-alert') }}
                     </div>
                 @endif
+                    @if (session('user-deleted'))
+                        <div class="alert alert-success">
+                            {{ __('messages.user-deleted-alert') }}
+                        </div>
+                    @endif
                 <div class="row">
                     <div class="col">
-                        <strong>Company</strong>
+                        <strong>{{ __('messages.company-label') }}</strong>
                     </div>
                     <div class="col">
-                        <strong>Name</strong>
+                        <strong>{{ __('messages.name-label') }}</strong>
                     </div>
                     <div class="col">
-                        <strong>Email</strong>
+                        <strong>{{ __('messages.email-label') }}</strong>
                     </div>
                     <div class="col">
-                        <strong>Phone number</strong>
+                        <strong>{{ __('messages.phone-number-label') }}</strong>
                     </div>
                     <div class="col">
-                        <strong>Account type</strong>
+                        <strong>{{ __('messages.account-type-label') }}</strong>
                     </div>
                     <div class="col">
-                        <strong>Actions</strong>
+                        <strong>{{ __('messages.actions-label') }}</strong>
                     </div>
                 </div>
                 <hr/>
@@ -48,11 +76,11 @@
                         </div>
                         <div class="col">
                             @if($user->admin == 1)
-                                Admin
+                                {{ __('messages.admin-label') }}
                             @elseif($user->forwarder == 1)
-                                Forwarder
+                                {{ __('messages.forwarder-label') }}
                             @else
-                                User
+                                {{ __('messages.user-label') }}
                             @endif
                         </div>
                         <div class="col">
@@ -62,7 +90,7 @@
                                          class="bi bi-credit-card-2-front-fill" viewBox="0 0 16 16">
                                         <a href="{{ route('user.details', $user->id) }}"
                                            style="text-decoration: none; color: black"
-                                           data-toggle="tooltip" data-placement="top" title="Details">
+                                           data-toggle="tooltip" data-placement="top" title="{{ __('messages.details-tooltip') }}">
                                             <path
                                                 d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4zm2.5 1a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h2a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-2zm0 3a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5zm0 2a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1zm3 0a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1zm3 0a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1zm3 0a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1z"/>
                                         </a>
@@ -73,7 +101,7 @@
                                          class="bi bi-pencil-square" viewBox="0 0 16 16">
                                         <a href="{{ route('user.edit', $user->id) }}"
                                            style="text-decoration: none; color: black"
-                                           data-toggle="tooltip" data-placement="top" title="Edit">
+                                           data-toggle="tooltip" data-placement="top" title="{{ __('messages.edit-tooltip') }}">
                                             <path
                                                 d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
                                             <path fill-rule="evenodd"
@@ -88,7 +116,7 @@
                                         <input hidden id="userId" name="userId" value="{{$user->id}}">
                                         <a href='' onclick='this.parentNode.submit(); return false;'
                                            style="text-decoration: none; color: black"
-                                           data-toggle="tooltip" data-placement="top" title="Delete">
+                                           data-toggle="tooltip" data-placement="top" title="{{ __('messages.delete-tooltip') }}">
 
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                  fill="currentColor" class="bi bi-x-circle-fill" viewBox="0 0 16 16">
@@ -106,6 +134,7 @@
                     </div>
                     <hr/>
                 @endforeach
+                {{ $users->links() }}
 
             </div>
 
